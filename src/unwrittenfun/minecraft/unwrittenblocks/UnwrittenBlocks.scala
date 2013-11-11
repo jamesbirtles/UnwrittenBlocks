@@ -33,6 +33,6 @@ object UnwrittenBlocks {
 
     UBItems.registerRecipes()
 
-    GameRegistry.registerWorldGenerator(new GenPleather())
+    GameRegistry registerWorldGenerator new GenPleather()
   }
 }
