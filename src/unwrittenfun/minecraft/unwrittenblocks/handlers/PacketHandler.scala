@@ -15,6 +15,7 @@ import unwrittenfun.minecraft.unwrittenblocks.blocks.multiblocks.MultiblockWallT
 import net.minecraftforge.common.DimensionManager
 import net.minecraft.inventory.Container
 import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
+import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
 
 /**
  * Mod: UnwrittenBlocks
@@ -23,7 +24,6 @@ import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTelepo
  */
 object PacketHandler {
   def sendNewMaskPacket(id: Byte, teleporter: TileEntityWallTeleporter, player: Player) {
-    System.out.println("Send New Mask Packet")
     val byteStream: ByteArrayOutputStream = new ByteArrayOutputStream
     val dataStream: DataOutputStream = new DataOutputStream(byteStream)
     try {
@@ -244,6 +244,37 @@ object PacketHandler {
       }
     }
   }
+
+  def sendTEIntegerPacket(tileEntity: TileEntity, id: Byte, integer: Int, player: Player) {
+    val byteStream: ByteArrayOutputStream = new ByteArrayOutputStream
+    val dataStream: DataOutputStream = new DataOutputStream(byteStream)
+    try {
+      dataStream writeByte 2
+      dataStream writeByte id
+      dataStream writeInt integer
+      dataStream writeInt tileEntity.xCoord
+      dataStream writeInt tileEntity.yCoord
+      dataStream writeInt tileEntity.zCoord
+      if (player == null) PacketDispatcher.sendPacketToAllInDimension(PacketDispatcher.getPacket(CHANNEL, byteStream.toByteArray), tileEntity.worldObj.provider.dimensionId)
+      else PacketDispatcher.sendPacketToPlayer(PacketDispatcher.getPacket(CHANNEL, byteStream.toByteArray), player)
+    }
+    catch {
+      case ex: IOException => System.err append "[UnwrittenBlocks] Failed to send integer packet"
+    }
+  }
+
+  def onTEIntegerPacket(reader: ByteArrayDataInput, world: World) {
+    val id: Byte = reader.readByte
+    val integer: Int = reader.readInt
+    val x: Int = reader.readInt
+    val y: Int = reader.readInt
+    val z: Int = reader.readInt
+    world.getBlockTileEntity(x, y, z) match {
+      case receiver: PacketReceiver =>
+        receiver receiveIntPacket id, integer
+      case _ =>
+    }
+  }
 }
 
 class PacketHandler extends IPacketHandler {
@@ -255,6 +286,7 @@ class PacketHandler extends IPacketHandler {
     packetId match {
       case 0 => PacketHandler.onNewMaskPacket(reader, entityPlayer.worldObj)
       case 1 => PacketHandler.onRequestMaskPacket(reader, entityPlayer.worldObj, player)
+      case 2 => PacketHandler.onTEIntegerPacket(reader, entityPlayer.worldObj)
       case 3 => PacketHandler.onDestinationPacket(reader, entityPlayer)
       case 4 => PacketHandler.onRequestMultiblockInfoPacket(reader, player)
       case 5 => PacketHandler.onButtonPacket(reader, entityPlayer)

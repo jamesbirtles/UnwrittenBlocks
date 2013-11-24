@@ -2,14 +2,13 @@ package unwrittenfun.minecraft.unwrittenblocks.client.gui
 
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.util.ResourceLocation
-import unwrittenfun.minecraft.unwrittenblocks.TEXTURE_LOCATION
+import unwrittenfun.minecraft.unwrittenblocks._
 import net.minecraft.entity.player.InventoryPlayer
 import unwrittenfun.minecraft.unwrittenblocks.blocks.multiblocks.MultiblockWallTeleporter
 import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
 import org.lwjgl.opengl.GL11
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
-import scala.collection.mutable.ArrayBuffer
 import unwrittenfun.minecraft.unwrittenblocks.handlers.PacketHandler
 import java.util
 
