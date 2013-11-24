@@ -1,7 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks
 
 import cpw.mods.fml.common.Mod
-import unwrittenfun.minecraft.unwrittenblocks.handlers.{ConfigHandler, PacketHandler}
+import unwrittenfun.minecraft.unwrittenblocks.handlers.{GuiHandler, ConfigHandler, PacketHandler}
 import cpw.mods.fml.common.network.NetworkMod
 import cpw.mods.fml.common.Mod.EventHandler
 import unwrittenfun.minecraft.unwrittenblocks.items.UBItems
@@ -31,8 +31,13 @@ object UnwrittenBlocks {
     UBItems.registerNames()
     UBBlocks.registerNames()
 
+    UBBlocks.registerRecipes()
     UBItems.registerRecipes()
 
+    UBBlocks.registerTileEntities()
+
     GameRegistry registerWorldGenerator new GenPleather()
+
+    new GuiHandler()
   }
 }

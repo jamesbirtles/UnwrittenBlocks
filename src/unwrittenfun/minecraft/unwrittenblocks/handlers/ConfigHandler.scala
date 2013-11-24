@@ -17,8 +17,10 @@ object ConfigHandler {
 
     items.PLEATHER_BULB_ID = config.getItem(items.PLEATHER_BULB_KEY, items.PLEATHER_BULB_DEFAULT_ID).getInt - 256
     items.PLEATHER_STRIPS_ID = config.getItem(items.PLEATHER_STRIPS_KEY, items.PLEATHER_STRIPS_DEFAULT_ID).getInt - 256
+    items.GPS_CHIP_ID = config.getItem(items.GPS_CHIP_KEY, items.GPS_CHIP_DEFAULT_ID).getInt - 256
 
     blocks.PLEATHER_PLANT_ID = config.getBlock(blocks.PLEATHER_PLANT_KEY, blocks.PLEATHER_PLANT_DEFAULT_ID).getInt
+    blocks.WALL_TELEPORTER_ID = config.getBlock(blocks.WALL_TELEPORTER_KEY, blocks.WALL_TELEPORTER_DEFAULT_ID).getInt
 
     config.save()
   }

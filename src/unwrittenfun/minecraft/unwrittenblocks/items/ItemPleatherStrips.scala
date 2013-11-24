@@ -4,6 +4,7 @@ import net.minecraft.item.Item
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.client.renderer.texture.IconRegister
 import unwrittenfun.minecraft.unwrittenblocks.TEXTURE_LOCATION
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.creativetabs
 
 /**
  * Mod: UnwrittenBlocks
@@ -12,7 +13,7 @@ import unwrittenfun.minecraft.unwrittenblocks.TEXTURE_LOCATION
  */
 class ItemPleatherStrips(id: Int, key: String) extends Item(id) {
   setUnlocalizedName(key)
-  setCreativeTab(CreativeTabs.tabMaterials)
+  setCreativeTab(creativetabs.ubTab)
 
   override def registerIcons(register: IconRegister) {
     itemIcon = register.registerIcon(TEXTURE_LOCATION + ":" + key)

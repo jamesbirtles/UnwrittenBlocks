@@ -15,4 +15,10 @@ package object items {
   final val PLEATHER_STRIPS_DEFAULT_ID = 9801
   final val PLEATHER_STRIPS_KEY = "pleatherStrips"
   final val PLEATHER_STRIPS_NAME = "Pleather Strips"
+
+  var GPS_CHIP_ID = 0
+  final val GPS_CHIP_DEFAULT_ID = 9802
+  final val GPS_CHIP_KEY = "gpsChip"
+  final val GPS_CHIP_NAME = "GPS Chip"
+  final val GPS_CHIP_LINKED_NAME = "Linked GPS Chip"
 }

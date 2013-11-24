@@ -3,6 +3,8 @@ package unwrittenfun.minecraft.unwrittenblocks.blocks
 import net.minecraft.block.Block
 import cpw.mods.fml.common.registry.{GameRegistry, LanguageRegistry}
 import net.minecraftforge.common.MinecraftForge
+import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.TileEntityWallTeleporter
+import net.minecraft.item.{Item, ItemStack}
 
 /**
  * Mod: UnwrittenBlocks
@@ -11,16 +13,28 @@ import net.minecraftforge.common.MinecraftForge
  */
 object UBBlocks {
   var pleatherPlant: Block = null
+  var wallTeleporter: Block = null
 
   def registerBlocks() {
     pleatherPlant = new BlockPleatherPlant(PLEATHER_PLANT_ID, PLEATHER_PLANT_KEY)
+    wallTeleporter = new BlockWallTeleporter(WALL_TELEPORTER_ID, WALL_TELEPORTER_KEY)
 
     GameRegistry.registerBlock(pleatherPlant, PLEATHER_PLANT_KEY)
+    GameRegistry.registerBlock(wallTeleporter, WALL_TELEPORTER_KEY)
 
     MinecraftForge.addGrassPlant(pleatherPlant, 7, 10)
   }
 
   def registerNames() {
     LanguageRegistry.addName(pleatherPlant, PLEATHER_PLANT_NAME)
+    LanguageRegistry.addName(wallTeleporter, WALL_TELEPORTER_NAME)
+  }
+
+  def registerTileEntities() {
+    GameRegistry.registerTileEntity(classOf[TileEntityWallTeleporter], WALL_TELEPORTER_KEY)
+  }
+
+  def registerRecipes() {
+    //GameRegistry.addRecipe(new ItemStack(wallTeleporter, 4), "beb", "ygp", "rer", "b", Item.blazePowder, "e", Block.whiteStone, "y", Item.eyeOfEnder, "g", Block.blockGold, "p", Item.enderPearl, "r", Item.redstone)
   }
 }

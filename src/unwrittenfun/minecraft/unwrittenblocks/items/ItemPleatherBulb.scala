@@ -9,6 +9,7 @@ import unwrittenfun.minecraft.unwrittenblocks.TEXTURE_LOCATION
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.block.Block
 import unwrittenfun.minecraft.unwrittenblocks.blocks.UBBlocks
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.creativetabs
 
 /**
  * Mod: UnwrittenBlocks
@@ -17,7 +18,7 @@ import unwrittenfun.minecraft.unwrittenblocks.blocks.UBBlocks
  */
 class ItemPleatherBulb(id: Int, key: String) extends Item(id) with IPlantable {
   setUnlocalizedName(key)
-  setCreativeTab(CreativeTabs.tabMaterials)
+  setCreativeTab(creativetabs.ubTab)
 
   override def registerIcons(register: IconRegister) {
     itemIcon = register.registerIcon(TEXTURE_LOCATION + ":" + key)
