@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import unwrittenfun.minecraft.unwrittenblocks.handlers.PacketHandler
 import java.util
+import net.minecraft.client.settings.{KeyBinding, GameSettings}
 
 /**
  * Mod: UnwrittenBlocks
@@ -19,11 +20,23 @@ import java.util
  */
 object GuiWallTeleporter {
   var texture: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/wall_teleporter_gui.png")
+
+  var helpList: util.ArrayList[Array[Any]] = new util.ArrayList[Array[Any]]()
+
+  //  0     1     2     3     4           5             6         7
+  // Text, PosX, PosY, left, Bound Left, Bound Right, Bound Top, Bound Bottom
+  helpList.add(Array("Place linked GPS Chip here", 142, 13, true, 151, 168, 7, 24))
+  helpList.add(Array("Take GPS Chip", 142, 58, true, 151, 168, 52, 69))
+  helpList.add(Array("Clear Desination", 21, 10, false, 7, 18, 8, 18))
+  helpList.add(Array("(Un)Lock mask", 21, 24, false, 7, 18, 22, 33))
+  helpList.add(Array("(Un)Lock rotation", 21, 38, false, 7, 18, 36, 47))
 }
 
 class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTeleporter) extends GuiContainer(new ContainerWallTeleporter(invPlayer, multiblock)) {
   xSize = 176
   ySize = 157
+
+
 
   override protected def drawGuiContainerBackgroundLayer(f: Float, x: Int, y: Int) {
     GL11.glColor4f(1, 1, 1, 1)
@@ -44,6 +57,38 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
       fontRenderer.drawString(worldString, 85 - (worldWidth / 2), infoDy, 0x404040)
       fontRenderer.drawString(coordString, 85 - (coordWidth / 2), infoDy + infoSpacing, 0x404040)
     }
+
+    fontRenderer.drawString("Sneak for help", 8, 62, 0x877512)
+
+    if (GameSettings isKeyDown Minecraft.getMinecraft.gameSettings.keyBindSneak) {
+
+      val mX: Int = x - guiLeft
+      val mY: Int = y - guiTop
+
+//      if (mX >= 151 && mX <= 168 && mY >= 7 && mY <= 24) {
+//        drawHelpBox("Place linked GPS Chip here", 146, 12, left = true)
+//      }
+
+      for (i <- 0 to (GuiWallTeleporter.helpList.size() - 1)) {
+        val help: Array[Any] = GuiWallTeleporter.helpList.get(i);
+        if (mX >= help(4).asInstanceOf[Int] && mX <= help(5).asInstanceOf[Int] && mY >= help(6).asInstanceOf[Int] && mY <= help(7).asInstanceOf[Int]) {
+          drawHelpBox(help(0).asInstanceOf[String], help(1).asInstanceOf[Int], help(2).asInstanceOf[Int], left = help(3).asInstanceOf[Boolean])
+        }
+      }
+    }
+  }
+
+  def drawHelpBox(msg: String, x: Int, y: Int, left: Boolean) {
+    val width: Int = fontRenderer getStringWidth msg
+    val leftX: Int = if (left) x - width else x
+
+    GL11.glColor4f(1, 1, 1, 1)
+    Minecraft.getMinecraft.renderEngine.bindTexture(GuiTextures.gui)
+    drawTexturedModalRect(leftX, y - 4, 0, 12, 4, 14)
+    drawTexturedModalRect(leftX + 4, y - 4, 4, 12, width, 14)
+    drawTexturedModalRect(leftX + 4 + width, y - 4, 252, 12, 4, 14)
+
+    fontRenderer.drawString(msg, leftX + 4, y, 0xFFFFFF)
   }
 
   override def initGui() {
