@@ -20,11 +20,11 @@ object UBBlocks {
   def registerBlocks() {
     pleatherPlant = new BlockPleatherPlant(PLEATHER_PLANT_ID, PLEATHER_PLANT_KEY)
     wallTeleporter = new BlockWallTeleporter(WALL_TELEPORTER_ID, WALL_TELEPORTER_KEY)
-    blockCutter = new BlockCutter(CUTTER_ID, CUTTER_KEY)
+    //blockCutter = new BlockCutter(CUTTER_ID, CUTTER_KEY)
 
     GameRegistry.registerBlock(pleatherPlant, PLEATHER_PLANT_KEY)
     GameRegistry.registerBlock(wallTeleporter, WALL_TELEPORTER_KEY)
-    GameRegistry.registerBlock(blockCutter, CUTTER_KEY)
+    //GameRegistry.registerBlock(blockCutter, CUTTER_KEY)
 
     MinecraftForge.addGrassPlant(pleatherPlant, 7, 10)
   }
