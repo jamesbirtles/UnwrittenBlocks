@@ -271,7 +271,7 @@ object PacketHandler {
     val z: Int = reader.readInt
     world.getBlockTileEntity(x, y, z) match {
       case receiver: PacketReceiver =>
-        receiver receiveIntPacket id, integer
+        receiver receiveIntPacket(id, integer)
       case _ =>
     }
   }

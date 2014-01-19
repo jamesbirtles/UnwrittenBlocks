@@ -12,14 +12,13 @@ import org.lwjgl.opengl.GL11;
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
 object GuiIconButton {
-  var texture: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/gui.png")
   var iconSheet: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/icons.png")
 }
 
 class GuiIconButton(id: Int, x: Int, y: Int, uX: Int, uY: Int) extends GuiButton(id, x, y, 12, 12, "") {
   @Override override def drawButton(minecraft: Minecraft, mX: Int, mY: Int) {
     if (drawButton) {
-      minecraft.renderEngine.bindTexture(GuiIconButton.texture)
+      minecraft.renderEngine.bindTexture(GuiTextures.gui)
       GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
       drawTexturedModalRect(xPosition, yPosition, 0, 0, 12, 12)
 
