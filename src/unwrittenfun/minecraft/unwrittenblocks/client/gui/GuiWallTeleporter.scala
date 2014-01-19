@@ -36,8 +36,6 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
   xSize = 176
   ySize = 157
 
-
-
   override protected def drawGuiContainerBackgroundLayer(f: Float, x: Int, y: Int) {
     GL11.glColor4f(1, 1, 1, 1)
     Minecraft.getMinecraft.renderEngine.bindTexture(GuiWallTeleporter.texture)
