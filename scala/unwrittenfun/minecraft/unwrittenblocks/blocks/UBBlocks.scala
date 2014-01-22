@@ -35,6 +35,6 @@ object UBBlocks {
   }
 
   def registerRecipes() {
-    GameRegistry.addRecipe(new ItemStack(wallTeleporter, 4), "beb", "ygp", "rer", "b", Item.blazePowder, "e", Block.whiteStone, "y", Item.eyeOfEnder, "g", Block.blockGold, "p", Item.enderPearl, "r", Item.redstone)
+    GameRegistry.addRecipe(new ItemStack(wallTeleporter, 4), "beb", "ygp", "rer", 'b'.asInstanceOf[Character], Item.blazePowder, 'e'.asInstanceOf[Character], Block.whiteStone, 'y'.asInstanceOf[Character], Item.eyeOfEnder, 'g'.asInstanceOf[Character], Block.blockGold, 'p'.asInstanceOf[Character], Item.enderPearl, 'r'.asInstanceOf[Character], Item.redstone)
   }
 }
