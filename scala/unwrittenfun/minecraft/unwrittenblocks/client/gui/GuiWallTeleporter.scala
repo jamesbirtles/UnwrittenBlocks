@@ -81,7 +81,7 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
     GL11.glPopMatrix()
 
     Minecraft.getMinecraft.renderEngine.bindTexture(GuiWallTeleporter.texture)
-    drawTexturedModalRect(125, 53, xSize, 0, 2, 16)
+    drawTexturedModalRect(125, 69 - multiblock.getTrips, xSize, 16 - multiblock.getTrips, 2, multiblock.getTrips)
 
     if (GameSettings isKeyDown Minecraft.getMinecraft.gameSettings.keyBindSneak) {
 

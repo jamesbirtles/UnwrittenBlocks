@@ -10,13 +10,14 @@ import unwrittenfun.minecraft.unwrittenblocks.handlers.PacketHandler
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.item.ItemStack
+import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
 
 /**
  * Mod: UnwrittenBlocks
  * Author: UnwrittenFun
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
-class TileEntityWallTeleporter extends TileEntity with IInventory {
+class TileEntityWallTeleporter extends TileEntity with IInventory with PacketReceiver {
   var multiblock: MultiblockWallTeleporter = new MultiblockWallTeleporter() add this
   var mask = Array[Int](0, 0)
   private var _loaded = false
@@ -121,6 +122,10 @@ class TileEntityWallTeleporter extends TileEntity with IInventory {
   override def closeChest() {}
 
   override def isItemValidForSlot(i: Int, stack: ItemStack): Boolean = multiblock.isItemValidForSlot(i, stack)
+
+  override def receiveIntPacket(id: Byte, integer: Int) {
+    multiblock.receiveIntPacket(id, integer)
+  }
 
   // TODO: Re-implement Computer Craft integration.
 }
