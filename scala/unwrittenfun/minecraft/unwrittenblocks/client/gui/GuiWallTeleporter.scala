@@ -43,10 +43,10 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
   }
 
   override protected def drawGuiContainerForegroundLayer(x: Int, y: Int) {
-    val titleWidth: Int = fontRenderer.getStringWidth(multiblock.getInvName)
-    fontRenderer.drawString(multiblock.getInvName, 85 - (titleWidth / 2), 10, 0x404040)
+    fontRenderer.drawString("Wall Teleporter", 8, 52, 0x404040)
+    fontRenderer.drawString("Sneak for help", 8, 62, 0x877512)
     if (multiblock.hasDestination) {
-      val infoDy: Int = 25
+      val infoDy: Int = 16
       val infoSpacing: Int = 10
       val worldString: String = multiblock.destinationWorldName
       val coordString: String = "(" + multiblock.destinationX.toInt + ", " + multiblock.destinationY.toInt + ", " + multiblock.destinationZ.toInt + ")"
@@ -56,16 +56,37 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
       fontRenderer.drawString(coordString, 85 - (coordWidth / 2), infoDy + infoSpacing, 0x404040)
     }
 
-    fontRenderer.drawString("Sneak for help", 8, 62, 0x877512)
+    GL11.glPushMatrix()
+      val tX = 116
+      val tY = 44
+      GL11.glTranslatef(tX / 4, tY / 4, 0)
+      GL11.glScalef(0.75F, 0.75F, 1)
+      fontRenderer.drawString("Fuel", tX, tY, 0xFFFFFF)
+    GL11.glPopMatrix()
+
+    GL11.glPushMatrix()
+      val pX = 92
+      val pY = 54
+      GL11.glTranslatef(pX / 4, pY / 4, 0)
+      GL11.glScalef(0.75F, 0.75F, 1)
+      fontRenderer.drawString("1 pearl", pX, pY, 0xFFFFFF)
+    GL11.glPopMatrix()
+
+    GL11.glPushMatrix()
+      val dX = 92
+      val dY = 62
+      GL11.glTranslatef(dX / 4, dY / 4, 0)
+      GL11.glScalef(0.75F, 0.75F, 1)
+      fontRenderer.drawString("16 trips", dX, dY, 0xFFFFFF)
+    GL11.glPopMatrix()
+
+    Minecraft.getMinecraft.renderEngine.bindTexture(GuiWallTeleporter.texture)
+    drawTexturedModalRect(125, 53, xSize, 0, 2, 16)
 
     if (GameSettings isKeyDown Minecraft.getMinecraft.gameSettings.keyBindSneak) {
 
       val mX: Int = x - guiLeft
       val mY: Int = y - guiTop
-
-//      if (mX >= 151 && mX <= 168 && mY >= 7 && mY <= 24) {
-//        drawHelpBox("Place linked GPS Chip here", 146, 12, left = true)
-//      }
 
       for (i <- 0 to (GuiWallTeleporter.helpList.size() - 1)) {
         val help: Array[Any] = GuiWallTeleporter.helpList.get(i);

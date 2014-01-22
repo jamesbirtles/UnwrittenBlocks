@@ -33,7 +33,7 @@ class ContainerWallTeleporter(invPlayer: InventoryPlayer, _multiblock: Multibloc
 
   addSlotToContainer(new SlotGpsChip(multiblock, 0, 152, 8))
   addSlotToContainer(new SlotGpsChip(multiblock, 1, 152, 53))
-
+  addSlotToContainer(new Slot(multiblock, 2, 130, 53))
 
   def multiblock: MultiblockWallTeleporter = _multiblock
 
