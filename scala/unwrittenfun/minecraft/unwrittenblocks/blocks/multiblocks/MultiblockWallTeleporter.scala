@@ -13,6 +13,7 @@ import unwrittenfun.minecraft.unwrittenblocks.blocks
 import unwrittenfun.minecraft.unwrittenblocks.items.UBItems
 import cpw.mods.fml.common.FMLCommonHandler
 import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
+import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
 
 /**
  * Mod: UnwrittenBlocks
@@ -27,7 +28,7 @@ object MultiblockWallTeleporter {
   }
 }
 
-class MultiblockWallTeleporter extends IInventory {
+class MultiblockWallTeleporter extends IInventory with PacketReceiver {
   var teleporters: ArrayBuffer[TileEntityWallTeleporter] = null
   var controller: TileEntityWallTeleporter = null
   var destinationWorldName: String = ""
@@ -40,6 +41,7 @@ class MultiblockWallTeleporter extends IInventory {
   private var _useRotation: Boolean = true
   var container: ContainerWallTeleporter = null
   private var _blocks: ArrayBuffer[Array[Int]] = null
+  private var tripsLeft = 16 // max: 16
 
   teleporters = new ArrayBuffer[TileEntityWallTeleporter]
 
@@ -75,12 +77,23 @@ class MultiblockWallTeleporter extends IInventory {
   }
 
   def teleportToDestination(player: EntityPlayerMP) {
-    if (destinationWorldId != player.worldObj.provider.dimensionId) player.travelToDimension(destinationWorldId)
+    if (tripsLeft > 0) {
+      if (destinationWorldId != player.worldObj.provider.dimensionId) player.travelToDimension(destinationWorldId)
 
-    var teleportR: Float = player.rotationYaw
-    if (useRotation) teleportR = destinationRotation
-    player.playerNetServerHandler.setPlayerLocation(destinationX, destinationY + 0.5F, destinationZ, teleportR, player.rotationPitch)
+      var teleportR: Float = player.rotationYaw
+      if (useRotation) teleportR = destinationRotation
+      player.playerNetServerHandler.setPlayerLocation(destinationX, destinationY + 0.5F, destinationZ, teleportR, player.rotationPitch)
+      setTrips(tripsLeft - 1)
+    }
   }
+
+  def setTrips(newTrips: Integer) {
+    tripsLeft = newTrips
+
+    if (!controller.getWorldObj.isRemote) PacketHandler.sendTEIntegerPacket(controller, 0, newTrips, null)
+  }
+
+  def getTrips: Integer = tripsLeft
 
   def hasController: Boolean = controller != null
 
@@ -221,7 +234,7 @@ class MultiblockWallTeleporter extends IInventory {
 
   override def isInvNameLocalized: Boolean = true
 
-  override def getInventoryStackLimit: Int = 1
+  override def getInventoryStackLimit: Int = 64
 
   override def isUseableByPlayer(player: EntityPlayer): Boolean = true
 
@@ -256,5 +269,11 @@ class MultiblockWallTeleporter extends IInventory {
     }
 
     for (teleporter <- teleporters) teleporter.onInventoryChanged()
+  }
+
+  override def receiveIntPacket(id: Byte, integer: Int) {
+    if (id == 0) {
+      setTrips(integer)
+    }
   }
 }

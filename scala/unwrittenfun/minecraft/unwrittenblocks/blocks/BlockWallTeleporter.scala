@@ -57,7 +57,7 @@ class BlockWallTeleporter(id: Int, key: String) extends BlockContainer(id, Mater
       entity match {
         case player: EntityPlayerMP =>
           world.getBlockTileEntity(x, y, z) match {
-            case teleporter: TileEntityWallTeleporter => teleporter.teleportPlayer(player)
+            case teleporter: TileEntityWallTeleporter => if (teleporter.multiblock.getTrips > 0) teleporter.teleportPlayer(player)
             case _ =>
           }
         case _ =>
