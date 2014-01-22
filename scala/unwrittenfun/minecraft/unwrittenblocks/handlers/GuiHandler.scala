@@ -5,9 +5,9 @@ import unwrittenfun.minecraft.unwrittenblocks.UnwrittenBlocks
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
-import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.{TileEntityBlockCutter, TileEntityWallTeleporter}
-import unwrittenfun.minecraft.unwrittenblocks.gui.containers.{ContainerBlockCutter, ContainerWallTeleporter}
-import unwrittenfun.minecraft.unwrittenblocks.client.gui.{GuiBlockCutter, GuiWallTeleporter}
+import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.TileEntityWallTeleporter
+import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiWallTeleporter
 
 /**
  * Mod: UnwrittenBlocks
