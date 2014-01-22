@@ -186,7 +186,7 @@ class MultiblockWallTeleporter extends IInventory {
   }
 
   // Inventory implementation
-  var items: Array[ItemStack] = new Array[ItemStack](2)
+  var items: Array[ItemStack] = new Array[ItemStack](3)
 
   override def getSizeInventory: Int = items.length
 
