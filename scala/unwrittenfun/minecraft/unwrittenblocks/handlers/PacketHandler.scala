@@ -163,6 +163,7 @@ object PacketHandler {
         sendDestinationPacket(teleporter.multiblock, player)
         sendLockedOrRotationPacket(0, teleporter.multiblock, player)
         sendLockedOrRotationPacket(1, teleporter.multiblock, player)
+        sendTEIntegerPacket(teleporter, 0, teleporter.multiblock.getTrips, player)
       case _ =>
     }
   }

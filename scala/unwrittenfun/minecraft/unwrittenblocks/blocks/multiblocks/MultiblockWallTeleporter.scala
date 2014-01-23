@@ -5,7 +5,7 @@ import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.TileEntityWall
 import scala.collection.mutable.ArrayBuffer
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.{NBTTagIntArray, NBTTagList, NBTTagCompound}
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{Item, ItemStack}
 import scala.collection.JavaConversions._
 import net.minecraft.world.World
 import unwrittenfun.minecraft.unwrittenblocks.handlers.PacketHandler
@@ -37,11 +37,12 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
   var destinationY: Float = -1f
   var destinationZ: Float = 0f
   var destinationRotation: Float = 0f
+  var cooldown = -1
   private var _locked: Boolean = false
   private var _useRotation: Boolean = true
   var container: ContainerWallTeleporter = null
   private var _blocks: ArrayBuffer[Array[Int]] = null
-  private var tripsLeft = 16 // max: 16
+  private var tripsLeft = 0 // max: 16
 
   teleporters = new ArrayBuffer[TileEntityWallTeleporter]
 
@@ -77,20 +78,24 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
   }
 
   def teleportToDestination(player: EntityPlayerMP) {
-    if (tripsLeft > 0) {
+    if (tripsLeft > 0 && cooldown == -1) {
       if (destinationWorldId != player.worldObj.provider.dimensionId) player.travelToDimension(destinationWorldId)
 
       var teleportR: Float = player.rotationYaw
       if (useRotation) teleportR = destinationRotation
       player.playerNetServerHandler.setPlayerLocation(destinationX, destinationY + 0.5F, destinationZ, teleportR, player.rotationPitch)
       setTrips(tripsLeft - 1)
+      controller.startCooldown()
     }
   }
 
   def setTrips(newTrips: Integer) {
     tripsLeft = newTrips
 
-    if (!controller.getWorldObj.isRemote) PacketHandler.sendTEIntegerPacket(controller, 0, newTrips, null)
+    if (!controller.getWorldObj.isRemote) {
+      PacketHandler.sendTEIntegerPacket(controller, 0, newTrips, null)
+      if (tripsLeft == 0) refuel()
+    }
   }
 
   def getTrips: Integer = tripsLeft
@@ -118,6 +123,7 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
 
     compound.setBoolean("Locked", _locked)
     compound.setBoolean("Rotation", _useRotation)
+    compound.setInteger("TripsLeft", tripsLeft)
 
     if (hasDestination) {
       wtCompound.setString("destWorldName", destinationWorldName)
@@ -155,6 +161,7 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
 
     _locked = compound getBoolean "Locked"
     _useRotation = compound getBoolean "Rotation"
+    tripsLeft = compound getInteger "TripsLeft"
 
     if (wtCompound hasKey "destWorldId") {
       destinationWorldName = wtCompound getString "destWorldName"
@@ -266,9 +273,26 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
           }
         }
       }
+
+      refuel()
     }
 
     for (teleporter <- teleporters) teleporter.onInventoryChanged()
+  }
+
+  def refuel() {
+    if (tripsLeft == 0 && getStackInSlot(2) != null && getStackInSlot(2).getItem.itemID == Item.enderPearl.itemID) {
+      val pearlStack: ItemStack = getStackInSlot(2)
+      pearlStack.stackSize -= 1
+      if (pearlStack.stackSize < 1) {
+        setInventorySlotContents(2, null)
+      }
+      setTrips(16)
+
+      if (container != null) {
+        container.sendSlotContentsToCrafters(38, getStackInSlot(2))
+      }
+    }
   }
 
   override def receiveIntPacket(id: Byte, integer: Int) {

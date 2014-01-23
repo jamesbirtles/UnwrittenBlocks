@@ -4,7 +4,7 @@ import net.minecraft.inventory.{ICrafting, Slot, Container}
 import unwrittenfun.minecraft.unwrittenblocks.blocks.multiblocks.MultiblockWallTeleporter
 import net.minecraft.entity.player.{EntityPlayer, InventoryPlayer}
 import unwrittenfun.minecraft.unwrittenblocks.gui.slots.SlotGpsChip
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{Item, ItemStack}
 import unwrittenfun.minecraft.unwrittenblocks.items.UBItems
 
 /**
@@ -46,7 +46,15 @@ class ContainerWallTeleporter(invPlayer: InventoryPlayer, _multiblock: Multibloc
       val result: ItemStack = stack.copy
       if (i >= 36) {
         if (!mergeItemStack(stack, 0, 36, false)) return null
-      } else if (stack.itemID != UBItems.gpsChip.itemID || !mergeItemStack(stack, 36, 37, false)) return null
+      } else {
+        if (stack.itemID == UBItems.gpsChip.itemID) {
+          if (!mergeItemStack(stack, 36, 37, false)) return null
+        } else if (stack.itemID == Item.enderPearl.itemID) {
+          if (!mergeItemStack(stack, 38, 39, false)) return null
+        } else {
+          return null
+        }
+      }
       if (stack.stackSize == 0) slot.putStack(null) else slot.onSlotChanged()
       slot.onPickupFromSlot(player, stack)
       return result
