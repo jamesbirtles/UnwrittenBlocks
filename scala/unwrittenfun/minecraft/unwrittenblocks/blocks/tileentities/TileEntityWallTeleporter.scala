@@ -85,6 +85,13 @@ class TileEntityWallTeleporter extends TileEntity with IInventory with PacketRec
     }
     if (_countdown != -1 && _startCountdown) _countdown -= 1
     if (_countdown == 0 && multiblock.isController(this)) PacketHandler.requestMultiblockInfoPacket(this)
+
+    if (cooldown) {
+      multiblock.cooldown -= 1
+      if (multiblock.cooldown == -1) {
+        cooldown = false
+      }
+    }
   }
 
   override def validate() {
@@ -125,6 +132,13 @@ class TileEntityWallTeleporter extends TileEntity with IInventory with PacketRec
 
   override def receiveIntPacket(id: Byte, integer: Int) {
     multiblock.receiveIntPacket(id, integer)
+  }
+
+  private var cooldown: Boolean = false
+
+  def startCooldown() {
+    multiblock.cooldown = 10
+    cooldown = true
   }
 
   // TODO: Re-implement Computer Craft integration.
