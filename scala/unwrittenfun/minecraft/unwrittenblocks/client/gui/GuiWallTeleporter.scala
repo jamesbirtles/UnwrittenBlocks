@@ -19,8 +19,6 @@ import net.minecraft.client.settings.{KeyBinding, GameSettings}
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
 object GuiWallTeleporter {
-  var texture: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/wall_teleporter_gui.png")
-
   var helpList: util.ArrayList[Array[Any]] = new util.ArrayList[Array[Any]]()
 
   //  0     1     2     3     4           5             6         7
@@ -38,7 +36,7 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
 
   override protected def drawGuiContainerBackgroundLayer(f: Float, x: Int, y: Int) {
     GL11.glColor4f(1, 1, 1, 1)
-    Minecraft.getMinecraft.renderEngine.bindTexture(GuiWallTeleporter.texture)
+    Minecraft.getMinecraft.renderEngine.bindTexture(GuiTextures.wallTeleporter)
     drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize)
   }
 
@@ -80,7 +78,7 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
       fontRenderer.drawString("16 trips", dX, dY, 0xFFFFFF)
     GL11.glPopMatrix()
 
-    Minecraft.getMinecraft.renderEngine.bindTexture(GuiWallTeleporter.texture)
+    Minecraft.getMinecraft.renderEngine.bindTexture(GuiTextures.wallTeleporter)
     drawTexturedModalRect(125, 69 - multiblock.getTrips, xSize, 16 - multiblock.getTrips, 2, multiblock.getTrips)
 
     if (GameSettings isKeyDown Minecraft.getMinecraft.gameSettings.keyBindSneak) {
