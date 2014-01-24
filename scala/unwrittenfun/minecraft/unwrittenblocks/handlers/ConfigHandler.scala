@@ -21,6 +21,7 @@ object ConfigHandler {
 
     blocks.PLEATHER_PLANT_ID = config.getBlock(blocks.PLEATHER_PLANT_KEY, blocks.PLEATHER_PLANT_DEFAULT_ID).getInt
     blocks.WALL_TELEPORTER_ID = config.getBlock(blocks.WALL_TELEPORTER_KEY, blocks.WALL_TELEPORTER_DEFAULT_ID).getInt
+    blocks.DARK_INFUSER_ID = config.getBlock(blocks.DARK_INFUSER_KEY, blocks.DARK_INFUSER_DEFAULT_ID).getInt
 
     config.save()
   }

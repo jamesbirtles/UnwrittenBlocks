@@ -16,8 +16,8 @@ package object blocks {
   final val WALL_TELEPORTER_KEY = "wallTeleporter"
   final val WALL_TELEPORTER_NAME = "Wall Teleporter"
 
-  var CUTTER_ID = 0
-  final val CUTTER_DEFAULT_ID = 3702
-  final val CUTTER_KEY = "blockCutter"
-  final val CUTTER_NAME = "Block Cutter"
+  var DARK_INFUSER_ID = 0
+  final val DARK_INFUSER_DEFAULT_ID = 3702
+  final val DARK_INFUSER_KEY = "darkInfuser"
+  final val DARK_INFUSER_NAME = "Dark Infuser"
 }
