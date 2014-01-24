@@ -152,7 +152,7 @@ class TileEntityWallTeleporter extends TileEntity with IInventory with PacketRec
 
   def getMethodNames: Array[String] = Array("getX", "getY", "getZ", "getRotation", "getWorldId", "getWorldName", "clear",
                                             "hasDestination", "setUseRotation", "getUseRotation", "setMaskLocked",
-                                            "isMaskLocked", "setMask", "getMask")
+                                            "isMaskLocked", "setMask", "getMask", "getFuelLevel")
 
   def callMethod(computer: IComputerAccess, context: ILuaContext, method: Int, arguments: Array[AnyRef]): Array[AnyRef] = {
     method match {
@@ -180,6 +180,7 @@ class TileEntityWallTeleporter extends TileEntity with IInventory with PacketRec
         setMask(arguments(0).asInstanceOf[Double].toInt, arguments(1).asInstanceOf[Double].toInt)
         nullArgs
       case 13 => argsOfTwo(mask(0), mask(1))
+      case 14 => argsOfOne(multiblock.getTrips)
       case _ => nullArgs
     }
   }
