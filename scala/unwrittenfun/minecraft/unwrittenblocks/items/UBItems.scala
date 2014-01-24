@@ -19,8 +19,6 @@ object UBItems {
     pleatherBulb = new ItemPleatherBulb(PLEATHER_BULB_ID, PLEATHER_BULB_KEY)
     pleatherStrips = new ItemPleatherStrips(PLEATHER_STRIPS_ID, PLEATHER_STRIPS_KEY)
     gpsChip = new ItemGpsChip(GPS_CHIP_ID, GPS_CHIP_KEY)
-
-    MinecraftForge.addGrassSeed(new ItemStack(pleatherBulb), 5)
   }
 
   def registerNames() {
