@@ -10,5 +10,5 @@ package object unwrittenblocks {
   final val NAME = "UnwrittenBlocks"
   final val VERSION = "0.2.0-dev"
   final val CHANNEL = "unwrittenBlocks"
-  final val TEXTURE_LOCATION = "unwritten_blocks"
+  final val TEXTURE_LOCATION = "unwrittenblocks"
 }
