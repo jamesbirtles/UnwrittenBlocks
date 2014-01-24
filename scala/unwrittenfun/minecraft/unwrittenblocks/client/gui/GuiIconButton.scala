@@ -11,9 +11,6 @@ import org.lwjgl.opengl.GL11;
  * Author: UnwrittenFun
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
-object GuiIconButton {
-  var iconSheet: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/icons.png")
-}
 
 class GuiIconButton(id: Int, x: Int, y: Int, uX: Int, uY: Int) extends GuiButton(id, x, y, 12, 12, "") {
   @Override override def drawButton(minecraft: Minecraft, mX: Int, mY: Int) {
@@ -24,7 +21,7 @@ class GuiIconButton(id: Int, x: Int, y: Int, uX: Int, uY: Int) extends GuiButton
 
       GL11.glPushMatrix()
         GL11.glScalef(0.5F, 0.5F, 1F)
-        minecraft.renderEngine.bindTexture(GuiIconButton.iconSheet)
+        minecraft.renderEngine.bindTexture(GuiTextures.buttonIcons)
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
         drawTexturedModalRect((xPosition + 2) * 2, (yPosition + 2) * 2, uX, uY, 16, 16)
       GL11.glPopMatrix()
