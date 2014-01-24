@@ -14,6 +14,7 @@ import unwrittenfun.minecraft.unwrittenblocks.items.UBItems
 import cpw.mods.fml.common.FMLCommonHandler
 import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
 import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
+import dan200.computer.api.{ILuaContext, IComputerAccess, IPeripheral}
 
 /**
  * Mod: UnwrittenBlocks

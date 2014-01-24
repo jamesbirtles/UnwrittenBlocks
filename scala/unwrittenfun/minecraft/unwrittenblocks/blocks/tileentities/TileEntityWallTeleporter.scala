@@ -11,13 +11,15 @@ import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.item.ItemStack
 import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
+import dan200.computer.api.{ILuaContext, IComputerAccess, IPeripheral}
+import scala.Array
 
 /**
  * Mod: UnwrittenBlocks
  * Author: UnwrittenFun
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
-class TileEntityWallTeleporter extends TileEntity with IInventory with PacketReceiver {
+class TileEntityWallTeleporter extends TileEntity with IInventory with PacketReceiver with IPeripheral {
   var multiblock: MultiblockWallTeleporter = new MultiblockWallTeleporter() add this
   var mask = Array[Int](0, 0)
   private var _loaded = false
@@ -141,5 +143,55 @@ class TileEntityWallTeleporter extends TileEntity with IInventory with PacketRec
     cooldown = true
   }
 
-  // TODO: Re-implement Computer Craft integration.
+
+  ////
+  // Computer Craft Integration
+  ////
+
+  def getType: String = "wallTeleporter"
+
+  def getMethodNames: Array[String] = Array("getX", "getY", "getZ", "getRotation", "getWorldId", "getWorldName", "clear",
+                                            "hasDestination", "setUseRotation", "getUseRotation", "setMaskLocked",
+                                            "isMaskLocked", "setMask", "getMask")
+
+  def callMethod(computer: IComputerAccess, context: ILuaContext, method: Int, arguments: Array[AnyRef]): Array[AnyRef] = {
+    method match {
+      case 0 => argsOfOne(multiblock.destinationX)
+      case 1 => argsOfOne(multiblock.destinationY)
+      case 2 => argsOfOne(multiblock.destinationZ)
+      case 3 => argsOfOne(multiblock.destinationRotation)
+      case 4 => argsOfOne(multiblock.destinationWorldId)
+      case 5 => argsOfOne(multiblock.destinationWorldName)
+      case 6 => multiblock.clearDestination(); nullArgs
+      case 7 => argsOfOne(multiblock.hasDestination)
+      case 8 =>
+        if (!arguments(0).isInstanceOf[Boolean])  throw new Exception("Argument 1 expected to be of type boolean")
+        multiblock.useRotation = arguments(0).asInstanceOf[Boolean]
+        nullArgs
+      case 9 => argsOfOne(multiblock.useRotation)
+      case 10 =>
+        if (!arguments(0).isInstanceOf[Boolean])  throw new Exception("Argument 1 expected to be of type boolean")
+        multiblock.locked = arguments(0).asInstanceOf[Boolean]
+        nullArgs
+      case 11 => argsOfOne(multiblock.locked)
+      case 12 =>
+        if (!arguments(0).isInstanceOf[Double])  throw new Exception("Argument 1 expected to be of type number")
+        if (!arguments(1).isInstanceOf[Double])  throw new Exception("Argument 2 expected to be of type number")
+        setMask(arguments(0).asInstanceOf[Double].toInt, arguments(1).asInstanceOf[Double].toInt)
+        nullArgs
+      case 13 => argsOfTwo(mask(0), mask(1))
+      case _ => nullArgs
+    }
+  }
+
+  def canAttachToSide(side: Int): Boolean = true
+
+  def attach(computer: IComputerAccess) {}
+
+  def detach(computer: IComputerAccess) {}
+
+  def nullArgs: Array[Object] = new Array[Object](0)
+
+  def argsOfOne(obj: Any): Array[Object] = Array(obj.asInstanceOf[Object])
+  def argsOfTwo(obj1: Any, obj2: Any): Array[Object] = Array(obj1.asInstanceOf[Object], obj2.asInstanceOf[Object])
 }
