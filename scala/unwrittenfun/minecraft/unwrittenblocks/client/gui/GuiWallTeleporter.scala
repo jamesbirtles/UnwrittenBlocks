@@ -82,12 +82,11 @@ class GuiWallTeleporter(invPlayer: InventoryPlayer, multiblock: MultiblockWallTe
     drawTexturedModalRect(125, 69 - multiblock.getTrips, xSize, 16 - multiblock.getTrips, 2, multiblock.getTrips)
 
     if (GameSettings isKeyDown Minecraft.getMinecraft.gameSettings.keyBindSneak) {
-
       val mX: Int = x - guiLeft
       val mY: Int = y - guiTop
 
       for (i <- 0 to (GuiWallTeleporter.helpList.size() - 1)) {
-        val help: Array[Any] = GuiWallTeleporter.helpList.get(i);
+        val help: Array[Any] = GuiWallTeleporter.helpList.get(i)
         if (mX >= help(4).asInstanceOf[Int] && mX <= help(5).asInstanceOf[Int] && mY >= help(6).asInstanceOf[Int] && mY <= help(7).asInstanceOf[Int]) {
           drawHelpBox(help(0).asInstanceOf[String], help(1).asInstanceOf[Int], help(2).asInstanceOf[Int], left = help(3).asInstanceOf[Boolean])
         }
