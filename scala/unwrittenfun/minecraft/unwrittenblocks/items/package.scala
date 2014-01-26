@@ -21,4 +21,9 @@ package object items {
   final val GPS_CHIP_KEY = "gpsChip"
   final val GPS_CHIP_NAME = "GPS Chip"
   final val GPS_CHIP_LINKED_NAME = "Linked GPS Chip"
+
+  var COBBLE_BALL_ID = 0
+  final val COBBLE_BALL_DEFAULT_ID = 9803
+  final val COBBLE_BALL_KEY = "cobbleBall"
+  final val COBBLE_BALL_NAME = "Mossy Cobblestone Ball"
 }

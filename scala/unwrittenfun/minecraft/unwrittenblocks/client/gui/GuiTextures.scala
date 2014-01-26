@@ -12,4 +12,5 @@ object GuiTextures {
   var gui: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/gui.png")
   var wallTeleporter: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/wall_teleporter_gui.png")
   var buttonIcons: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/icons.png")
+  var darkInfuser: ResourceLocation = new ResourceLocation(TEXTURE_LOCATION, "textures/gui/darkInfuserGui.png")
 }

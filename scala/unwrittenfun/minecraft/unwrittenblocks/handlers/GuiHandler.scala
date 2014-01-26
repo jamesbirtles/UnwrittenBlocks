@@ -5,9 +5,9 @@ import unwrittenfun.minecraft.unwrittenblocks.UnwrittenBlocks
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
-import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.TileEntityWallTeleporter
-import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
-import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiWallTeleporter
+import unwrittenfun.minecraft.unwrittenblocks.blocks.tileentities.{TileEntityDarkInfuser, TileEntityWallTeleporter}
+import unwrittenfun.minecraft.unwrittenblocks.gui.containers.{ContainerDarkInfuser, ContainerWallTeleporter}
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.{GuiDarkInfuser, GuiWallTeleporter}
 
 /**
  * Mod: UnwrittenBlocks
@@ -26,6 +26,12 @@ class GuiHandler extends IGuiHandler {
             return new ContainerWallTeleporter(player.inventory, teleporter.multiblock)
           case _ =>
         }
+      case 1 =>
+        tileEntity match {
+          case infuser: TileEntityDarkInfuser =>
+            return new ContainerDarkInfuser(player.inventory, infuser)
+          case _ =>
+        }
       case _ =>
     }
     null
@@ -38,6 +44,12 @@ class GuiHandler extends IGuiHandler {
         tileEntity match {
           case teleporter: TileEntityWallTeleporter =>
             return new GuiWallTeleporter(player.inventory, teleporter.multiblock)
+          case _ =>
+        }
+      case 1 =>
+        tileEntity match {
+          case infuser: TileEntityDarkInfuser =>
+            return new GuiDarkInfuser(player.inventory, infuser)
           case _ =>
         }
       case _ =>

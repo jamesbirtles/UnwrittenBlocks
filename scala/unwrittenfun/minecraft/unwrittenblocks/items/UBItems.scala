@@ -4,6 +4,7 @@ import net.minecraft.item.{ItemStack, Item}
 import cpw.mods.fml.common.registry.{GameRegistry, LanguageRegistry}
 import net.minecraftforge.common.MinecraftForge
 import net.minecraft.block.Block
+import unwrittenfun.minecraft.unwrittenblocks.recipes.InfuserRecipes
 
 /**
  * Mod: UnwrittenBlocks
@@ -14,11 +15,13 @@ object UBItems {
   var pleatherBulb: Item = null
   var pleatherStrips: Item = null
   var gpsChip: Item = null
+  var cobbleBall: Item = null
 
   def registerItems() {
     pleatherBulb = new ItemPleatherBulb(PLEATHER_BULB_ID, PLEATHER_BULB_KEY)
     pleatherStrips = new ItemPleatherStrips(PLEATHER_STRIPS_ID, PLEATHER_STRIPS_KEY)
     gpsChip = new ItemGpsChip(GPS_CHIP_ID, GPS_CHIP_KEY)
+    cobbleBall = new ItemCobbleBall(COBBLE_BALL_ID, COBBLE_BALL_KEY)
   }
 
   def registerNames() {
@@ -26,10 +29,17 @@ object UBItems {
     LanguageRegistry.addName(new ItemStack(pleatherStrips, 1), PLEATHER_STRIPS_NAME)
     LanguageRegistry.addName(new ItemStack(gpsChip, 1), GPS_CHIP_NAME)
     LanguageRegistry.addName(new ItemStack(gpsChip, 1, 1), GPS_CHIP_LINKED_NAME)
+    LanguageRegistry.addName(new ItemStack(cobbleBall, 1), COBBLE_BALL_NAME)
   }
 
   def registerRecipes() {
     GameRegistry.addShapelessRecipe(new ItemStack(Item.leather, 1), pleatherStrips, pleatherStrips, pleatherStrips, pleatherStrips)
+    GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestoneMossy, 5), cobbleBall)
+
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't'.asInstanceOf[Character], Block.torchRedstoneActive, 'l'.asInstanceOf[Character], Block.redstoneLampIdle, 'r'.asInstanceOf[Character], Item.redstone, 'i'.asInstanceOf[Character], Item.ingotIron, 'c'.asInstanceOf[Character], new ItemStack(Item.dyePowder, 1, 2))
+    GameRegistry.addRecipe(new ItemStack(cobbleBall), " m ", "mmm", " m ", 'm'.asInstanceOf[Character], Block.cobblestoneMossy)
+
+
+    InfuserRecipes.addRecipe(cobbleBall.itemID, 0, new ItemStack(Item.enderPearl), 2000)
   }
 }
