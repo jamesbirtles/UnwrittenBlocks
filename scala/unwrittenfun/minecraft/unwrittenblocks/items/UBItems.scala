@@ -38,6 +38,7 @@ object UBItems {
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't'.asInstanceOf[Character], Block.torchRedstoneActive, 'l'.asInstanceOf[Character], Block.redstoneLampIdle, 'r'.asInstanceOf[Character], Item.redstone, 'i'.asInstanceOf[Character], Item.ingotIron, 'c'.asInstanceOf[Character], new ItemStack(Item.dyePowder, 1, 2))
     GameRegistry.addRecipe(new ItemStack(cobbleBall), " m ", "mmm", " m ", 'm'.asInstanceOf[Character], Block.cobblestoneMossy)
+    GameRegistry.addRecipe(new ItemStack(Item.blazeRod), "bb", "bb", "bb", 'b'.asInstanceOf[Character], Item.blazePowder)
 
 
     InfuserRecipes.addRecipe(cobbleBall.itemID, 0, new ItemStack(Item.enderPearl), 2000)
