@@ -15,6 +15,7 @@ import cpw.mods.fml.common.FMLCommonHandler
 import unwrittenfun.minecraft.unwrittenblocks.gui.containers.ContainerWallTeleporter
 import unwrittenfun.minecraft.unwrittenblocks.network.PacketReceiver
 import dan200.computer.api.{ILuaContext, IComputerAccess, IPeripheral}
+import unwrittenfun.minecraft.unwrittenblocks.blocks.UBBlocks
 
 /**
  * Mod: UnwrittenBlocks
@@ -141,19 +142,8 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
     }
     wtCompound.setCompoundTag("WTBlocks", wtBlocksCompound)
 
-    val items: NBTTagList = new NBTTagList
-    var i: Int = 0
-    while (i < getSizeInventory) {
-      val stack: ItemStack = getStackInSlot(i)
-      if (stack != null) {
-        val item: NBTTagCompound = new NBTTagCompound
-        item.setByte("Slot", i.toByte)
-        stack.writeToNBT(item)
-        items.appendTag(item)
-      }
-      i += 1
-    }
-    wtCompound.setTag("Items", items)
+    UBBlocks.writeItemsToNBT(wtCompound, this)
+
     compound.setCompoundTag("WTMultiblock", wtCompound)
   }
 
@@ -182,16 +172,7 @@ class MultiblockWallTeleporter extends IInventory with PacketReceiver {
       }
     }
 
-    val items: NBTTagList = wtCompound.getTagList("Items")
-    var i: Int = 0
-    while (i < items.tagCount) {
-      val item: NBTTagCompound = items.tagAt(i).asInstanceOf[NBTTagCompound]
-      val slot: Int = item getByte "Slot"
-      if (slot >= 0 && slot < getSizeInventory) {
-        setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item))
-      }
-      i += 1
-    }
+    UBBlocks.loadItemsFromNBT(wtCompound, this)
   }
 
   def init(world: World) {

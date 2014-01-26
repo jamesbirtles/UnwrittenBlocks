@@ -96,26 +96,7 @@ class BlockWallTeleporter(id: Int, key: String) extends BlockContainer(id, Mater
   }
 
   override def breakBlock(world: World, x: Int, y: Int, z: Int, id: Int, meta: Int) {
-    val tileEntity: TileEntity = world.getBlockTileEntity(x, y, z)
-    if (tileEntity.isInstanceOf[TileEntityWallTeleporter]) {
-      val inventory: IInventory = tileEntity.asInstanceOf[IInventory]
-      var i: Int = 0
-      while (i < inventory.getSizeInventory) {
-        val stack: ItemStack = inventory.getStackInSlotOnClosing(i)
-        if (stack != null) {
-          val spawnX: Float = x + world.rand.nextFloat
-          val spawnY: Float = y + world.rand.nextFloat
-          val spawnZ: Float = z + world.rand.nextFloat
-          val droppedItem: EntityItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack)
-          val mult: Float = 0.05F
-          droppedItem.motionX = (-0.5F + world.rand.nextFloat) * mult
-          droppedItem.motionY = (4 + world.rand.nextFloat) * mult
-          droppedItem.motionZ = (-0.5F + world.rand.nextFloat) * mult
-          world.spawnEntityInWorld(droppedItem)
-        }
-        i += 1
-      }
-    }
+    UBBlocks.dropItemsFromInventory(world, x, y, z)
     super.breakBlock(world, x, y, z, id, meta)
   }
 }
