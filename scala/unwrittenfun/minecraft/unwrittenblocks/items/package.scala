@@ -25,5 +25,5 @@ package object items {
   var COBBLE_BALL_ID = 0
   final val COBBLE_BALL_DEFAULT_ID = 9803
   final val COBBLE_BALL_KEY = "cobbleBall"
-  final val COBBLE_BALL_NAME = "Mossy Cobblestone Ball"
+  final val COBBLE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball")
 }
