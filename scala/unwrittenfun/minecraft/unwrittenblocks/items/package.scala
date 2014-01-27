@@ -26,4 +26,9 @@ package object items {
   final val COBBLE_BALL_DEFAULT_ID = 9803
   final val COBBLE_BALL_KEY = "cobbleBall"
   final val COBBLE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball")
+
+  var RELAYER_ID = 0
+  final val RELAYER_DEFAULT_ID = 9804
+  final val RELAYER_KEY = "relayerTool"
+  final val RELAYER_NAME = "Relayer"
 }

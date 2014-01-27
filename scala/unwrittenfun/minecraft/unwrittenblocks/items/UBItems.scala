@@ -16,12 +16,14 @@ object UBItems {
   var pleatherStrips: Item = null
   var gpsChip: Item = null
   var cobbleBall: Item = null
+  var relayerTool: Item = null
 
   def registerItems() {
     pleatherBulb = new ItemPleatherBulb(PLEATHER_BULB_ID, PLEATHER_BULB_KEY)
     pleatherStrips = new ItemPleatherStrips(PLEATHER_STRIPS_ID, PLEATHER_STRIPS_KEY)
     gpsChip = new ItemGpsChip(GPS_CHIP_ID, GPS_CHIP_KEY)
     cobbleBall = new ItemCobbleBall(COBBLE_BALL_ID, COBBLE_BALL_KEY)
+    relayerTool = new ItemRelayer(RELAYER_ID, RELAYER_KEY)
   }
 
   def registerNames() {
@@ -31,6 +33,7 @@ object UBItems {
     LanguageRegistry.addName(new ItemStack(gpsChip, 1, 1), GPS_CHIP_LINKED_NAME)
     LanguageRegistry.addName(new ItemStack(cobbleBall, 1, 0), COBBLE_BALL_NAMES(0))
     LanguageRegistry.addName(new ItemStack(cobbleBall, 1, 1), COBBLE_BALL_NAMES(1))
+    LanguageRegistry.addName(new ItemStack(relayerTool, 1), RELAYER_NAME)
   }
 
   def registerRecipes() {
