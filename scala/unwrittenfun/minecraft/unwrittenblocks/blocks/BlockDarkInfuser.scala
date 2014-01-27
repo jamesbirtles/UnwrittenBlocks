@@ -29,7 +29,7 @@ class BlockDarkInfuser(id: Int, key: String) extends BlockContainer(id, Material
 
   override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
     world.getBlockTileEntity(x, y, z) match {
-      case infuser: TileEntityDarkInfuser => FMLNetworkHandler.openGui(player, UnwrittenBlocks, 1, world, x, y, z); true
+      case infuser: TileEntityDarkInfuser => if (!world.isRemote) FMLNetworkHandler.openGui(player, UnwrittenBlocks, 1, world, x, y, z); true
       case _ => false
     }
   }

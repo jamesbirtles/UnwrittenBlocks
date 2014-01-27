@@ -88,7 +88,7 @@ class BlockWallTeleporter(id: Int, key: String) extends BlockContainer(id, Mater
           }
         }
         else {
-          FMLNetworkHandler.openGui(player, UnwrittenBlocks, 0, world, x, y, z)
+          if (!world.isRemote) FMLNetworkHandler.openGui(player, UnwrittenBlocks, 0, world, x, y, z)
         }
       case _ =>
     }
