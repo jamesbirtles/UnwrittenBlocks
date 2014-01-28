@@ -11,6 +11,8 @@ import java.util
 import net.minecraft.block.Block
 import net.minecraft.util.ChatMessageComponent
 import net.minecraft.entity.item.EntityItem
+import net.minecraftforge.common.ForgeDirection
+import net.minecraft.entity.EntityLivingBase
 
 /**
  * Mod: UnwrittenBlocks
@@ -28,42 +30,62 @@ class ItemRelayer(id: Int, key: String) extends Item(id) {
   override def onItemUseFirst(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
     val target: Array[Int] = getTargetBlock(stack)
 
-    if (target(0) == -1) { // Set a target
-      stack.getTagCompound.setIntArray("TargetBlock", Array(world.getBlockId(x, y, z), world.getBlockMetadata(x, y, z)))
-      if (world.isRemote) player.sendChatToPlayer(ChatMessageComponent.createFromText("Target block set to " + Block.blocksList(world.getBlockId(x, y, z)).getLocalizedName))
-      if (!world.isRemote) return true
-    } else {
-      if (player.isSneaking) {
+    if (player.isSneaking) {
+      val targetArray = Array(world.getBlockId(x, y, z), world.getBlockMetadata(x, y, z))
+
+      if (targetArray(0) == target(0) && targetArray(1) == target(1)) {
         stack.getTagCompound.setIntArray("TargetBlock", Array(-1, -1))
         if (world.isRemote) player.sendChatToPlayer(ChatMessageComponent.createFromText("Target block cleared"))
-        if (!world.isRemote) return true
       } else {
-        if (player.capabilities.isCreativeMode) {
-          world.setBlock(x, y, z, target(0), target(1), 3)
-        } else {
-          if (world.getBlockId(x, y, z) != target(0) || world.getBlockMetadata(x, y, z) != target(1)) {
-            var continue = true
-            for (i <- 0 until player.inventory.getSizeInventory if continue) {
-              val stack = player.inventory.getStackInSlot(i)
-              if (stack != null && stack.itemID == target(0) && stack.getItemDamage == target(1)) {
-                player.inventory.decrStackSize(i, 1)
+        stack.getTagCompound.setIntArray("TargetBlock", targetArray)
+        if (world.isRemote) player.sendChatToPlayer(ChatMessageComponent.createFromText("Target block set to " + Block.blocksList(world.getBlockId(x, y, z)).getLocalizedName))
+      }
+    } else if (target(0) != -1 && target(1) != -1) {
+      val origBlock = Array(world.getBlockId(x, y, z), world.getBlockMetadata(x, y, z))
+      if (origBlock(0) != target(0) || origBlock(1) != target(1)) {
+        for (ddx <- -2 to 2; ddy <- -2 to 2; ddz <- -2 to 2) {
+          val dx = if (side == 4 || side == 5) 0 else ddx
+          val dy = if (side == 0 || side == 1) 0 else ddy
+          val dz = if (side == 2 || side == 3) 0 else ddz
 
-                val itemDrops: util.ArrayList[ItemStack] = Block.blocksList(world.getBlockId(x, y, z)).getBlockDropped(world, x, y, z, world.getBlockMetadata(x, y, z), 0)
-                for (j <- 0 until itemDrops.size()) {
-                  val dropStack = itemDrops.get(j)
-                  if (!player.inventory.addItemStackToInventory(dropStack)) {
-                    if (!world.isRemote) dropItem(dropStack, world, x, y, z)
+          if (isNextToAir(world, x + dx, y + dy, z + dz) && world.getBlockId(x + dx, y + dy, z + dz) == origBlock(0) && world.getBlockMetadata(x + dx, y + dy, z + dz) == origBlock(1)) {
+            if (player.capabilities.isCreativeMode) {
+              world.setBlock(x + dx, y + dy, z + dz, target(0), target(1), 3)
+            } else {
+              var continue = true
+              for (i <- 0 until player.inventory.getSizeInventory if continue) {
+                val stack = player.inventory.getStackInSlot(i)
+                if (stack != null && stack.itemID == target(0) && stack.getItemDamage == target(1)) {
+                  player.inventory.decrStackSize(i, 1)
+
+                  val itemDrops: util.ArrayList[ItemStack] = Block.blocksList(world.getBlockId(x + dx, y + dy, z + dz)).getBlockDropped(world, x + dx, y + dy, z + dz, world.getBlockMetadata(x + dx, y + dy, z + dz), 0)
+                  for (j <- 0 until itemDrops.size()) {
+                    val dropStack = itemDrops.get(j)
+                    if (!player.inventory.addItemStackToInventory(dropStack)) {
+                      if (!world.isRemote) dropItem(dropStack, world, x, y, z)
+                    }
                   }
-                }
 
-                world.setBlock(x, y, z, target(0), target(1), 3)
-                continue = false
+                  world.setBlock(x + dx, y + dy, z + dz, target(0), target(1), 3)
+                  continue = false
+                }
               }
             }
           }
         }
-        if (!world.isRemote) return true
       }
+    }
+
+    if (!world.isRemote) true else false
+  }
+
+  private def isNextToAir(world: World, x: Int, y: Int, z: Int): Boolean = {
+    for (dir <- ForgeDirection.VALID_DIRECTIONS) {
+      val dx = dir.offsetX + x
+      val dy = dir.offsetY + y
+      val dz = dir.offsetZ + z
+
+      if (world.isAirBlock(dx, dy, dz) || !world.isBlockOpaqueCube(dx, dy, dz)) return true
     }
 
     false
