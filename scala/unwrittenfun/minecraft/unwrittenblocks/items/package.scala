@@ -31,4 +31,9 @@ package object items {
   final val RELAYER_DEFAULT_ID = 9804
   final val RELAYER_KEY = "relayerTool"
   final val RELAYER_NAME = "Relayer"
+
+  var DARK_ARMOUR_IDS = Array(0, 0, 0, 0)
+  final val DARK_ARMOUR_DEFAULT_IDS = Array(9805, 9806, 9807, 9808)
+  final val DARK_ARMOUR_KEYS = Array("darkArmourHelm", "darkArmourChest", "darkArmourLegs", "darkArmourBoots")
+  final val DARK_ARMOUR_NAMES = Array("Dark-Infused Helmet", "Dark-Infused Chest", "Dark-Infused Legs", "Dark-Infused Boots")
 }

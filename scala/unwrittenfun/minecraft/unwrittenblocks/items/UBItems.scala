@@ -1,10 +1,11 @@
 package unwrittenfun.minecraft.unwrittenblocks.items
 
-import net.minecraft.item.{ItemStack, Item}
+import net.minecraft.item.{EnumArmorMaterial, ItemStack, Item}
 import cpw.mods.fml.common.registry.{GameRegistry, LanguageRegistry}
-import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.{EnumHelper, MinecraftForge}
 import net.minecraft.block.Block
 import unwrittenfun.minecraft.unwrittenblocks.recipes.InfuserRecipes
+import cpw.mods.fml.client.registry.RenderingRegistry
 
 /**
  * Mod: UnwrittenBlocks
@@ -12,6 +13,12 @@ import unwrittenfun.minecraft.unwrittenblocks.recipes.InfuserRecipes
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
 object UBItems {
+  final var armourMatDark: EnumArmorMaterial = EnumHelper.addArmorMaterial("DARK", 50, Array(4, 10, 8, 4), 30)
+  var armourDarkHelm: Item = null
+  var armourDarkChest: Item = null
+  var armourDarkLeggings: Item = null
+  var armourDarkBoots: Item = null
+
   var pleatherBulb: Item = null
   var pleatherStrips: Item = null
   var gpsChip: Item = null
@@ -24,6 +31,11 @@ object UBItems {
     gpsChip = new ItemGpsChip(GPS_CHIP_ID, GPS_CHIP_KEY)
     cobbleBall = new ItemCobbleBall(COBBLE_BALL_ID, COBBLE_BALL_KEY)
     relayerTool = new ItemRelayer(RELAYER_ID, RELAYER_KEY)
+
+    armourDarkHelm = new ItemDarkArmour(DARK_ARMOUR_IDS(0), DARK_ARMOUR_KEYS(0), 0)
+    armourDarkChest = new ItemDarkArmour(DARK_ARMOUR_IDS(1), DARK_ARMOUR_KEYS(1), 1)
+    armourDarkLeggings = new ItemDarkArmour(DARK_ARMOUR_IDS(2), DARK_ARMOUR_KEYS(2), 2)
+    armourDarkBoots = new ItemDarkArmour(DARK_ARMOUR_IDS(3), DARK_ARMOUR_KEYS(3), 3)
   }
 
   def registerNames() {
@@ -34,6 +46,11 @@ object UBItems {
     LanguageRegistry.addName(new ItemStack(cobbleBall, 1, 0), COBBLE_BALL_NAMES(0))
     LanguageRegistry.addName(new ItemStack(cobbleBall, 1, 1), COBBLE_BALL_NAMES(1))
     LanguageRegistry.addName(new ItemStack(relayerTool, 1), RELAYER_NAME)
+
+    LanguageRegistry.addName(new ItemStack(armourDarkHelm, 1), DARK_ARMOUR_NAMES(0))
+    LanguageRegistry.addName(new ItemStack(armourDarkChest, 1), DARK_ARMOUR_NAMES(1))
+    LanguageRegistry.addName(new ItemStack(armourDarkLeggings, 1), DARK_ARMOUR_NAMES(2))
+    LanguageRegistry.addName(new ItemStack(armourDarkBoots, 1), DARK_ARMOUR_NAMES(3))
   }
 
   def registerRecipes() {
@@ -49,5 +66,10 @@ object UBItems {
 
     InfuserRecipes.addRecipe(cobbleBall.itemID, 0, new ItemStack(Item.enderPearl), 2000)
     InfuserRecipes.addRecipe(cobbleBall.itemID, 1, new ItemStack(Item.slimeBall), 1500)
+
+    InfuserRecipes.addRecipe(Item.helmetDiamond.itemID, -1, new ItemStack(armourDarkHelm), 5000)
+    InfuserRecipes.addRecipe(Item.plateDiamond.itemID, -1, new ItemStack(armourDarkChest), 5000)
+    InfuserRecipes.addRecipe(Item.legsDiamond.itemID, -1, new ItemStack(armourDarkLeggings), 5000)
+    InfuserRecipes.addRecipe(Item.bootsDiamond.itemID, -1, new ItemStack(armourDarkBoots), 5000)
   }
 }
