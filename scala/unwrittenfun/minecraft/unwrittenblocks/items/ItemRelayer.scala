@@ -12,7 +12,6 @@ import net.minecraft.block.Block
 import net.minecraft.util.ChatMessageComponent
 import net.minecraft.entity.item.EntityItem
 import net.minecraftforge.common.ForgeDirection
-import net.minecraft.entity.EntityLivingBase
 
 /**
  * Mod: UnwrittenBlocks

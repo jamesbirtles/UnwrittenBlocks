@@ -26,6 +26,9 @@ object ConfigHandler {
     items.DARK_ARMOUR_IDS(2) = config.getItem(items.DARK_ARMOUR_KEYS(2), items.DARK_ARMOUR_DEFAULT_IDS(2)).getInt - 256
     items.DARK_ARMOUR_IDS(3) = config.getItem(items.DARK_ARMOUR_KEYS(3), items.DARK_ARMOUR_DEFAULT_IDS(3)).getInt - 256
 
+    items.DARK_SWORD_ID = config.getItem(items.DARK_SWORD_KEY, items.DARK_SWORD_DEFAULT_ID).getInt - 256
+    items.DARK_PICK_ID = config.getItem(items.DARK_PICK_KEY, items.DARK_PICK_DEFAULT_ID).getInt - 256
+
     blocks.PLEATHER_PLANT_ID = config.getBlock(blocks.PLEATHER_PLANT_KEY, blocks.PLEATHER_PLANT_DEFAULT_ID).getInt
     blocks.WALL_TELEPORTER_ID = config.getBlock(blocks.WALL_TELEPORTER_KEY, blocks.WALL_TELEPORTER_DEFAULT_ID).getInt
     blocks.DARK_INFUSER_ID = config.getBlock(blocks.DARK_INFUSER_KEY, blocks.DARK_INFUSER_DEFAULT_ID).getInt

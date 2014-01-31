@@ -36,4 +36,14 @@ package object items {
   final val DARK_ARMOUR_DEFAULT_IDS = Array(9805, 9806, 9807, 9808)
   final val DARK_ARMOUR_KEYS = Array("darkArmourHelm", "darkArmourChest", "darkArmourLegs", "darkArmourBoots")
   final val DARK_ARMOUR_NAMES = Array("Dark-Infused Helmet", "Dark-Infused Chest", "Dark-Infused Legs", "Dark-Infused Boots")
+
+  var DARK_SWORD_ID = 0
+  final val DARK_SWORD_DEFAULT_ID = 9809
+  final val DARK_SWORD_KEY = "darkInfusedSword"
+  final val DARK_SWORD_NAME = "Dark-Infused Sword"
+
+  var DARK_PICK_ID = 0
+  final val DARK_PICK_DEFAULT_ID = 9810
+  final val DARK_PICK_KEY = "darkInfusedPick"
+  final val DARK_PICK_NAME = "Dark-Infused Pickaxe"
 }
