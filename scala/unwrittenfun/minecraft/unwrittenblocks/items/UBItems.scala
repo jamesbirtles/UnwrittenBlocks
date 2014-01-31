@@ -1,6 +1,6 @@
 package unwrittenfun.minecraft.unwrittenblocks.items
 
-import net.minecraft.item.{EnumArmorMaterial, ItemStack, Item}
+import net.minecraft.item.{EnumToolMaterial, EnumArmorMaterial, ItemStack, Item}
 import cpw.mods.fml.common.registry.{GameRegistry, LanguageRegistry}
 import net.minecraftforge.common.{EnumHelper, MinecraftForge}
 import net.minecraft.block.Block
@@ -13,11 +13,15 @@ import cpw.mods.fml.client.registry.RenderingRegistry
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
 object UBItems {
-  final var armourMatDark: EnumArmorMaterial = EnumHelper.addArmorMaterial("DARK", 50, Array(4, 10, 8, 4), 30)
+  final var armourMatDark: EnumArmorMaterial = EnumHelper.addArmorMaterial("DARK", 50, Array(4, 10, 8, 4), 50)
   var armourDarkHelm: Item = null
   var armourDarkChest: Item = null
   var armourDarkLeggings: Item = null
   var armourDarkBoots: Item = null
+
+  final var toolMatDark: EnumToolMaterial = EnumHelper.addToolMaterial("DARK", 3, 5000, 25.0F, 6.0F, 50)
+  var swordDarkInfused: Item = null
+  var pickDarkInfused: Item = null
 
   var pleatherBulb: Item = null
   var pleatherStrips: Item = null
@@ -36,6 +40,9 @@ object UBItems {
     armourDarkChest = new ItemDarkArmour(DARK_ARMOUR_IDS(1), DARK_ARMOUR_KEYS(1), 1)
     armourDarkLeggings = new ItemDarkArmour(DARK_ARMOUR_IDS(2), DARK_ARMOUR_KEYS(2), 2)
     armourDarkBoots = new ItemDarkArmour(DARK_ARMOUR_IDS(3), DARK_ARMOUR_KEYS(3), 3)
+
+    swordDarkInfused = new ItemDarkSword(DARK_SWORD_ID, DARK_SWORD_KEY)
+    pickDarkInfused = new ItemDarkPick(DARK_PICK_ID, DARK_PICK_KEY)
   }
 
   def registerNames() {
@@ -51,6 +58,9 @@ object UBItems {
     LanguageRegistry.addName(new ItemStack(armourDarkChest, 1), DARK_ARMOUR_NAMES(1))
     LanguageRegistry.addName(new ItemStack(armourDarkLeggings, 1), DARK_ARMOUR_NAMES(2))
     LanguageRegistry.addName(new ItemStack(armourDarkBoots, 1), DARK_ARMOUR_NAMES(3))
+
+    LanguageRegistry.addName(new ItemStack(swordDarkInfused, 1), DARK_SWORD_NAME)
+    LanguageRegistry.addName(new ItemStack(pickDarkInfused, 1), DARK_PICK_NAME)
   }
 
   def registerRecipes() {
@@ -63,13 +73,14 @@ object UBItems {
     GameRegistry.addRecipe(new ItemStack(cobbleBall, 1, 1), " c ", "ccc", " c ", 'c'.asInstanceOf[Character], Block.cobblestone)
     GameRegistry.addRecipe(new ItemStack(Item.blazeRod), "bb", "bb", "bb", 'b'.asInstanceOf[Character], Item.blazePowder)
 
-
     InfuserRecipes.addRecipe(cobbleBall.itemID, 0, new ItemStack(Item.enderPearl), 2000)
     InfuserRecipes.addRecipe(cobbleBall.itemID, 1, new ItemStack(Item.slimeBall), 1500)
 
-    InfuserRecipes.addRecipe(Item.helmetDiamond.itemID, -1, new ItemStack(armourDarkHelm), 5000)
-    InfuserRecipes.addRecipe(Item.plateDiamond.itemID, -1, new ItemStack(armourDarkChest), 5000)
-    InfuserRecipes.addRecipe(Item.legsDiamond.itemID, -1, new ItemStack(armourDarkLeggings), 5000)
-    InfuserRecipes.addRecipe(Item.bootsDiamond.itemID, -1, new ItemStack(armourDarkBoots), 5000)
+    InfuserRecipes.addRecipe(Item.helmetDiamond.itemID, 0, new ItemStack(armourDarkHelm), 5000)
+    InfuserRecipes.addRecipe(Item.plateDiamond.itemID, 0, new ItemStack(armourDarkChest), 5000)
+    InfuserRecipes.addRecipe(Item.legsDiamond.itemID, 0, new ItemStack(armourDarkLeggings), 5000)
+    InfuserRecipes.addRecipe(Item.bootsDiamond.itemID, 0, new ItemStack(armourDarkBoots), 5000)
+    InfuserRecipes.addRecipe(Item.swordDiamond.itemID, 0, new ItemStack(swordDarkInfused), 3000)
+    InfuserRecipes.addRecipe(Item.pickaxeDiamond.itemID, 0, new ItemStack(pickDarkInfused), 3000)
   }
 }
