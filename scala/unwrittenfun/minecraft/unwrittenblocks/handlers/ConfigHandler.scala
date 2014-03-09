@@ -28,6 +28,9 @@ object ConfigHandler {
 
     items.DARK_SWORD_ID = config.getItem(items.DARK_SWORD_KEY, items.DARK_SWORD_DEFAULT_ID).getInt - 256
     items.DARK_PICK_ID = config.getItem(items.DARK_PICK_KEY, items.DARK_PICK_DEFAULT_ID).getInt - 256
+    items.DARK_SPADE_ID = config.getItem(items.DARK_SPADE_KEY, items.DARK_SPADE_DEFAULT_ID).getInt - 256
+    items.DARK_AXE_ID = config.getItem(items.DARK_AXE_KEY, items.DARK_AXE_DEFAULT_ID).getInt - 256
+    items.DARK_HOE_ID = config.getItem(items.DARK_HOE_KEY, items.DARK_HOE_DEFAULT_ID).getInt - 256
 
     blocks.PLEATHER_PLANT_ID = config.getBlock(blocks.PLEATHER_PLANT_KEY, blocks.PLEATHER_PLANT_DEFAULT_ID).getInt
     blocks.WALL_TELEPORTER_ID = config.getBlock(blocks.WALL_TELEPORTER_KEY, blocks.WALL_TELEPORTER_DEFAULT_ID).getInt

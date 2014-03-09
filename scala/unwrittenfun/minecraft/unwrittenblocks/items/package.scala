@@ -24,8 +24,8 @@ package object items {
 
   var STORAGE_BALL_ID = 0
   final val STORAGE_BALL_DEFAULT_ID = 9803
-  final val STORAGE_BALL_KEYS = Array("mossyStorageBall", "cobbleStorageBall", "netherrackStorageBall")
-  final val STORAGE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball", "Netherrack Ball")
+  final val STORAGE_BALL_KEYS = Array("mossyStorageBall", "cobbleStorageBall", "netherrackStorageBall", "oakLogBall")
+  final val STORAGE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball", "Netherrack Ball", "Oak Log Ball")
 
   var RELAYER_ID = 0
   final val RELAYER_DEFAULT_ID = 9804
@@ -46,4 +46,19 @@ package object items {
   final val DARK_PICK_DEFAULT_ID = 9810
   final val DARK_PICK_KEY = "darkInfusedPick"
   final val DARK_PICK_NAME = "Dark-Infused Pickaxe"
+
+  var DARK_SPADE_ID = 0
+  final val DARK_SPADE_DEFAULT_ID = 9811
+  final val DARK_SPADE_KEY = "darkInfusedSpade"
+  final val DARK_SPADE_NAME = "Dark-Infused Spade"
+
+  var DARK_AXE_ID = 0
+  final val DARK_AXE_DEFAULT_ID = 9812
+  final val DARK_AXE_KEY = "darkInfusedAxe"
+  final val DARK_AXE_NAME = "Dark-Infused Axe"
+
+  var DARK_HOE_ID = 0
+  final val DARK_HOE_DEFAULT_ID = 9813
+  final val DARK_HOE_KEY = "darkInfusedHoe"
+  final val DARK_HOE_NAME = "Dark-Infused Hoe"
 }

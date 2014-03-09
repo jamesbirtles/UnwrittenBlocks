@@ -22,6 +22,9 @@ object UBItems {
   final var toolMatDark: EnumToolMaterial = EnumHelper.addToolMaterial("DARK", 3, 5000, 25.0F, 6.0F, 50)
   var swordDarkInfused: Item = null
   var pickDarkInfused: Item = null
+  var spadeDarkInfused: Item = null
+  var axeDarkInfused: Item = null
+  var hoeDarkInfused: Item = null
 
   var pleatherBulb: Item = null
   var pleatherStrips: Item = null
@@ -43,6 +46,9 @@ object UBItems {
 
     swordDarkInfused = new ItemDarkSword(DARK_SWORD_ID, DARK_SWORD_KEY)
     pickDarkInfused = new ItemDarkPick(DARK_PICK_ID, DARK_PICK_KEY)
+    spadeDarkInfused = new ItemDarkSpade(DARK_SPADE_ID, DARK_SPADE_KEY)
+    axeDarkInfused = new ItemDarkAxe(DARK_AXE_ID, DARK_AXE_KEY)
+    hoeDarkInfused = new ItemDarkHoe(DARK_HOE_ID, DARK_HOE_KEY)
   }
 
   def registerNames() {
@@ -59,11 +65,13 @@ object UBItems {
 
     LanguageRegistry.addName(new ItemStack(swordDarkInfused, 1), DARK_SWORD_NAME)
     LanguageRegistry.addName(new ItemStack(pickDarkInfused, 1), DARK_PICK_NAME)
+    LanguageRegistry.addName(new ItemStack(spadeDarkInfused, 1), DARK_SPADE_NAME)
+    LanguageRegistry.addName(new ItemStack(axeDarkInfused, 1), DARK_AXE_NAME)
+    LanguageRegistry.addName(new ItemStack(hoeDarkInfused, 1), DARK_HOE_NAME)
 
     for (i <- 0 to (STORAGE_BALL_KEYS.length - 1)) {
       LanguageRegistry.addName(new ItemStack(storageBall, 1, i), STORAGE_BALL_NAMES(i))
     }
-
   }
 
   def registerRecipes() {
@@ -71,6 +79,7 @@ object UBItems {
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't'.asInstanceOf[Character], Block.torchRedstoneActive, 'l'.asInstanceOf[Character], Block.redstoneLampIdle, 'r'.asInstanceOf[Character], Item.redstone, 'i'.asInstanceOf[Character], Item.ingotIron, 'c'.asInstanceOf[Character], new ItemStack(Item.dyePowder, 1, 2))
     GameRegistry.addRecipe(new ItemStack(Item.blazeRod), "bb", "bb", "bb", 'b'.asInstanceOf[Character], Item.blazePowder)
+    GameRegistry.addRecipe(new ItemStack(relayerTool), "dsd", "ese", " s ", 'd'.asInstanceOf[Character], Item.diamond, 's'.asInstanceOf[Character], Item.stick, 'e'.asInstanceOf[Character], Item.enderPearl)
 
     InfuserRecipes.addRecipe(storageBall.itemID, 0, new ItemStack(Item.enderPearl), 2000)
     InfuserRecipes.addRecipe(storageBall.itemID, 1, new ItemStack(Item.slimeBall), 1500)
@@ -78,9 +87,11 @@ object UBItems {
     GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestoneMossy, 5), new ItemStack(storageBall, 1, 0))
     GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestone, 5), new ItemStack(storageBall, 1, 1))
     GameRegistry.addShapelessRecipe(new ItemStack(Block.netherrack, 5), new ItemStack(storageBall, 1, 2))
+    GameRegistry.addShapelessRecipe(new ItemStack(Block.wood, 5, 0), new ItemStack(storageBall, 1, 3))
     GameRegistry.addRecipe(new ItemStack(storageBall, 1, 0), " c ", "ccc", " c ", 'c'.asInstanceOf[Character], Block.cobblestoneMossy)
     GameRegistry.addRecipe(new ItemStack(storageBall, 1, 1), " c ", "ccc", " c ", 'c'.asInstanceOf[Character], Block.cobblestone)
     GameRegistry.addRecipe(new ItemStack(storageBall, 1, 2), " c ", "ccc", " c ", 'c'.asInstanceOf[Character], Block.netherrack)
+    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 3), " c ", "ccc", " c ", 'c'.asInstanceOf[Character], new ItemStack(Block.wood, 1, 0))
 
     InfuserRecipes.addRecipe(Item.helmetDiamond.itemID, 0, new ItemStack(armourDarkHelm), 5000)
     InfuserRecipes.addRecipe(Item.plateDiamond.itemID, 0, new ItemStack(armourDarkChest), 5000)
@@ -88,5 +99,8 @@ object UBItems {
     InfuserRecipes.addRecipe(Item.bootsDiamond.itemID, 0, new ItemStack(armourDarkBoots), 5000)
     InfuserRecipes.addRecipe(Item.swordDiamond.itemID, 0, new ItemStack(swordDarkInfused), 3000)
     InfuserRecipes.addRecipe(Item.pickaxeDiamond.itemID, 0, new ItemStack(pickDarkInfused), 3000)
+    InfuserRecipes.addRecipe(Item.shovelDiamond.itemID, 0, new ItemStack(spadeDarkInfused), 3000)
+    InfuserRecipes.addRecipe(Item.axeDiamond.itemID, 0, new ItemStack(axeDarkInfused), 3000)
+    InfuserRecipes.addRecipe(Item.hoeDiamond.itemID, 0, new ItemStack(hoeDarkInfused), 3000)
   }
 }
