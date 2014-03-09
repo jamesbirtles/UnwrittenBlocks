@@ -22,10 +22,10 @@ package object items {
   final val GPS_CHIP_NAME = "GPS Chip"
   final val GPS_CHIP_LINKED_NAME = "Linked GPS Chip"
 
-  var COBBLE_BALL_ID = 0
-  final val COBBLE_BALL_DEFAULT_ID = 9803
-  final val COBBLE_BALL_KEY = "cobbleBall"
-  final val COBBLE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball")
+  var STORAGE_BALL_ID = 0
+  final val STORAGE_BALL_DEFAULT_ID = 9803
+  final val STORAGE_BALL_KEYS = Array("mossyStorageBall", "cobbleStorageBall", "netherrackStorageBall")
+  final val STORAGE_BALL_NAMES = Array("Mossy Cobblestone Ball", "Cobblestone Ball", "Netherrack Ball")
 
   var RELAYER_ID = 0
   final val RELAYER_DEFAULT_ID = 9804

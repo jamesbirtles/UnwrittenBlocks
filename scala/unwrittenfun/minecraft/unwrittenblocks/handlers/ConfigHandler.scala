@@ -18,7 +18,7 @@ object ConfigHandler {
     items.PLEATHER_BULB_ID = config.getItem(items.PLEATHER_BULB_KEY, items.PLEATHER_BULB_DEFAULT_ID).getInt - 256
     items.PLEATHER_STRIPS_ID = config.getItem(items.PLEATHER_STRIPS_KEY, items.PLEATHER_STRIPS_DEFAULT_ID).getInt - 256
     items.GPS_CHIP_ID = config.getItem(items.GPS_CHIP_KEY, items.GPS_CHIP_DEFAULT_ID).getInt - 256
-    items.COBBLE_BALL_ID = config.getItem(items.COBBLE_BALL_KEY, items.COBBLE_BALL_DEFAULT_ID).getInt - 256
+    items.STORAGE_BALL_ID = config.getItem("storageBall", items.STORAGE_BALL_DEFAULT_ID).getInt - 256
     items.RELAYER_ID = config.getItem(items.RELAYER_KEY, items.RELAYER_DEFAULT_ID).getInt - 256
 
     items.DARK_ARMOUR_IDS(0) = config.getItem(items.DARK_ARMOUR_KEYS(0), items.DARK_ARMOUR_DEFAULT_IDS(0)).getInt - 256

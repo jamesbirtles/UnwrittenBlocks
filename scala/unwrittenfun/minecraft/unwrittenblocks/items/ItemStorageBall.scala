@@ -13,29 +13,31 @@ import net.minecraft.util.Icon
  * Author: UnwrittenFun
  * License: Minecraft Mod Public License (Version 1.0.1)
  */
-class ItemCobbleBall(id: Int, key: String) extends Item(id) {
-  setUnlocalizedName(key)
+class ItemStorageBall(id: Int, keys: Array[String]) extends Item(id) {
+  setUnlocalizedName("storageBall")
   setCreativeTab(creativetabs.ubTab)
   hasSubtypes = true
 
-  var mossyCobbleIcon: Icon = null
+  var icons: Array[Icon] = new Array[Icon](keys.length)
 
   override def registerIcons(register: IconRegister) {
-    itemIcon = register.registerIcon(TEXTURE_LOCATION + ":" + key)
-    mossyCobbleIcon = register.registerIcon(TEXTURE_LOCATION + ":" + key + "Mossy")
+    for (keyId <- 0 to (keys.length - 1)) {
+      icons(keyId) = register.registerIcon(TEXTURE_LOCATION + ":" + keys(keyId))
+    }
   }
 
 
-  override def getIconFromDamage(meta: Int): Icon = if (meta == 0) mossyCobbleIcon else itemIcon
+  override def getIconFromDamage(meta: Int): Icon = icons(meta)
 
   override def getSubItems(id: Int, tab: CreativeTabs, genericList: util.List[_]) {
     val itemList = genericList.asInstanceOf[(util.ArrayList[ItemStack])]
 
-    itemList add new ItemStack(id, 1, 0); // Mossy cobble ball
-    itemList add new ItemStack(id, 1, 1); // Cobble ball
+    for (meta <- 0 to (keys.length - 1)) {
+      itemList add new ItemStack(id, 1, meta)
+    }
   }
 
   override def getUnlocalizedName(stack: ItemStack): String = {
-    getUnlocalizedName() + (if (stack.getItemDamage == 0) "Mossy" else "")
+    keys(stack.getItemDamage)
   }
 }
