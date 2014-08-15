@@ -1,0 +1,17 @@
+[
+{
+  "modid" : "UnwrittenBlocks",
+  "name" : "Unwritten Blocks",
+  "version" : "1.0.1",
+  "authors": [
+    "UnwrittenFun"
+  ],
+  "description": "A collection of blocks made by unwrittenfun",
+  "url" : "https://github.com/unwrittenfun/UnwrittenBlocks",
+  "updateUrl" : "",
+  "logoFile" : "",
+  "parent" : "",
+  "screenshots": [
+  ]
+}
+]
