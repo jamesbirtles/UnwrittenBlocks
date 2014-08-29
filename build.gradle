@@ -15,17 +15,15 @@ buildscript {
     }
 }
 
-apply plugin: 'scala'
 apply plugin: 'forge'
 
-version = "1.0.1"
-group= "unwrittenfun.minecraft.unwrittenblocks"
+version = "1.7.10-2.0.0"
+group= "unwrittenfun.minecraft.unwrittenblocks.common"
 archivesBaseName = "UnwrittenBlocks"
-
 
 minecraft {
     version = "1.7.10-10.13.0.1208"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse/assets"
 }
 
 dependencies {
