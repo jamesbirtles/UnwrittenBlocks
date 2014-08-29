@@ -1,0 +1,4 @@
+item.gpsChip.name=§2Unlinked GPS Chip
+item.gpsChipLinked.name=§aLinked GPS Chip
+
+itemGroup.unwrittenblocks=Unwritten Blocks
