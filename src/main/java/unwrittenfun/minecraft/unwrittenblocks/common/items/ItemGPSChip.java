@@ -9,8 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
-import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 
 import java.util.List;
 
@@ -20,14 +18,14 @@ import java.util.List;
  * Created: 29/08/2014.
  */
 public class ItemGPSChip extends ItemUB {
+  public IIcon linkedIcon;
+
   public ItemGPSChip() {
     super(ItemRegister.GPS_CHIP_KEY);
 
     setHasSubtypes(true);
     setMaxStackSize(1);
   }
-
-  public IIcon linkedIcon;
 
   @Override
   public void registerIcons(IIconRegister iconRegister) {

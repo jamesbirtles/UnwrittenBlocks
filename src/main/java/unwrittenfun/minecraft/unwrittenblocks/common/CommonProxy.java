@@ -6,4 +6,7 @@ package unwrittenfun.minecraft.unwrittenblocks.common;
  * Created: 29/08/2014.
  */
 public class CommonProxy {
+  public void registerRenderers() {
+
+  }
 }

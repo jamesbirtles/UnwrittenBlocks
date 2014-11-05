@@ -1,9 +1,46 @@
 item.gpsChip.name=§2Unlinked GPS Chip
 item.gpsChipLinked.name=§aLinked GPS Chip
+
 item.storageBall.name=Storage Ball
 item.storageBall.cobblestone.name=Cobblestone
 item.storageBall.mossyCobblestone.name=Mossy Cobblestone
 item.storageBall.netherrack.name=Netherrack
 item.storageBall.oakWood.name=Oak Wood
 
+item.darkInfusedHelm.name=Dark Infused Helmet
+item.darkInfusedChest.name=Dark Infused Chestplate
+item.darkInfusedLeggings.name=Dark Infused Leggings
+item.darkInfusedBoots.name=Dark Infused Boots
+
+item.darkInfusedSword.name=Dark Infused Sword
+item.darkInfusedPick.name=Dark Infused Pickaxe
+item.darkInfusedAxe.name=Dark Infused Axe
+item.darkInfusedSpade.name=Dark Infused Shovel
+item.darkInfusedHoe.name=Dark Infused Hoe
+
+item.upgradeBasic.name=Basic Upgrade
+item.upgradeSpeed.name=Speed Upgrade
+
+item.pleatherStrips.name=Pleather Strips
+item.pleatherBulb.name=Pleather Bulb
+
 itemGroup.unwrittenblocks=Unwritten Blocks
+
+tile.darkInfuser.name=Dark Infuser
+
+unwrittenblocks.text.infusedFrom=Infused from
+unwrittenblocks.text.armourType0=a Diamond Helmet
+unwrittenblocks.text.armourType1=a Diamond Chestplate
+unwrittenblocks.text.armourType2=Diamond Leggings
+unwrittenblocks.text.armourType3=Diamond Boots
+unwrittenblocks.text.diamondSword=a Diamond Sword
+unwrittenblocks.text.diamondPick=a Diamond Pickaxe
+unwrittenblocks.text.diamondAxe=a Diamond Axe
+unwrittenblocks.text.diamondSpade=a Diamond Shovel
+unwrittenblocks.text.diamondHoe=a Diamond Hoe
+
+unwrittenblocks.text.pleatherStrips=Combine 4 in a crafting\ngrid to make leather
+unwrittenblocks.text.pleatherBulb=Plant on dirt or\ngrass to grow
+
+unwrittenblocks.text.info_upgradeBasic=§6Crafting Component
+unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of Machines\n§7Stacks up to 8
