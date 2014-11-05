@@ -25,6 +25,7 @@ public class ItemRegister {
   public static final String DARK_INFUSED_SPADE_KEY = "darkInfusedSpade";
   public static final String DARK_INFUSED_HOE_KEY = "darkInfusedHoe";
 
+  public static final String DARK_INFUSED_DIAMOND = "darkInfusedDiamond";
   public static final String GPS_CHIP_KEY = "gpsChip";
   public static final String STORAGE_BALL_KEY = "storageBall";
   public static final String PLEATHER_STRIPS_KEY = "pleatherStrips";
@@ -46,6 +47,7 @@ public class ItemRegister {
   public static ItemDarkInfusedSpade darkInfusedSpade;
   public static ItemDarkInfusedHoe darkInfusedHoe;
 
+  public static ItemDarkInfusedDiamond darkInfusedDiamond;
   public static ItemGPSChip gpsChip;
   public static ItemStorageBall storageBall;
   public static ItemUpgrade upgrade;
@@ -69,6 +71,7 @@ public class ItemRegister {
     upgrade = new ItemUpgrade(UPGRADE_KEY, UPGRADE_TYPES);
     pleatherStrips = new ItemPleatherStrips(PLEATHER_STRIPS_KEY);
     pleatherBulb = new ItemPleatherBulb(PLEATHER_BULB_KEY);
+    darkInfusedDiamond = new ItemDarkInfusedDiamond(DARK_INFUSED_DIAMOND);
 
     GameRegistry.registerItem(darkInfusedHelm, DARK_INFUSED_ARMOUR_KEYS[0]);
     GameRegistry.registerItem(darkInfusedChest, DARK_INFUSED_ARMOUR_KEYS[1]);
@@ -81,6 +84,7 @@ public class ItemRegister {
     GameRegistry.registerItem(darkInfusedSpade, DARK_INFUSED_SPADE_KEY);
     GameRegistry.registerItem(darkInfusedHoe, DARK_INFUSED_HOE_KEY);
 
+    GameRegistry.registerItem(darkInfusedDiamond, DARK_INFUSED_DIAMOND);
     GameRegistry.registerItem(gpsChip, GPS_CHIP_KEY);
     GameRegistry.registerItem(storageBall, STORAGE_BALL_KEY);
     GameRegistry.registerItem(upgrade, UPGRADE_KEY);
