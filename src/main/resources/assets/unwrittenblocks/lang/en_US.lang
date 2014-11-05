@@ -23,6 +23,7 @@ item.upgradeSpeed.name=Speed Upgrade
 
 item.pleatherStrips.name=Pleather Strips
 item.pleatherBulb.name=Pleather Bulb
+item.darkInfusedDiamond.name=Dark Infused Diamond
 
 itemGroup.unwrittenblocks=Unwritten Blocks
 
@@ -41,6 +42,7 @@ unwrittenblocks.text.diamondHoe=a Diamond Hoe
 
 unwrittenblocks.text.pleatherStrips=Combine 4 in a crafting\ngrid to make leather
 unwrittenblocks.text.pleatherBulb=Plant on dirt or\ngrass to grow
+unwrittenblocks.text.darkInfusedDiamond=Infused from a Diamond
 
 unwrittenblocks.text.info_upgradeBasic=§6Crafting Component
 unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of Machines\n§7Stacks up to 8
