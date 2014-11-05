@@ -14,47 +14,41 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Project: UnwrittenBlocks
- * Author: UnwrittenFun
- * Created: 04/11/2014.
+ * Project: UnwrittenBlocks Author: UnwrittenFun Created: 04/11/2014.
  */
 public class ItemPleatherBulb extends ItemUB implements IPlantable {
-    public ItemPleatherBulb(String key) {
-        super(key);
-    }
+  public ItemPleatherBulb(String key) {
+    super(key);
+  }
 
-    @Override
-    public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
-        return EnumPlantType.Plains;
-    }
+  @Override public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
+    return EnumPlantType.Plains;
+  }
 
-    @Override
-    public Block getPlant(IBlockAccess world, int x, int y, int z) {
-        return BlockRegister.pleatherPlant;
-    }
+  @Override public Block getPlant(IBlockAccess world, int x, int y, int z) {
+    return BlockRegister.pleatherPlant;
+  }
 
-    @Override
-    public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
-        return 0;
-    }
+  @Override public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
+    return 0;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean bool) {
-        Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.pleatherBulb"));
-
-        super.addInformation(stack, player, lines, bool);
+  @Override public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+                                     float hitX, float hitY, float hitZ) {
+    if (!world.isRemote) {
+      Block block = world.getBlock(x, y, z);
+      if (world.isAirBlock(x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt)) {
+        world.setBlock(x, y + 1, z, BlockRegister.pleatherPlant);
+        return true;
+      }
     }
+    return false;
+  }
 
-    @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            Block block = world.getBlock(x, y, z);
-            if (world.isAirBlock(x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt)) {
-                world.setBlock(x, y + 1, z, BlockRegister.pleatherPlant);
-                return true;
-            }
-        }
-        return false;
-    }
+  @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player, List lines,
+                                                                      boolean bool) {
+    Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.pleatherBulb"));
+
+    super.addInformation(stack, player, lines, bool);
+  }
 }

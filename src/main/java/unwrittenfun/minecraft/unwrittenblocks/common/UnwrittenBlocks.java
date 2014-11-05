@@ -13,23 +13,19 @@ import unwrittenfun.minecraft.unwrittenblocks.common.worldgen.WorldGenPleather;
 
 
 /**
- * Project: UnwrittenBlocks
- * Author: UnwrittenFun
- * Created: 25/08/2014.
+ * Project: UnwrittenBlocks Author: UnwrittenFun Created: 25/08/2014.
  */
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.NAME, version = ModInfo.VERSION)
-public class UnwrittenBlocks {
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.NAME, version = ModInfo.VERSION) public class UnwrittenBlocks {
   public static Logger logger;
 
   @SidedProxy(clientSide = "unwrittenfun.minecraft.unwrittenblocks.client.ClientProxy",
-          serverSide = "unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy")
+              serverSide = "unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy")
   public static CommonProxy proxy;
 
   public static CreativeTabs creativeTabUB;
 
-  @Mod.EventHandler
-  public void preInit(FMLPreInitializationEvent event) {
+  @Mod.EventHandler public void preInit(FMLPreInitializationEvent event) {
     logger = event.getModLog();
 
     creativeTabUB = new UBCreativeTab();
