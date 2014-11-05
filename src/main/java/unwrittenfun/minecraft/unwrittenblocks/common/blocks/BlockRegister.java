@@ -1,6 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 04/11/2014.
@@ -18,5 +19,7 @@ public class BlockRegister {
 
     GameRegistry.registerBlock(pleatherPlant, PLEATHER_PLANT_KEY);
     GameRegistry.registerBlock(darkInfuser, DARK_INFUSER_KEY);
+
+    GameRegistry.registerTileEntity(TEDarkInfuser.class, "TE" + DARK_INFUSER_KEY);
   }
 }

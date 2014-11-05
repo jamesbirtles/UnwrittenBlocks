@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import unwrittenfun.minecraft.unwrittenblocks.client.creativetab.UBCreativeTab;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.worldgen.WorldGenPleather;
 
 
@@ -36,5 +37,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.worldgen.WorldGenPleather;
     GameRegistry.registerWorldGenerator(new WorldGenPleather(), 10);
 
     proxy.registerRenderers();
+
+    NetworkRegister.initMessages();
   }
 }
