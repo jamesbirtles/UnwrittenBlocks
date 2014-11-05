@@ -2,12 +2,14 @@ package unwrittenfun.minecraft.unwrittenblocks.common;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.Logger;
 import unwrittenfun.minecraft.unwrittenblocks.client.creativetab.UBCreativeTab;
+import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.worldgen.WorldGenPleather;
 
 
 /**
@@ -20,7 +22,8 @@ import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 public class UnwrittenBlocks {
   public static Logger logger;
 
-  @SidedProxy(clientSide = "unwrittenfun.minecraft.unwrittenblocks.client.ClientProxy", serverSide = "unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy")
+  @SidedProxy(clientSide = "unwrittenfun.minecraft.unwrittenblocks.client.ClientProxy",
+          serverSide = "unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy")
   public static CommonProxy proxy;
 
   public static CreativeTabs creativeTabUB;
@@ -31,6 +34,11 @@ public class UnwrittenBlocks {
 
     creativeTabUB = new UBCreativeTab();
 
+    BlockRegister.registerBlocks();
     ItemRegister.registerItems();
+
+    GameRegistry.registerWorldGenerator(new WorldGenPleather(), 10);
+
+    proxy.registerRenderers();
   }
 }

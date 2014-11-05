@@ -20,14 +20,13 @@ public class ItemStorageBall extends ItemUB {
   public static final String[] BALL_TYPES = new String[] {
       "Cobblestone", "MossyCobblestone", "Netherrack", "OakWood"
   };
+  private IIcon[] icons;
 
   public ItemStorageBall() {
     super(ItemRegister.STORAGE_BALL_KEY);
 
     setHasSubtypes(true);
   }
-
-  private IIcon[] icons;
 
   @Override
   public void registerIcons(IIconRegister iconRegister) {
@@ -55,6 +54,7 @@ public class ItemStorageBall extends ItemUB {
   public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean bool) {
     super.addInformation(stack, player, lines, bool);
 
-    lines.add(StatCollector.translateToLocal("item." + ItemRegister.STORAGE_BALL_KEY + "." + Introspector.decapitalize(BALL_TYPES[stack.getItemDamage()]) + ".name"));
+    lines.add(StatCollector.translateToLocal("item." + ItemRegister.STORAGE_BALL_KEY + "." +
+            Introspector.decapitalize(BALL_TYPES[stack.getItemDamage()]) + ".name"));
   }
 }
