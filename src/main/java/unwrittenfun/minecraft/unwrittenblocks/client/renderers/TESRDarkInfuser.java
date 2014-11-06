@@ -1,5 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.client.renderers;
 
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -27,13 +29,22 @@ public class TESRDarkInfuser extends TileEntitySpecialRenderer {
     }
   }
 
-  public void renderDarkInfuser(TEDarkInfuser infuser, double x, double y, double z) {
+  public void renderDarkInfuser(TEDarkInfuser darkInfuser, double x, double y, double z) {
     GL11.glPushMatrix();
 
     GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
     GL11.glScalef(0.5F, 0.5F, 0.5F);
     bindTexture(texture);
-    model.render(infuser, 0.0625F);
+    model.render(0.0625F);
+
+    if (darkInfuser != null && darkInfuser.itemEntity != null) {
+      GL11.glPushMatrix();
+      GL11.glTranslatef(0F, 1F, 0F);
+      RenderManager.instance
+          .renderEntityWithPosYaw(darkInfuser.itemEntity, 0D, 0D, 0D, 0F, darkInfuser.itemEntity.rotationYaw);
+      RenderItem.renderInFrame = false;
+      GL11.glPopMatrix();
+    }
 
     GL11.glPopMatrix();
   }

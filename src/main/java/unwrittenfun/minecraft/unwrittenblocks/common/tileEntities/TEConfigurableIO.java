@@ -6,6 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import org.apache.commons.lang3.ArrayUtils;
+import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIOSideMessage;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIOSidesMessageReceiver;
 
 import java.util.ArrayList;
 
@@ -14,28 +18,24 @@ import java.util.ArrayList;
  * Author: UnwrittenFun
  * Created: 05/11/2014.
  */
-public abstract class TEConfigurableIO extends TileEntity implements ISidedInventory {
-  public int[]       ioSides = new int[] {2, 2, 2, 2, 2, 2};
+public abstract class TEConfigurableIO extends TileEntity
+    implements ISidedInventory, ITileEntityIOSidesMessageReceiver {
+  public int[] ioSides = new int[] {0, 0, 0, 0, 0, 0};
   public ItemStack[] items   = new ItemStack[0];
-
-  @SuppressWarnings("UnusedDeclaration")
-  public void setSideIO(int side, int value) {
-    ioSides[side] = value;
-  }
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
   }
 
-
-  // ISidedInventory
-
   @Override
   public void writeToNBT(NBTTagCompound compound) {
     super.writeToNBT(compound);
     compound.setIntArray("IOConfig", ioSides);
   }
+
+
+  // ISidedInventory
 
   @Override
   public int[] getAccessibleSlotsFromSide(int side) {
@@ -66,13 +66,13 @@ public abstract class TEConfigurableIO extends TileEntity implements ISidedInven
     return getInputSlots().contains(slot) && isInput(side) && isItemValidForSlot(slot, stack);
   }
 
-
-  // IInventory
-
   @Override
   public boolean canExtractItem(int slot, ItemStack stack, int side) {
     return getOutputSlots().contains(slot) && isOutput(side);
   }
+
+
+  // IInventory
 
   @Override
   public int getSizeInventory() {
@@ -152,5 +152,19 @@ public abstract class TEConfigurableIO extends TileEntity implements ISidedInven
 
   public void onInventoryChanged() {
 
+  }
+
+  @Override
+  public void receiveIOSideMessage(int side, int value) {
+    UnwrittenBlocks.logger.info("Received io side message");
+    setSideIO(side, value);
+  }
+
+  public void setSideIO(int side, int value) {
+    ioSides[side] = value;
+    if (hasWorldObj() && worldObj.isRemote) {
+      NetworkRegister.wrapper
+          .sendToServer(TileEntityIOSideMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, side, value));
+    }
   }
 }
