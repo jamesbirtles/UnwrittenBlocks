@@ -18,7 +18,7 @@ public class TileEntityRequestHandler implements IMessageHandler<TileEntityReque
   @Override
   public IMessage onMessage(TileEntityRequestMessage message, MessageContext ctx) {
     if (ctx.side == Side.SERVER) {
-      World world = ctx.getServerHandler().playerEntity.worldObj;
+      World world = ctx.getServerHandler().playerEntity.worldObj; //TODO: Probably not the best way to do this
       if (world.provider.dimensionId == message.worldId) {
         TileEntity tileEntity = world.getTileEntity(message.x, message.y, message.z);
         if (tileEntity instanceof ITileEntityRequestMessageReceiver) {

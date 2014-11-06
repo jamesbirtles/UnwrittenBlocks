@@ -117,7 +117,7 @@ public abstract class TEConfigurableIO extends TileEntity
 
   @Override
   public String getInventoryName() {
-    return "Inventory";
+    return "Dark Infuser";
   }
 
   @Override
