@@ -51,19 +51,22 @@ public class TEDarkInfuser extends TEConfigurableIO
   public void onInventoryChanged() {
     if (hasWorldObj() && !worldObj.isRemote) {
       ItemStack stack = getStackInSlot(0);
+      UnwrittenBlocks.logger.info("Inventory Changed");
       if (stack != null && InfuserRecipes.instance.getInfuserResult(stack) != null) {
         ItemStack infuserResult = InfuserRecipes.instance.getInfuserResult(stack);
         ItemStack resultSlotStack = getStackInSlot(1);
+        UnwrittenBlocks.logger.info("The item can be infused");
 
-        infuserTicks = InfuserRecipes.instance.getInfuserTicks(stack);
         if (resultSlotStack == null || resultSlotStack.isItemEqual(infuserResult) &&
                                        (resultSlotStack.stackSize + infuserResult.stackSize) <=
                                        resultSlotStack.getMaxStackSize()) {
           if (infuserTicks > infuserMaxTicks) {
+            infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(stack);
             infuserTicks = 0;
           }
         } else {
-          infuserTicks = infuserMaxTicks + 1;
+          infuserMaxTicks = 1000;
+          infuserTicks = 1001;
         }
       } else {
         infuserTicks = 1001;
@@ -91,6 +94,7 @@ public class TEDarkInfuser extends TEConfigurableIO
 
         if (infuserTicks < infuserMaxTicks) {
           infuserTicks += getSpeedMultiplier();
+          if (getStackInSlot(0) != null) infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(getStackInSlot(0));
           if (infuserTicks > infuserMaxTicks) infuserTicks = infuserMaxTicks;
         }
 
@@ -111,8 +115,8 @@ public class TEDarkInfuser extends TEConfigurableIO
             }
             items[0] = stack;
             items[1] = resultSlotStack;
-            infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(getStackInSlot(0));
-            infuserTicks = infuserMaxTicks + 1;
+            infuserMaxTicks = 1000;
+            infuserTicks = 1001;
             onInventoryChanged();
           }
         }

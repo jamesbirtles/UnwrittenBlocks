@@ -3,6 +3,7 @@ package unwrittenfun.minecraft.unwrittenblocks.common.recipes;
 import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Project: UnwrittenBlocks
@@ -22,14 +23,18 @@ public class InfuserRecipes {
   }
 
   public ItemStack getInfuserResult(ItemStack input) {
-    ItemStack inStack = input.copy();
-    inStack.stackSize = 1;
-    return infusingList.get(inStack) == null ? null : infusingList.get(inStack).copy();
+//    UnwrittenBlocks.logger.info("Infuser Result: " + infusingList.get(inStack));
+//    return infusingList.get(inStack) == null ? null : infusingList.get(inStack).copy();
+    for (Map.Entry<ItemStack, ItemStack> entry : infusingList.entrySet()) {
+      if (entry.getKey().isItemEqual(input)) return entry.getValue();
+    }
+    return null;
   }
 
   public int getInfuserTicks(ItemStack input) {
-    ItemStack inStack = input.copy();
-    inStack.stackSize = 1;
-    return ticksList.get(inStack);
+    for (Map.Entry<ItemStack, Integer> entry : ticksList.entrySet()) {
+      if (entry.getKey().isItemEqual(input)) return entry.getValue();
+    }
+    return 0;
   }
 }

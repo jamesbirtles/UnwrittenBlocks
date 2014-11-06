@@ -1,9 +1,12 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 29/08/2014.
@@ -87,5 +90,9 @@ public class ItemRegister {
     GameRegistry.registerItem(upgrade, UPGRADE_KEY);
     GameRegistry.registerItem(pleatherStrips, PLEATHER_STRIPS_KEY);
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
+  }
+
+  public static void registerRecipes() {
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond), new ItemStack(darkInfusedDiamond), 2000);
   }
 }
