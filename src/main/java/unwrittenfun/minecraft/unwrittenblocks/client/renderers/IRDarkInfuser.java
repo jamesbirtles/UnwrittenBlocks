@@ -42,7 +42,7 @@ public class IRDarkInfuser implements IItemRenderer {
     GL11.glScalef(0.5F, 0.5F, 0.5F);
 
     Minecraft.getMinecraft().renderEngine.bindTexture(TESRDarkInfuser.texture);
-    model.render(null, 0.0625F);
+    model.render(0.0625F);
 
     GL11.glPopMatrix();
   }

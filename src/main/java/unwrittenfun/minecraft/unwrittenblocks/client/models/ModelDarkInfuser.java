@@ -2,7 +2,6 @@ package unwrittenfun.minecraft.unwrittenblocks.client.models;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 04/11/2014.
@@ -37,16 +36,8 @@ public class ModelDarkInfuser extends ModelBase {
     infuser.addChild(pedTopTop);
   }
 
-  @SuppressWarnings("UnusedParameters") public void render(TEDarkInfuser darkInfuser, float mult) {
+  @SuppressWarnings("UnusedParameters")
+  public void render(float mult) {
     infuser.render(mult);
-
-//      if (darkInfuser != null && darkInfuser.itemEntity != null) {
-//        GL11.glPushMatrix();
-//        GL11.glTranslatef(0F, 1F, 0F);
-//        RenderManager.instance.renderEntityWithPosYaw(darkInfuser.itemEntity, 0D, 0D, 0D, 0F, darkInfuser
-// .itemEntity.rotationYaw);
-//        RenderItem.renderInFrame = false;
-//        GL11.glPopMatrix();
-//      }
   }
 }

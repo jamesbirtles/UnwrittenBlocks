@@ -1,12 +1,15 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIntegerMessageReceiver;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityRequestMessageReceiver;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityStackMessageReceiver;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
@@ -18,7 +21,7 @@ import java.util.ArrayList;
  * Created: 04/11/2014.
  */
 public class TEDarkInfuser extends TEConfigurableIO
-    implements ITileEntityIntegerMessageReceiver, ITileEntityStackMessageReceiver {
+    implements ITileEntityIntegerMessageReceiver, ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
   public int infuserTicks    = 1001;
   public int infuserMaxTicks = 1000;
   public int infuserProgress = 0; // Client only
@@ -113,16 +116,15 @@ public class TEDarkInfuser extends TEConfigurableIO
             onInventoryChanged();
           }
         }
-      } else {
+      } else { // We're on the client
+        if (!loaded) {
+          loaded = true;
+          NetworkRegister.wrapper
+              .sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
+        }
         if (itemEntity != null) itemEntity.rotationYaw = ++itemYaw;
       }
     }
-  }
-
-  @Override
-  public void validate() {
-    super.validate();
-    //TODO: Request TE data
   }
 
   public int getSpeedMultiplier() {
@@ -154,6 +156,17 @@ public class TEDarkInfuser extends TEConfigurableIO
           itemEntity.rotationYaw = itemYaw;
           itemEntity.hoverStart = 0;
         }
+        break;
+    }
+  }
+
+  @Override
+  public void receiveRequestMessage(byte id, EntityPlayerMP player) {
+    UnwrittenBlocks.logger.info("Received request message");
+    switch (id) {
+      case 0:
+        NetworkRegister.wrapper
+            .sendTo(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)), player);
         break;
     }
   }

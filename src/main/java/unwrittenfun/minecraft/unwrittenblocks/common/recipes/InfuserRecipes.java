@@ -24,7 +24,7 @@ public class InfuserRecipes {
   public ItemStack getInfuserResult(ItemStack input) {
     ItemStack inStack = input.copy();
     inStack.stackSize = 1;
-    return infusingList.get(inStack).copy();
+    return infusingList.get(inStack) == null ? null : infusingList.get(inStack).copy();
   }
 
   public int getInfuserTicks(ItemStack input) {
