@@ -3,7 +3,9 @@ package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
@@ -31,54 +33,6 @@ public class TEDarkInfuser extends TEConfigurableIO
 
   public TEDarkInfuser() {
     items = new ItemStack[3];
-  }
-
-  @Override
-  public ArrayList<Integer> getInputSlots() {
-    ArrayList<Integer> inputs = new ArrayList<Integer>();
-    inputs.add(0);
-    return inputs;
-  }
-
-  @Override
-  public ArrayList<Integer> getOutputSlots() {
-    ArrayList<Integer> outputs = new ArrayList<Integer>();
-    outputs.add(1);
-    return outputs;
-  }
-
-  @Override
-  public void onInventoryChanged() {
-    if (hasWorldObj() && !worldObj.isRemote) {
-      ItemStack stack = getStackInSlot(0);
-      UnwrittenBlocks.logger.info("Inventory Changed");
-      if (stack != null && InfuserRecipes.instance.getInfuserResult(stack) != null) {
-        ItemStack infuserResult = InfuserRecipes.instance.getInfuserResult(stack);
-        ItemStack resultSlotStack = getStackInSlot(1);
-        UnwrittenBlocks.logger.info("The item can be infused");
-
-        if (resultSlotStack == null || resultSlotStack.isItemEqual(infuserResult) &&
-                                       (resultSlotStack.stackSize + infuserResult.stackSize) <=
-                                       resultSlotStack.getMaxStackSize()) {
-          if (infuserTicks > infuserMaxTicks) {
-            infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(stack);
-            infuserTicks = 0;
-          }
-        } else {
-          infuserMaxTicks = 1000;
-          infuserTicks = 1001;
-        }
-      } else {
-        infuserTicks = 1001;
-        infuserMaxTicks = 1000;
-      }
-
-      NetworkRegister.wrapper
-          .sendToDimension(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)),
-                           worldObj.provider.dimensionId);
-    }
-
-    super.onInventoryChanged();
   }
 
   @Override
@@ -133,7 +87,7 @@ public class TEDarkInfuser extends TEConfigurableIO
 
   public int getSpeedMultiplier() {
     if (getStackInSlot(2) != null && getStackInSlot(2).isItemEqual(new ItemStack(ItemRegister.upgrade, 1, 1))) {
-      return 1 + Math.min(getStackInSlot(2).stackSize, 8);
+      return (int) Math.pow(2, Math.min(getStackInSlot(2).stackSize, 4));
     }
     return 1;
   }
@@ -173,5 +127,73 @@ public class TEDarkInfuser extends TEConfigurableIO
             .sendTo(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)), player);
         break;
     }
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound compound) {
+    super.readFromNBT(compound);
+
+    infuserTicks = compound.hasKey("InfuserTicks") ? compound.getInteger("InfuserTicks") : 1001;
+    infuserMaxTicks = compound.hasKey("InfuserMaxTicks") ? compound.getInteger("InfuserMaxTicks") : 1000;
+
+    InventoryHelpers.readInventoryFromNBT(compound, this);
+  }
+
+  @Override
+  public void writeToNBT(NBTTagCompound compound) {
+    super.writeToNBT(compound);
+
+    compound.setInteger("InfuserTicks", infuserTicks);
+    compound.setInteger("InfuserMaxTicks", infuserMaxTicks);
+
+    InventoryHelpers.writeInventoryToNBT(compound, this);
+  }
+
+  @Override
+  public ArrayList<Integer> getInputSlots() {
+    ArrayList<Integer> inputs = new ArrayList<Integer>();
+    inputs.add(0);
+    return inputs;
+  }
+
+  @Override
+  public ArrayList<Integer> getOutputSlots() {
+    ArrayList<Integer> outputs = new ArrayList<Integer>();
+    outputs.add(1);
+    return outputs;
+  }
+
+  @Override
+  public void onInventoryChanged() {
+    if (hasWorldObj() && !worldObj.isRemote) {
+      ItemStack stack = getStackInSlot(0);
+      UnwrittenBlocks.logger.info("Inventory Changed");
+      if (stack != null && InfuserRecipes.instance.getInfuserResult(stack) != null) {
+        ItemStack infuserResult = InfuserRecipes.instance.getInfuserResult(stack);
+        ItemStack resultSlotStack = getStackInSlot(1);
+        UnwrittenBlocks.logger.info("The item can be infused");
+
+        if (resultSlotStack == null || resultSlotStack.isItemEqual(infuserResult) &&
+                                       (resultSlotStack.stackSize + infuserResult.stackSize) <=
+                                       resultSlotStack.getMaxStackSize()) {
+          if (infuserTicks > infuserMaxTicks) {
+            infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(stack);
+            infuserTicks = 0;
+          }
+        } else {
+          infuserMaxTicks = 1000;
+          infuserTicks = 1001;
+        }
+      } else {
+        infuserTicks = 1001;
+        infuserMaxTicks = 1000;
+      }
+
+      NetworkRegister.wrapper
+          .sendToDimension(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)),
+                           worldObj.provider.dimensionId);
+    }
+
+    super.onInventoryChanged();
   }
 }
