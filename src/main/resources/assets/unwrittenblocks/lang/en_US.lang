@@ -49,3 +49,13 @@ unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of Machines\n§7Stacks 
 
 unwrittenblocks.gui.sneakForHelp=Sneak for Help
 unwrittenblocks.gui.darkInfuser.sneakHelp=Mouse over a slot
+
+unwrittenblocks.help.input=Input
+unwrittenblocks.help.output=Output
+unwrittenblocks.help.upgrades=Upgrades
+unwrittenblocks.help.io.bottom=Bottom
+unwrittenblocks.help.io.top=Top
+unwrittenblocks.help.io.north=North
+unwrittenblocks.help.io.east=East
+unwrittenblocks.help.io.south=South
+unwrittenblocks.help.io.west=West
