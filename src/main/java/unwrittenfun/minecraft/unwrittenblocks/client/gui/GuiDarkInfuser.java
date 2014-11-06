@@ -2,7 +2,6 @@ package unwrittenfun.minecraft.unwrittenblocks.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -10,18 +9,35 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.components.GuiSidesButton;
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.components.HelpItem;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
+
+import java.util.ArrayList;
 
 /**
  * Project: UnwrittenBlocks
  * Author: UnwrittenFun
  * Created: 06/11/2014.
  */
-public class GuiDarkInfuser extends GuiContainer {
-  public static ResourceLocation texture =
+public class GuiDarkInfuser extends GuiUnwrittenBlocks {
+  public static ResourceLocation    texture  =
       new ResourceLocation(ModInfo.RESOURCE_LOCATION, "textures/gui/darkInfuserGui.png");
+  public static ArrayList<HelpItem> helpList = new ArrayList<HelpItem>();
+
+  static {
+    helpList.add(new HelpItem("unwrittenblocks.help.input", 44, 36, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.output", 116, 36, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.upgrades", 152, 8, 16, 16));
+
+    helpList.add(new HelpItem("unwrittenblocks.help.io.bottom", 43, 7, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.io.top", 25, 7, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.io.north", 7, 7, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.io.east", 7, 25, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.io.south", 7, 43, 16, 16));
+    helpList.add(new HelpItem("unwrittenblocks.help.io.west", 7, 61, 16, 16));
+  }
 
   public InventoryPlayer playerInventory;
   public TEDarkInfuser   darkInfuser;
@@ -60,7 +76,11 @@ public class GuiDarkInfuser extends GuiContainer {
 
     drawTexturedModalRect(62, 31, xSize, 0, darkInfuser.infuserProgress, 25);
 
-    //TODO: Help
+    if (GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak)) {
+      for (HelpItem helpItem : helpList) {
+        helpItem.renderHelp(this, x - guiLeft, y - guiTop);
+      }
+    }
   }
 
   @Override
