@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
-import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
@@ -135,8 +134,6 @@ public class TEDarkInfuser extends TEConfigurableIO
 
     infuserTicks = compound.hasKey("InfuserTicks") ? compound.getInteger("InfuserTicks") : 1001;
     infuserMaxTicks = compound.hasKey("InfuserMaxTicks") ? compound.getInteger("InfuserMaxTicks") : 1000;
-
-    InventoryHelpers.readInventoryFromNBT(compound, this);
   }
 
   @Override
@@ -145,8 +142,6 @@ public class TEDarkInfuser extends TEConfigurableIO
 
     compound.setInteger("InfuserTicks", infuserTicks);
     compound.setInteger("InfuserMaxTicks", infuserMaxTicks);
-
-    InventoryHelpers.writeInventoryToNBT(compound, this);
   }
 
   @Override
