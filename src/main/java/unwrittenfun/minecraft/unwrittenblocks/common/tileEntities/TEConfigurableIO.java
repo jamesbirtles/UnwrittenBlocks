@@ -26,6 +26,7 @@ public abstract class TEConfigurableIO extends TileEntity
   @Override
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
+    ioSides = compound.getIntArray("IOConfig");
   }
 
   @Override

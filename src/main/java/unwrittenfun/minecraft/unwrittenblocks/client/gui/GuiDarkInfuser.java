@@ -69,6 +69,10 @@ public class GuiDarkInfuser extends GuiUnwrittenBlocks {
       fontRendererObj.drawString(StatCollector.translateToLocal("unwrittenblocks.gui.sneakForHelp"), 28, 72, 0x6a6a6a);
     }
 
+    if (darkInfuser.getSpeedMultiplier() > 1) {
+      fontRendererObj.drawString("Multiplier x" + darkInfuser.getSpeedMultiplier(), 80, 12, 0x6a6a6a);
+    }
+
     GL11.glColor4f(1, 1, 1, 1);
     Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 

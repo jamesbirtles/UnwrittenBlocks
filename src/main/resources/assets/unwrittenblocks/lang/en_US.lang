@@ -45,7 +45,7 @@ unwrittenblocks.text.pleatherBulb=Plant on dirt or\ngrass to grow
 unwrittenblocks.text.darkInfusedDiamond=Infused from a Diamond
 
 unwrittenblocks.text.info_upgradeBasic=§6Crafting Component
-unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of Machines\n§7Stacks up to 8
+unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of\n§6Machines by 2ⁿ\nStacks up to 4
 
 unwrittenblocks.gui.sneakForHelp=Sneak for Help
 unwrittenblocks.gui.darkInfuser.sneakHelp=Mouse over a slot
