@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import org.apache.commons.lang3.ArrayUtils;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIOSideMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIOSidesMessageReceiver;
@@ -27,12 +28,16 @@ public abstract class TEConfigurableIO extends TileEntity
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
     ioSides = compound.getIntArray("IOConfig");
+
+    InventoryHelpers.readInventoryFromNBT(compound, this);
   }
 
   @Override
   public void writeToNBT(NBTTagCompound compound) {
     super.writeToNBT(compound);
     compound.setIntArray("IOConfig", ioSides);
+
+    InventoryHelpers.writeInventoryToNBT(compound, this);
   }
 
 
