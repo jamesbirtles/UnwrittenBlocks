@@ -43,6 +43,7 @@ public class UnwrittenBlocks {
     BlockRegister.registerBlocks();
     ItemRegister.registerItems();
 
+    BlockRegister.registerRecipes();
     ItemRegister.registerRecipes();
 
     GameRegistry.registerWorldGenerator(new WorldGenPleather(), 10);
