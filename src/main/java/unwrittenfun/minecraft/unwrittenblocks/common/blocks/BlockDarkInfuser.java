@@ -1,6 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 import java.util.Random;
@@ -61,7 +63,18 @@ public class BlockDarkInfuser extends BlockContainer {
     TileEntity tileEntity = world.getTileEntity(x, y, z);
     if (tileEntity instanceof TEDarkInfuser) {
       TEDarkInfuser darkInfuser = (TEDarkInfuser) tileEntity;
-      if (darkInfuser.itemEntity != null) world.spawnParticle("portal", x + rand.nextFloat(), y + 0.9f + rand.nextFloat() / 4f, z + rand.nextFloat(), -0.5f + rand.nextFloat(), -0.5f + rand.nextFloat(), -0.5f + rand.nextFloat());
+      if (darkInfuser.itemEntity != null) {
+        for (int i = 0; i < 5; i++) {
+          world.spawnParticle("portal", x + rand.nextFloat(), y + 0.7f + rand.nextFloat(), z + rand.nextFloat(), 0.5f - rand.nextFloat(), 0, 0.5f - rand.nextFloat());
+        }
+      }
+    }
+  }
+
+  @Override
+  public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    if (!world.isRemote) {
+      InventoryHelpers.dropInventory(world, x, y, z);
     }
   }
 }

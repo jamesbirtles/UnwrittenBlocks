@@ -1,9 +1,13 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.helpers;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
  * Project: UnwrittenBlocks
@@ -33,4 +37,24 @@ public class InventoryHelpers {
       inventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
     }
   }
+
+ public static void dropInventory(World world, int x, int y, int z) {
+   TileEntity tileEntity = world.getTileEntity(x, y, z);
+   if (tileEntity instanceof IInventory) {
+     IInventory inventory = (IInventory) tileEntity;
+     for (int i = 0; i < inventory.getSizeInventory(); i++) {
+       ItemStack stack = inventory.getStackInSlotOnClosing(i);
+       if (stack != null) {
+         float spawnX = x + world.rand.nextFloat();
+         float spawnY = y + world.rand.nextFloat();
+         float spawnZ = z + world.rand.nextFloat();
+         EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+         droppedItem.motionX = (-0.5f + world.rand.nextFloat()) * 0.05F;
+         droppedItem.motionY = (4f + world.rand.nextFloat()) * 0.05F;
+         droppedItem.motionZ = (-0.5f + world.rand.nextFloat()) * 0.05F;
+         world.spawnEntityInWorld(droppedItem);
+       }
+     }
+   }
+ }
 }
