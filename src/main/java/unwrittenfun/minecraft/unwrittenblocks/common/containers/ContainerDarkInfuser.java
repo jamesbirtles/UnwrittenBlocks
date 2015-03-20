@@ -7,6 +7,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import unwrittenfun.minecraft.unwrittenblocks.common.containers.slots.SlotUpgrade;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
@@ -37,7 +38,7 @@ public class ContainerDarkInfuser extends Container {
 
     addSlotToContainer(new Slot(darkInfuser, 0, 44, 36));
     addSlotToContainer(new Slot(darkInfuser, 1, 116, 36));
-    addSlotToContainer(new Slot(darkInfuser, 2, 152, 8));
+    addSlotToContainer(new SlotUpgrade(darkInfuser, 2, 152, 8));
   }
 
   @Override

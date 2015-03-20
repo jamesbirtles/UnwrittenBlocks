@@ -23,11 +23,11 @@ import java.util.ArrayList;
  */
 public class TEDarkInfuser extends TEConfigurableIO
     implements ITileEntityIntegerMessageReceiver, ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
-  public int infuserTicks    = 1001;
+  public int infuserTicks = 1001;
   public int infuserMaxTicks = 1000;
   public int infuserProgress = 0; // Client only
   public EntityItem itemEntity;
-  public float      itemYaw;
+  public float itemYaw;
   private boolean loaded = false;
 
   public TEDarkInfuser() {
@@ -57,8 +57,8 @@ public class TEDarkInfuser extends TEConfigurableIO
           ItemStack infuserResult = InfuserRecipes.instance.getInfuserResult(stack);
           ItemStack resultSlotStack = getStackInSlot(1);
           if (resultSlotStack == null || resultSlotStack.isItemEqual(infuserResult) &&
-                                         (resultSlotStack.stackSize + infuserResult.stackSize) <=
-                                         resultSlotStack.getMaxStackSize()) {
+              (resultSlotStack.stackSize + infuserResult.stackSize) <=
+                  resultSlotStack.getMaxStackSize()) {
             stack.stackSize -= 1;
             if (stack.stackSize < 1) stack = null;
             if (resultSlotStack == null) {
@@ -93,7 +93,6 @@ public class TEDarkInfuser extends TEConfigurableIO
 
   @Override
   public void receiveIntegerMessage(byte id, int value) {
-    UnwrittenBlocks.logger.info("Received integer message");
     switch (id) {
       case 0:
         infuserProgress = value;
@@ -103,7 +102,6 @@ public class TEDarkInfuser extends TEConfigurableIO
 
   @Override
   public void receiveStackMessage(byte id, ItemStack stack) {
-    UnwrittenBlocks.logger.info("Received stack message");
     switch (id) {
       case 0:
         if (stack == null) {
@@ -162,15 +160,13 @@ public class TEDarkInfuser extends TEConfigurableIO
   public void onInventoryChanged() {
     if (hasWorldObj() && !worldObj.isRemote) {
       ItemStack stack = getStackInSlot(0);
-      UnwrittenBlocks.logger.info("Inventory Changed");
       if (stack != null && InfuserRecipes.instance.getInfuserResult(stack) != null) {
         ItemStack infuserResult = InfuserRecipes.instance.getInfuserResult(stack);
         ItemStack resultSlotStack = getStackInSlot(1);
-        UnwrittenBlocks.logger.info("The item can be infused");
 
         if (resultSlotStack == null || resultSlotStack.isItemEqual(infuserResult) &&
-                                       (resultSlotStack.stackSize + infuserResult.stackSize) <=
-                                       resultSlotStack.getMaxStackSize()) {
+            (resultSlotStack.stackSize + infuserResult.stackSize) <=
+                resultSlotStack.getMaxStackSize()) {
           if (infuserTicks > infuserMaxTicks) {
             infuserMaxTicks = InfuserRecipes.instance.getInfuserTicks(stack);
             infuserTicks = 0;
@@ -186,7 +182,7 @@ public class TEDarkInfuser extends TEConfigurableIO
 
       NetworkRegister.wrapper
           .sendToDimension(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)),
-                           worldObj.provider.dimensionId);
+              worldObj.provider.dimensionId);
     }
 
     super.onInventoryChanged();

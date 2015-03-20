@@ -70,7 +70,8 @@ public class GuiDarkInfuser extends GuiUnwrittenBlocks {
     }
 
     if (darkInfuser.getSpeedMultiplier() > 1) {
-      fontRendererObj.drawString("Multiplier x" + darkInfuser.getSpeedMultiplier(), 80, 12, 0x6a6a6a);
+      String mult = "x" + darkInfuser.getSpeedMultiplier();
+      fontRendererObj.drawString(mult, 160 - fontRendererObj.getStringWidth(mult)/2, 28, 0x6a6a6a);
     }
 
     GL11.glColor4f(1, 1, 1, 1);

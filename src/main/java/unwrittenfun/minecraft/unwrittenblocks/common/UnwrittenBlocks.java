@@ -16,7 +16,9 @@ import unwrittenfun.minecraft.unwrittenblocks.common.worldgen.WorldGenPleather;
 
 
 /**
- * Project: UnwrittenBlocks Author: UnwrittenFun Created: 25/08/2014.
+ * Project: UnwrittenBlocks
+ * Author: UnwrittenFun
+ * Created: 25/08/2014.
  */
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.NAME, version = ModInfo.VERSION)
