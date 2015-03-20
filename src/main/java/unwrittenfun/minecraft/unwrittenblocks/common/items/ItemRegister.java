@@ -1,6 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -93,6 +94,46 @@ public class ItemRegister {
   }
 
   public static void registerRecipes() {
+    GameRegistry.addShapelessRecipe(new ItemStack(Items.leather, 1), new ItemStack(pleatherStrips, 4));
+
+    GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
+    GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);
+
+    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 0), new ItemStack(Items.slime_ball), 1500);
+    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 1), new ItemStack(Items.ender_pearl), 2000);
+    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 2), new ItemStack(Items.blaze_powder), 1000);
+
+    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.cobblestone, 5), new ItemStack(storageBall, 1, 0));
+    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone, 5), new ItemStack(storageBall, 1, 1));
+    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.netherrack, 5), new ItemStack(storageBall, 1, 2));
+    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.log, 5, 0), new ItemStack(storageBall, 1, 3));
+    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 0), " c ", "ccc", " c ", 'c', Blocks.cobblestone);
+    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 1), " c ", "ccc", " c ", 'c', Blocks.mossy_cobblestone);
+    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 2), " c ", "ccc", " c ", 'c', Blocks.netherrack);
+    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 3), " c ", "ccc", " c ", 'c', new ItemStack(Blocks.log, 1, 0));
+
+    GameRegistry.addRecipe(new ItemStack(upgrade, 1, 0), "nnn", "ndn", "nnn", 'n', Items.netherbrick, 'd', darkInfusedDiamond);
+    GameRegistry.addRecipe(new ItemStack(upgrade, 1, 1), "nsn", "sus", "nsn", 'n', Items.netherbrick, 's', Items.sugar, 'u', new ItemStack(upgrade, 1, 0));
+
     InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond), new ItemStack(darkInfusedDiamond), 2000);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_helmet), new ItemStack(darkInfusedHelm), 8000);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_chestplate), new ItemStack(darkInfusedChest), 12800);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_leggings), new ItemStack(darkInfusedLeggings), 11200);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_boots), new ItemStack(darkInfusedBoots), 6400);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_sword), new ItemStack(darkInfusedSword), 3200);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_pickaxe), new ItemStack(darkInfusedPick), 4800);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_shovel), new ItemStack(darkInfusedSpade), 1600);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_axe), new ItemStack(darkInfusedAxe), 4800);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_hoe), new ItemStack(darkInfusedHoe), 3200);
+
+    GameRegistry.addRecipe(new ItemStack(darkInfusedHelm), "ddd", "d d", 'd', darkInfusedDiamond);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedChest), "d d", "ddd", "ddd", 'd', darkInfusedDiamond);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedLeggings), "ddd", "d d", "d d", 'd', darkInfusedDiamond);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedBoots), "d d", "d d", 'd', darkInfusedDiamond);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedSword), " d ", " d ", " s ", 'd', darkInfusedDiamond, 's', Items.stick);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedPick), "ddd", " s ", " s ", 'd', darkInfusedDiamond, 's', Items.stick);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedSpade), " d ", " s ", " s ", 'd', darkInfusedDiamond, 's', Items.stick);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedAxe), " dd", " sd", " s ", 'd', darkInfusedDiamond, 's', Items.stick);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedHoe), "dd ", " s ", " s ", 'd', darkInfusedDiamond, 's', Items.stick);
   }
 }
