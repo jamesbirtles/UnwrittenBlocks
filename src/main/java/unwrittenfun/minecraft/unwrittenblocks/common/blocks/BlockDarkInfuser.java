@@ -10,6 +10,8 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
+import java.util.Random;
+
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 04/11/2014.
  */
@@ -52,5 +54,14 @@ public class BlockDarkInfuser extends BlockContainer {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+    TileEntity tileEntity = world.getTileEntity(x, y, z);
+    if (tileEntity instanceof TEDarkInfuser) {
+      TEDarkInfuser darkInfuser = (TEDarkInfuser) tileEntity;
+      if (darkInfuser.itemEntity != null) world.spawnParticle("portal", x + rand.nextFloat(), y + 0.9f + rand.nextFloat() / 4f, z + rand.nextFloat(), -0.5f + rand.nextFloat(), -0.5f + rand.nextFloat(), -0.5f + rand.nextFloat());
+    }
   }
 }
