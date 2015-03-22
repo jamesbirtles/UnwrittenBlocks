@@ -1,4 +1,4 @@
-package unwrittenfun.minecraft.unwrittenblocks.client.renderers;
+package unwrittenfun.minecraft.unwrittenblocks.client.renderers.blocks;
 
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;

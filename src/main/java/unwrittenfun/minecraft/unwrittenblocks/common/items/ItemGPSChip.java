@@ -21,15 +21,16 @@ public class ItemGPSChip extends ItemUB {
   public ItemGPSChip() {
     super(ItemRegister.GPS_CHIP_KEY);
 
-    setHasSubtypes(true);
     setMaxStackSize(1);
   }
 
-  @Override public IIcon getIconFromDamage(int meta) {
+  @Override
+  public IIcon getIconFromDamage(int meta) {
     return meta == 1 ? linkedIcon : itemIcon;
   }
 
-  @Override public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+  @Override
+  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     if (!world.isRemote) {
       if (stack.getItemDamage() == 0) {
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
@@ -53,12 +54,15 @@ public class ItemGPSChip extends ItemUB {
     return stack;
   }
 
-  @Override public String getUnlocalizedName(ItemStack stack) {
+  @Override
+  public String getUnlocalizedName(ItemStack stack) {
     return "item." + ItemRegister.GPS_CHIP_KEY + (stack.getItemDamage() == 1 ? "Linked" : "");
   }
 
-  @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player, List list,
-                                                                      boolean bool) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player, List list,
+                             boolean bool) {
     super.addInformation(stack, player, list, bool);
 
     validateStack(stack);
@@ -75,12 +79,15 @@ public class ItemGPSChip extends ItemUB {
     }
   }
 
-  @SuppressWarnings("unchecked") @Override public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
-    list.add(0, new ItemStack(this, 1, 0));
-    list.add(1, new ItemStack(this, 1, 1));
-  }
+//  @SuppressWarnings("unchecked")
+//  @Override
+//  public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+//    list.add(0, new ItemStack(this, 1, 0));
+//    list.add(1, new ItemStack(this, 1, 1));
+//  }
 
-  @Override public void registerIcons(IIconRegister iconRegister) {
+  @Override
+  public void registerIcons(IIconRegister iconRegister) {
     super.registerIcons(iconRegister);
     linkedIcon = iconRegister.registerIcon(getIconString() + "Linked");
   }

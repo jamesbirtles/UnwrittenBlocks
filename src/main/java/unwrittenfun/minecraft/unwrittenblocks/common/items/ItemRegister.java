@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
 /**
@@ -91,6 +92,8 @@ public class ItemRegister {
     GameRegistry.registerItem(upgrade, UPGRADE_KEY);
     GameRegistry.registerItem(pleatherStrips, PLEATHER_STRIPS_KEY);
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
+
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.cobblestone));
   }
 
   public static void registerRecipes() {
@@ -98,19 +101,6 @@ public class ItemRegister {
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
     GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);
-
-    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 0), new ItemStack(Items.slime_ball), 1500);
-    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 1), new ItemStack(Items.ender_pearl), 2000);
-    InfuserRecipes.instance.addRecipe(new ItemStack(storageBall, 1, 2), new ItemStack(Items.blaze_powder), 1000);
-
-    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.cobblestone, 5), new ItemStack(storageBall, 1, 0));
-    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone, 5), new ItemStack(storageBall, 1, 1));
-    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.netherrack, 5), new ItemStack(storageBall, 1, 2));
-    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.log, 5, 0), new ItemStack(storageBall, 1, 3));
-    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 0), " c ", "ccc", " c ", 'c', Blocks.cobblestone);
-    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 1), " c ", "ccc", " c ", 'c', Blocks.mossy_cobblestone);
-    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 2), " c ", "ccc", " c ", 'c', Blocks.netherrack);
-    GameRegistry.addRecipe(new ItemStack(storageBall, 1, 3), " c ", "ccc", " c ", 'c', new ItemStack(Blocks.log, 1, 0));
 
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 0), "nnn", "ndn", "nnn", 'n', Items.netherbrick, 'd', darkInfusedDiamond);
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 1), "nsn", "sus", "nsn", 'n', Items.netherbrick, 's', Items.sugar, 'u', new ItemStack(upgrade, 1, 0));

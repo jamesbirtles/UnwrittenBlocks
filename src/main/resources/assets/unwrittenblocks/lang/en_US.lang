@@ -1,11 +1,7 @@
 item.gpsChip.name=§2Unlinked GPS Chip
 item.gpsChipLinked.name=§aLinked GPS Chip
 
-item.storageBall.name=Storage Ball
-item.storageBall.cobblestone.name=Cobblestone
-item.storageBall.mossyCobblestone.name=Mossy Cobblestone
-item.storageBall.netherrack.name=Netherrack
-item.storageBall.oakWood.name=Oak Wood
+item.storageBall.name=Storage Ball [WIP]
 
 item.darkInfusedHelm.name=Dark Infused Helmet
 item.darkInfusedChest.name=Dark Infused Chestplate
