@@ -4,10 +4,12 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import unwrittenfun.minecraft.unwrittenblocks.client.models.ModelDarkInfuser;
-import unwrittenfun.minecraft.unwrittenblocks.client.renderers.IRDarkInfuser;
-import unwrittenfun.minecraft.unwrittenblocks.client.renderers.TESRDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.items.IRDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.blocks.TESRDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.items.IRStorageBall;
 import unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
@@ -19,5 +21,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
     ClientRegistry.bindTileEntitySpecialRenderer(TEDarkInfuser.class, new TESRDarkInfuser(modelDarkInfuser));
     MinecraftForgeClient
         .registerItemRenderer(Item.getItemFromBlock(BlockRegister.darkInfuser), new IRDarkInfuser(modelDarkInfuser));
+
+    MinecraftForgeClient.registerItemRenderer(ItemRegister.storageBall, new IRStorageBall());
   }
 }

@@ -1,10 +1,11 @@
-package unwrittenfun.minecraft.unwrittenblocks.client.renderers;
+package unwrittenfun.minecraft.unwrittenblocks.client.renderers.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import unwrittenfun.minecraft.unwrittenblocks.client.models.ModelDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.blocks.TESRDarkInfuser;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 04/11/2014.
