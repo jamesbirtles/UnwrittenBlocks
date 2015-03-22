@@ -97,7 +97,7 @@ public class ItemRegister {
   }
 
   public static void registerRecipes() {
-    GameRegistry.addShapelessRecipe(new ItemStack(Items.leather, 1), new ItemStack(pleatherStrips, 4));
+    GameRegistry.addRecipe(new ItemStack(Items.leather), "pp", "pp", 'p', pleatherStrips);
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
     GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);
