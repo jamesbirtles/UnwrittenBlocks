@@ -1,5 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.items;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
@@ -21,7 +23,9 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Project: UnwrittenBlocks Author: UnwrittenFun Created: 29/08/2014.
+ * Project: UnwrittenBlocks
+ * Author: UnwrittenFun
+ * Created: 29/08/2014.
  */
 public class ItemStorageBall extends ItemUB {
   public ItemStorageBall() {
@@ -56,9 +60,8 @@ public class ItemStorageBall extends ItemUB {
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public void registerIcons(IIconRegister iconRegister) {
-//    outlineIcon = iconRegister.registerIcon(ModInfo.MOD_ID + ":storageBall");
-
     for (ItemStack item : StorageBallRegistry.types) {
       String name = item.getIconIndex().getIconName();
       if (item.getItem() instanceof ItemBlock) {
