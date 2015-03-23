@@ -3,6 +3,8 @@ package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 
 /**
@@ -16,6 +18,19 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   @Override
   public boolean hasWTNetwork() {
     return true;
+  }
+
+  @Override
+  public void connectToWallsAround() {
+    for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+      TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+      if (tileEntity instanceof IWallTeleporterBlock) {
+        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
+        if (!teleporter.shouldIgnoreWT()) {
+          teleporter.connectToWallsAround();
+        }
+      }
+    }
   }
 
   public ItemStack[] items = new ItemStack[3];

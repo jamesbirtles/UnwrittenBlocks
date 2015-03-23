@@ -10,6 +10,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterWall;
 
 /**
  * Author: James Birtles
@@ -49,6 +50,7 @@ public class BlockWallTeleporterBase extends BlockContainer {
 
   @Override
   public void onBlockAdded(World world, int x, int y, int z) {
-    super.onBlockAdded(world, x, y, z);
+    TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
+    teleporterBase.connectToWallsAround();
   }
 }

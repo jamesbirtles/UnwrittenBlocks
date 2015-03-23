@@ -22,4 +22,20 @@ public class WallTeleporterNetwork {
       walls.add(wallTeleporterBlock);
     }
   }
+
+  public void refreshNetwork() {
+    base.setWTNetwork(new WallTeleporterNetwork(base));
+
+    for (IWallTeleporterBlock wall : walls) {
+      wall.setWTNetwork(null);
+    }
+
+    base.connectToWallsAround();
+
+    for (IWallTeleporterBlock wall : walls) {
+      if (!wall.shouldIgnoreWT()) {
+        wall.connectToWallsAround();
+      }
+    }
+  }
 }

@@ -6,8 +6,9 @@ import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNe
 /**
  * Author: James Birtles
  */
-public class TEWallTeleporter extends TileEntity implements IWallTeleporterBlock {
+public abstract class TEWallTeleporter extends TileEntity implements IWallTeleporterBlock {
   public WallTeleporterNetwork network;
+  public boolean ignoreWT;
 
   @Override
   public boolean hasWTNetwork() {
@@ -22,5 +23,15 @@ public class TEWallTeleporter extends TileEntity implements IWallTeleporterBlock
   @Override
   public void setWTNetwork(WallTeleporterNetwork wtNetwork) {
     network = wtNetwork;
+  }
+
+  @Override
+  public boolean shouldIgnoreWT() {
+    return ignoreWT;
+  }
+
+  @Override
+  public void setIgnoreWT(boolean ignore) {
+    ignoreWT = ignore;
   }
 }

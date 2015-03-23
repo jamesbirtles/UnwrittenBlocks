@@ -1,5 +1,6 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,15 +61,7 @@ public class BlockWallTeleporterWall extends BlockContainer {
   public void onBlockAdded(World world, int x, int y, int z) {
     // TODO: Should only do this on the server & sync connection stuff over.
     TEWallTeleporterWall wallTeleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-    for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-      TileEntity tileEntity = world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
-      if (tileEntity instanceof IWallTeleporterBlock) {
-        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
-        if (teleporter.hasWTNetwork() && teleporter.getWTNetwork() != wallTeleporterWall.getWTNetwork()) {
-          teleporter.getWTNetwork().add(wallTeleporterWall);
-        }
-      }
-    }
+    wallTeleporterWall.connectToWallsAround();
   }
 
   @Override
@@ -86,5 +79,13 @@ public class BlockWallTeleporterWall extends BlockContainer {
       }
     }
     return false;
+  }
+
+  @Override
+  public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+    teleporterWall.setIgnoreWT(true);
+    if (teleporterWall.hasWTNetwork()) teleporterWall.getWTNetwork().refreshNetwork();
+    super.breakBlock(world, x, y, z, block, meta);
   }
 }
