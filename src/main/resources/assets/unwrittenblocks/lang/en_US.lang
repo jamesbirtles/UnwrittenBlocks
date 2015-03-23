@@ -25,6 +25,7 @@ itemGroup.unwrittenblocks=Unwritten Blocks
 
 tile.darkInfuser.name=Dark Infuser
 tile.wallTeleporterBase.name=Wall Teleporter Base
+tile.wallTeleporterWall.name=Wall Teleporter Wall
 
 unwrittenblocks.text.infusedFrom=Infused from
 unwrittenblocks.text.armourType0=a Diamond Helmet

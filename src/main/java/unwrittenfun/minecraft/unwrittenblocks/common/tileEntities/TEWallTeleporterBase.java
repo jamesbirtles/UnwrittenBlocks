@@ -3,12 +3,21 @@ package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 
 /**
  * Author: James Birtles
  */
-public class TEWallTeleporterBase extends TileEntity implements IInventory {
+public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory {
+  public TEWallTeleporterBase() {
+    network = new WallTeleporterNetwork(this);
+  }
+
+  @Override
+  public boolean hasWTNetwork() {
+    return true;
+  }
+
   public ItemStack[] items = new ItemStack[3];
 
   @Override
@@ -69,10 +78,12 @@ public class TEWallTeleporterBase extends TileEntity implements IInventory {
   }
 
   @Override
-  public void openInventory() { }
+  public void openInventory() {
+  }
 
   @Override
-  public void closeInventory() { }
+  public void closeInventory() {
+  }
 
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack stack) {

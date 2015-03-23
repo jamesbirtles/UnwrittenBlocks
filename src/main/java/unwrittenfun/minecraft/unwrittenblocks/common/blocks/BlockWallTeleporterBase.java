@@ -3,9 +3,12 @@ package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 /**
@@ -21,12 +24,31 @@ public class BlockWallTeleporterBase extends BlockContainer {
   }
 
   @Override
-  public boolean isBlockNormalCube() {
-    return false;
+  public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+    return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
   }
 
   @Override
   public TileEntity createNewTileEntity(World world, int idk) {
     return new TEWallTeleporterBase();
+  }
+
+  @Override
+  public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+    for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+      TileEntity tileEntity = world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+      if (tileEntity instanceof IWallTeleporterBlock) {
+        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
+        if (teleporter.hasWTNetwork()) {
+          return false;
+        }
+      }
+    }
+    return super.canPlaceBlockAt(world, x, y, z);
+  }
+
+  @Override
+  public void onBlockAdded(World world, int x, int y, int z) {
+    super.onBlockAdded(world, x, y, z);
   }
 }
