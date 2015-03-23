@@ -1,14 +1,33 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
 
 /**
  * Author: James Birtles
  */
 public abstract class TEWallTeleporter extends TileEntity implements IWallTeleporterBlock {
   public WallTeleporterNetwork network;
-  public boolean ignoreWT;
+  public boolean ignoreWT = false;
+  public boolean loaded = false;
+  public ItemStack mask = new ItemStack(BlockRegister.wallTeleporterWall);
+
+  @Override
+  public void updateEntity() {
+    if (hasWorldObj() && !loaded) {
+      loaded = true;
+      onLoaded();
+    }
+  }
+
+  protected void onLoaded() {
+    connectToWallsAround();
+  }
 
   @Override
   public boolean hasWTNetwork() {

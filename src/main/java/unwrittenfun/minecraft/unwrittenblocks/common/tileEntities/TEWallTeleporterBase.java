@@ -1,18 +1,34 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIntegerMessageReceiver;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityRequestMessageReceiver;
 
 /**
  * Author: James Birtles
  */
-public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory {
+public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory, ITileEntityIntegerMessageReceiver, ITileEntityRequestMessageReceiver {
+
   public TEWallTeleporterBase() {
     network = new WallTeleporterNetwork(this);
+  }
+
+  @Override
+  protected void onLoaded() {
+    super.onLoaded();
+    if (worldObj.isRemote) {
+      NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
+    }
   }
 
   @Override
@@ -33,7 +49,25 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
     }
   }
 
-  public ItemStack[] items = new ItemStack[3];
+  @Override
+  public void receiveIntegerMessage(byte id, int value) {
+    switch (id) {
+      case 0: // Button packets
+        getWTNetwork().handleButton(value);
+        break;
+    }
+  }
+
+  @Override
+  public void receiveRequestMessage(byte id, EntityPlayerMP player) {
+    switch (id) {
+      case 0: // Destination Data
+        getWTNetwork().requestDestinationData(player);
+        break;
+    }
+  }
+
+  public ItemStack[] items = new ItemStack[2];
 
   @Override
   public int getSizeInventory() {
@@ -74,7 +108,7 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
 
   @Override
   public String getInventoryName() {
-    return "unwrittenblocks.wallTeleporterBase.name";
+    return StatCollector.translateToLocal("unwrittenblocks.wallTeleporterBase.name");
   }
 
   @Override
@@ -107,5 +141,17 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
 
   public void onInventoryChanged() {
     // TODO: Implement
+  }
+
+  @Override
+  public void writeToNBT(NBTTagCompound compound) {
+    network.writeToNBT(compound);
+    super.writeToNBT(compound);
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound compound) {
+    network.readFromNBT(compound);
+    super.readFromNBT(compound);
   }
 }

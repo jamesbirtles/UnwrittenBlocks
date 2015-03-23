@@ -5,7 +5,9 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIntegerMessageReceiver;
 
@@ -23,6 +25,12 @@ public class TileEntityIntegerHandler implements IMessageHandler<TileEntityInteg
         if (tileEntity instanceof ITileEntityIntegerMessageReceiver) {
           ((ITileEntityIntegerMessageReceiver) tileEntity).receiveIntegerMessage(message.id, message.value);
         }
+      }
+    } else if (ctx.side == Side.SERVER) {
+      World world = MinecraftServer.getServer().worldServerForDimension(message.worldId);
+      TileEntity tileEntity = world.getTileEntity(message.x, message.y, message.z);
+      if (tileEntity instanceof ITileEntityIntegerMessageReceiver) {
+        ((ITileEntityIntegerMessageReceiver) tileEntity).receiveIntegerMessage(message.id, message.value);
       }
     }
     return null;

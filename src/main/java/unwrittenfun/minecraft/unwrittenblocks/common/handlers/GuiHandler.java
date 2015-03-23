@@ -5,8 +5,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerWallTeleporter;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 /**
  * Project: UnwrittenBlocks
@@ -18,6 +22,11 @@ public class GuiHandler implements IGuiHandler {
   public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
     TileEntity tileEntity = world.getTileEntity(x, y, z);
     switch (id) {
+      case 0: // Wall Teleporter
+        if (tileEntity instanceof IWallTeleporterBlock) {
+          return new ContainerWallTeleporter(player.inventory, (TEWallTeleporterBase) tileEntity);
+        }
+        break;
       case 1: // Dark Infuser
         if (tileEntity instanceof TEDarkInfuser) {
           return new ContainerDarkInfuser(player.inventory, (TEDarkInfuser) tileEntity);
@@ -31,6 +40,11 @@ public class GuiHandler implements IGuiHandler {
   public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
     TileEntity tileEntity = world.getTileEntity(x, y, z);
     switch (id) {
+      case 0: // Wall Teleporter
+        if (tileEntity instanceof IWallTeleporterBlock) {
+          return new GuiWallTeleporter(player.inventory, (TEWallTeleporterBase) tileEntity);
+        }
+        break;
       case 1: // Dark Infuser
         if (tileEntity instanceof TEDarkInfuser) {
           return new GuiDarkInfuser(player.inventory, (TEDarkInfuser) tileEntity);

@@ -19,7 +19,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
  */
 public class ContainerDarkInfuser extends Container {
   public InventoryPlayer playerInventory;
-  public TEDarkInfuser   darkInfuser;
+  public TEDarkInfuser darkInfuser;
   private int oldInfusingProgress = 0;
 
   public ContainerDarkInfuser(InventoryPlayer playerInventory, TEDarkInfuser darkInfuser) {
@@ -58,10 +58,7 @@ public class ContainerDarkInfuser extends Container {
 
     if (getInfusingProgress() != oldInfusingProgress) {
       oldInfusingProgress = getInfusingProgress();
-      NetworkRegister.wrapper.sendTo(TileEntityIntegerMessage
-                                         .messageFrom(darkInfuser.getWorldObj(), darkInfuser.xCoord, darkInfuser.yCoord,
-                                                      darkInfuser.zCoord, 0, oldInfusingProgress),
-                                     (EntityPlayerMP) playerInventory.player);
+      NetworkRegister.wrapper.sendTo(TileEntityIntegerMessage.messageFrom(darkInfuser.getWorldObj(), darkInfuser.xCoord, darkInfuser.yCoord, darkInfuser.zCoord, 0, oldInfusingProgress), (EntityPlayerMP) playerInventory.player);
     }
   }
 
@@ -86,8 +83,6 @@ public class ContainerDarkInfuser extends Container {
   }
 
   private int getInfusingProgress() {
-    return darkInfuser.infuserTicks > darkInfuser.infuserMaxTicks ? 0 : (int) (50f *
-                                                                               (((float) darkInfuser.infuserTicks /
-                                                                                 darkInfuser.infuserMaxTicks)));
+    return darkInfuser.infuserTicks > darkInfuser.infuserMaxTicks ? 0 : (int) (50f * (((float) darkInfuser.infuserTicks / darkInfuser.infuserMaxTicks)));
   }
 }

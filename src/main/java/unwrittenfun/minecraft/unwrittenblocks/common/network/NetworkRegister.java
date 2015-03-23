@@ -4,14 +4,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.handlers.TileEntityIOSideHandler;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.handlers.TileEntityIntegerHandler;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.handlers.TileEntityRequestHandler;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.handlers.TileEntityStackHandler;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIOSideMessage;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.handlers.*;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.*;
 
 /**
  * Project: UnwrittenBlocks
@@ -25,7 +19,10 @@ public class NetworkRegister {
     wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
     wrapper.registerMessage(TileEntityIntegerHandler.class, TileEntityIntegerMessage.class, 0, Side.CLIENT);
     wrapper.registerMessage(TileEntityStackHandler.class, TileEntityStackMessage.class, 1, Side.CLIENT);
+    wrapper.registerMessage(TeleporterDestinationHandler.class, TeleporterDestinationMessage.class, 5, Side.CLIENT);
+
     wrapper.registerMessage(TileEntityRequestHandler.class, TileEntityRequestMessage.class, 2, Side.SERVER);
     wrapper.registerMessage(TileEntityIOSideHandler.class, TileEntityIOSideMessage.class, 3, Side.SERVER);
+    wrapper.registerMessage(TileEntityIntegerHandler.class, TileEntityIntegerMessage.class, 4, Side.SERVER);
   }
 }

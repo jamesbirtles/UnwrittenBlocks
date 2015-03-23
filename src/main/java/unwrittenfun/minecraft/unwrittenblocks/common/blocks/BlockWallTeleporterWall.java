@@ -1,9 +1,12 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
@@ -30,7 +33,10 @@ public class BlockWallTeleporterWall extends BlockContainer {
 
   @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-    return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+    if (teleporterWall != null && teleporterWall.hasWTNetwork() && teleporterWall.getWTNetwork().hasDestination()) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+    return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+//    return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
   }
 
   @Override
@@ -58,24 +64,28 @@ public class BlockWallTeleporterWall extends BlockContainer {
   }
 
   @Override
-  public void onBlockAdded(World world, int x, int y, int z) {
-    // TODO: Should only do this on the server & sync connection stuff over.
-    TEWallTeleporterWall wallTeleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-    wallTeleporterWall.connectToWallsAround();
-  }
-
-  @Override
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
     if (!world.isRemote) {
-      TEWallTeleporterWall wallTeleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-      if (wallTeleporterWall.hasWTNetwork()) {
-        WallTeleporterNetwork network = wallTeleporterWall.getWTNetwork();
-        player.addChatComponentMessage(new ChatComponentText(""));
-        player.addChatComponentMessage(new ChatComponentText("Connected Network: " + network.hashCode()));
-        player.addChatComponentMessage(new ChatComponentText("Number of walls: " + network.walls.size()));
-        player.addChatComponentMessage(new ChatComponentText("Base location: (" + network.base.xCoord + ", " + network.base.yCoord + ", " + network.base.zCoord + ")"));
+      TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+      if (player.isSneaking()) {
+        if (player.getHeldItem() == null) {
+          if (teleporterWall.hasWTNetwork()) {
+            WallTeleporterNetwork network = teleporterWall.getWTNetwork();
+            player.addChatComponentMessage(new ChatComponentText(""));
+            player.addChatComponentMessage(new ChatComponentText("Connected Network: " + network.hashCode()));
+            player.addChatComponentMessage(new ChatComponentText("Number of walls: " + network.walls.size()));
+            player.addChatComponentMessage(new ChatComponentText("Base location: (" + network.base.xCoord + ", " + network.base.yCoord + ", " + network.base.zCoord + ")"));
+          } else {
+            player.addChatComponentMessage(new ChatComponentText("No network connected."));
+          }
+          return true;
+        }
       } else {
-        player.addChatComponentMessage(new ChatComponentText("No network connected."));
+        if (teleporterWall.hasWTNetwork()) {
+          TileEntity base = teleporterWall.getWTNetwork().base;
+          FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, base.xCoord, base.yCoord, base.zCoord);
+          return true;
+        }
       }
     }
     return false;
@@ -87,5 +97,16 @@ public class BlockWallTeleporterWall extends BlockContainer {
     teleporterWall.setIgnoreWT(true);
     if (teleporterWall.hasWTNetwork()) teleporterWall.getWTNetwork().refreshNetwork();
     super.breakBlock(world, x, y, z, block, meta);
+  }
+
+  @Override
+  public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+    if (!world.isRemote) {
+      if (entity instanceof EntityPlayerMP) {
+        TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+        if (teleporterWall.hasWTNetwork()) teleporterWall.getWTNetwork().playerCollided(world, (EntityPlayerMP) entity);
+      }
+    }
+    super.onEntityCollidedWithBlock(world, x, y, z, entity);
   }
 }

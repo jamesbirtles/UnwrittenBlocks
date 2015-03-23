@@ -27,6 +27,8 @@ tile.darkInfuser.name=Dark Infuser
 tile.wallTeleporterBase.name=Wall Teleporter Base
 tile.wallTeleporterWall.name=Wall Teleporter Wall
 
+unwrittenblocks.wallTeleporterBase.name=Wall Teleporter
+
 unwrittenblocks.text.infusedFrom=Infused from
 unwrittenblocks.text.armourType0=a Diamond Helmet
 unwrittenblocks.text.armourType1=a Diamond Chestplate
@@ -46,7 +48,7 @@ unwrittenblocks.text.info_upgradeBasic=§6Crafting Component
 unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of\n§6Machines by 2ⁿ\nStacks up to 4
 
 unwrittenblocks.gui.sneakForHelp=Sneak for Help
-unwrittenblocks.gui.darkInfuser.sneakHelp=Mouse over a slot
+unwrittenblocks.gui.sneakHelp=Mouse over a slot
 
 unwrittenblocks.help.input=Input
 unwrittenblocks.help.output=Output

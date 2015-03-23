@@ -14,17 +14,13 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
-import java.util.ArrayList;
-
 /**
  * Project: UnwrittenBlocks
  * Author: UnwrittenFun
  * Created: 06/11/2014.
  */
 public class GuiDarkInfuser extends GuiUnwrittenBlocks {
-  public static ResourceLocation    texture  =
-      new ResourceLocation(ModInfo.RESOURCE_LOCATION, "textures/gui/darkInfuserGui.png");
-  public static ArrayList<HelpItem> helpList = new ArrayList<HelpItem>();
+  public static ResourceLocation texture = new ResourceLocation(ModInfo.RESOURCE_LOCATION, "textures/gui/darkInfuserGui.png");
 
   static {
     helpList.add(new HelpItem("unwrittenblocks.help.input", 44, 36, 16, 16));
@@ -40,7 +36,7 @@ public class GuiDarkInfuser extends GuiUnwrittenBlocks {
   }
 
   public InventoryPlayer playerInventory;
-  public TEDarkInfuser   darkInfuser;
+  public TEDarkInfuser darkInfuser;
 
   public GuiDarkInfuser(InventoryPlayer playerInventory, TEDarkInfuser darkInfuser) {
     super(new ContainerDarkInfuser(playerInventory, darkInfuser));
@@ -63,15 +59,14 @@ public class GuiDarkInfuser extends GuiUnwrittenBlocks {
     fontRendererObj.drawString(darkInfuser.getInventoryName(), 28, 62, 0x373737);
 
     if (GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak)) {
-      fontRendererObj
-          .drawString(StatCollector.translateToLocal("unwrittenblocks.gui.darkInfuser.sneakHelp"), 28, 72, 0x6a6a6a);
+      fontRendererObj.drawString(StatCollector.translateToLocal("unwrittenblocks.gui.sneakHelp"), 28, 72, 0x6a6a6a);
     } else {
       fontRendererObj.drawString(StatCollector.translateToLocal("unwrittenblocks.gui.sneakForHelp"), 28, 72, 0x6a6a6a);
     }
 
     if (darkInfuser.getSpeedMultiplier() > 1) {
       String mult = "x" + darkInfuser.getSpeedMultiplier();
-      fontRendererObj.drawString(mult, 160 - fontRendererObj.getStringWidth(mult)/2, 28, 0x6a6a6a);
+      fontRendererObj.drawString(mult, 160 - fontRendererObj.getStringWidth(mult) / 2, 28, 0x6a6a6a);
     }
 
     GL11.glColor4f(1, 1, 1, 1);
@@ -112,21 +107,21 @@ public class GuiDarkInfuser extends GuiUnwrittenBlocks {
 
     buttonList.add(
         new GuiSidesButton(0, ForgeDirection.DOWN.ordinal(), darkInfuser.ioSides[ForgeDirection.DOWN.ordinal()],
-                           guiLeft + 43, guiTop + 7));
+            guiLeft + 43, guiTop + 7));
     buttonList.add(new GuiSidesButton(1, ForgeDirection.UP.ordinal(), darkInfuser.ioSides[ForgeDirection.UP.ordinal()],
-                                      guiLeft + 25, guiTop + 7));
+        guiLeft + 25, guiTop + 7));
     buttonList.add(
         new GuiSidesButton(2, ForgeDirection.NORTH.ordinal(), darkInfuser.ioSides[ForgeDirection.NORTH.ordinal()],
-                           guiLeft + 7, guiTop + 7));
+            guiLeft + 7, guiTop + 7));
     buttonList.add(
         new GuiSidesButton(3, ForgeDirection.EAST.ordinal(), darkInfuser.ioSides[ForgeDirection.EAST.ordinal()],
-                           guiLeft + 7, guiTop + 25));
+            guiLeft + 7, guiTop + 25));
     buttonList.add(
         new GuiSidesButton(4, ForgeDirection.SOUTH.ordinal(), darkInfuser.ioSides[ForgeDirection.SOUTH.ordinal()],
-                           guiLeft + 7, guiTop + 43));
+            guiLeft + 7, guiTop + 43));
     buttonList.add(
         new GuiSidesButton(5, ForgeDirection.WEST.ordinal(), darkInfuser.ioSides[ForgeDirection.WEST.ordinal()],
-                           guiLeft + 7, guiTop + 61));
+            guiLeft + 7, guiTop + 61));
   }
 
   @Override

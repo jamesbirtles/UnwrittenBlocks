@@ -1,5 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 
 /**
@@ -9,12 +11,14 @@ public interface IWallTeleporterBlock {
 
   /**
    * Set to true when block is being broken (to exclude it from the network refresh)
+   *
    * @return Should ignore when adding to network
    */
   public boolean shouldIgnoreWT();
 
   /**
    * Will be called on breakBlock to exclude it from the network refresh
+   *
    * @param ignore New value for ignore
    */
   public void setIgnoreWT(boolean ignore);
