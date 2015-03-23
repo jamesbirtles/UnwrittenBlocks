@@ -3,6 +3,6 @@ build
 out
 eclipse
 *.iws
-.ipr
-.iml
-*changelog.txt
+*.ipr
+*.iml
+libs/
