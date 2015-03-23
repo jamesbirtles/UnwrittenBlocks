@@ -87,11 +87,7 @@ public abstract class TEConfigurableIO extends TileEntity
 
   @Override
   public ItemStack getStackInSlot(int slot) {
-    if (slot < items.length) {
-      return items[slot];
-    }
-
-    return null;
+    return slot < getSizeInventory() ? items[slot] : null;
   }
 
   @Override
