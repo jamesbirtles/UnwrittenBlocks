@@ -2,8 +2,6 @@ package unwrittenfun.minecraft.unwrittenblocks.common.multiblock;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -12,13 +10,10 @@ import net.minecraft.network.play.server.S07PacketRespawn;
 import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TeleporterDestinationMessage;
@@ -37,6 +32,8 @@ public class WallTeleporterNetwork {
   public String destinationName;
   public int destinationWorldId;
   public float[] destinationData;
+  public int fuel = 0;
+  public int cooldown = 0;
 
   public WallTeleporterNetwork(IWallTeleporterBlock base) {
     if (base instanceof TEWallTeleporterBase) this.base = (TEWallTeleporterBase) base;
@@ -74,9 +71,14 @@ public class WallTeleporterNetwork {
   }
 
   public void playerCollided(World world, EntityPlayerMP player) {
-    if (hasDestination()) {
-      if (destinationWorldId != player.worldObj.provider.dimensionId) transferPlayerToDimension(player, destinationWorldId);
+    if (hasDestination() && fuel > 0 && cooldown == 0) {
+      if (destinationWorldId != player.worldObj.provider.dimensionId)
+        transferPlayerToDimension(player, destinationWorldId);
       player.playerNetServerHandler.setPlayerLocation(destinationData[0], destinationData[1] + 0.5f, destinationData[2], destinationData[3], player.rotationPitch);
+      fuel--;
+
+      if (fuel == 0) base.onInventoryChanged();
+      cooldown = 10;
     }
   }
 
@@ -128,6 +130,8 @@ public class WallTeleporterNetwork {
       compound.setFloat("destinationData2", destinationData[2]);
       compound.setFloat("destinationData3", destinationData[3]);
     }
+
+    compound.setInteger("fuel", fuel);
   }
 
   public void readFromNBT(NBTTagCompound compound) {
@@ -140,11 +144,11 @@ public class WallTeleporterNetwork {
       destinationData[2] = compound.getFloat("destinationData2");
       destinationData[3] = compound.getFloat("destinationData3");
     }
+    fuel = compound.getInteger("fuel");
   }
 
   // Copy of vanilla code I needed to fix
-  public void transferPlayerToDimension(EntityPlayerMP p_72356_1_, int p_72356_2_)
-  {
+  public void transferPlayerToDimension(EntityPlayerMP p_72356_1_, int p_72356_2_) {
     int j = p_72356_1_.dimension;
     WorldServer worldserver = MinecraftServer.getServer().worldServerForDimension(p_72356_1_.dimension);
     p_72356_1_.dimension = p_72356_2_;
@@ -160,16 +164,14 @@ public class WallTeleporterNetwork {
     MinecraftServer.getServer().getConfigurationManager().syncPlayerInventory(p_72356_1_);
     Iterator iterator = p_72356_1_.getActivePotionEffects().iterator();
 
-    while (iterator.hasNext())
-    {
-      PotionEffect potioneffect = (PotionEffect)iterator.next();
+    while (iterator.hasNext()) {
+      PotionEffect potioneffect = (PotionEffect) iterator.next();
       p_72356_1_.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(p_72356_1_.getEntityId(), potioneffect));
     }
     FMLCommonHandler.instance().firePlayerChangedDimensionEvent(p_72356_1_, j, p_72356_2_);
   }
 
-  public void transferEntityToWorld(Entity p_82448_1_, int p_82448_2_, WorldServer p_82448_3_, WorldServer p_82448_4_)
-  {
+  public void transferEntityToWorld(Entity p_82448_1_, int p_82448_2_, WorldServer p_82448_3_, WorldServer p_82448_4_) {
     WorldProvider pOld = p_82448_3_.provider;
     WorldProvider pNew = p_82448_4_.provider;
     double moveFactor = pOld.getMovementFactor() / pNew.getMovementFactor();
@@ -185,10 +187,9 @@ public class WallTeleporterNetwork {
 
     p_82448_3_.theProfiler.startSection("placing");
     d0 = (double) MathHelper.clamp_int((int) d0, -29999872, 29999872);
-    d1 = (double)MathHelper.clamp_int((int)d1, -29999872, 29999872);
+    d1 = (double) MathHelper.clamp_int((int) d1, -29999872, 29999872);
 
-    if (p_82448_1_.isEntityAlive())
-    {
+    if (p_82448_1_.isEntityAlive()) {
       p_82448_1_.setLocationAndAngles(d0, p_82448_1_.posY, d1, p_82448_1_.rotationYaw, p_82448_1_.rotationPitch);
       p_82448_4_.spawnEntityInWorld(p_82448_1_);
       p_82448_4_.updateEntityWithOptionalForce(p_82448_1_, false);
@@ -197,5 +198,9 @@ public class WallTeleporterNetwork {
     p_82448_3_.theProfiler.endSection();
 
     p_82448_1_.setWorld(p_82448_4_);
+  }
+
+  public void fillFuel() {
+    fuel = 16;
   }
 }

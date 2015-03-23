@@ -2,12 +2,15 @@ package unwrittenfun.minecraft.unwrittenblocks.common.tileEntities;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
@@ -21,6 +24,15 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
 
   public TEWallTeleporterBase() {
     network = new WallTeleporterNetwork(this);
+  }
+
+  @Override
+  public void updateEntity() {
+    super.updateEntity();
+
+    if (getWTNetwork().cooldown > 0) {
+      getWTNetwork().cooldown--;
+    }
   }
 
   @Override
@@ -140,18 +152,27 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   }
 
   public void onInventoryChanged() {
-    // TODO: Implement
+    if (getWTNetwork().fuel == 0) {
+      ItemStack fuelStack = getStackInSlot(1);
+      if (fuelStack != null && fuelStack.isItemEqual(new ItemStack(Items.ender_pearl))) {
+        fuelStack.stackSize--;
+        if (fuelStack.stackSize < 1) setInventorySlotContents(1, null);
+        getWTNetwork().fillFuel();
+      }
+    }
   }
 
   @Override
   public void writeToNBT(NBTTagCompound compound) {
     network.writeToNBT(compound);
+    InventoryHelpers.writeInventoryToNBT(compound, this);
     super.writeToNBT(compound);
   }
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
     network.readFromNBT(compound);
+    InventoryHelpers.readInventoryFromNBT(compound, this);
     super.readFromNBT(compound);
   }
 }

@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
@@ -32,11 +33,20 @@ public class BlockWallTeleporterWall extends BlockContainer {
   }
 
   @Override
+  public boolean isOpaqueCube() {
+    return false;
+  }
+
+  @Override
+  public boolean renderAsNormalBlock() {
+    return false;
+  }
+
+  @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
     TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
     if (teleporterWall != null && teleporterWall.hasWTNetwork() && teleporterWall.getWTNetwork().hasDestination()) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
     return super.getCollisionBoundingBoxFromPool(world, x, y, z);
-//    return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
   }
 
   @Override

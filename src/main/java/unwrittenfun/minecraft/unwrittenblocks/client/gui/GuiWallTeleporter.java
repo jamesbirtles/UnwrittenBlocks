@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -13,6 +14,9 @@ import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerWallTel
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: James Birtles
@@ -53,6 +57,22 @@ public class GuiWallTeleporter extends GuiUnwrittenBlocks {
       fontRendererObj.drawString(worldName, 88 - fontRendererObj.getStringWidth(worldName)/2, 15, 0x404040);
       fontRendererObj.drawString(coords, 88 - fontRendererObj.getStringWidth(coords)/2, 27, 0x404040);
       fontRendererObj.drawString(yaw, 88 - fontRendererObj.getStringWidth(yaw)/2, 39, 0x404040);
+    }
+
+    GL11.glColor4f(1, 1, 1, 1);
+    Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+    int fuel = teleporter.getWTNetwork().fuel;
+    drawTexturedModalRect(8, 8 + (48 - fuel * 3), xSize + 16, 0, 16, fuel * 3);
+    drawTexturedModalRect(8, 8, xSize, 0, 16, 48);
+
+    if (mx > guiLeft + 8 && mx < guiLeft + 8 + 16 && my > guiTop + 8 && my < guiTop + 8 + 48) {
+      ArrayList<String> lines = new ArrayList<String>();
+      lines.add(EnumChatFormatting.GOLD + "Trips: " + fuel + "/16");
+      if (GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak)) {
+        lines.add(EnumChatFormatting.DARK_PURPLE + "1 Ender Pearl");
+        lines.add(EnumChatFormatting.DARK_PURPLE + "-> 16 Trips");
+      }
+      drawTooltip(lines, mx - guiLeft, my - guiTop);
     }
   }
 

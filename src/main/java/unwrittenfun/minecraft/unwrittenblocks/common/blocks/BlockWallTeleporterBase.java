@@ -1,6 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -8,10 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.ItemHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -28,11 +32,20 @@ public class BlockWallTeleporterBase extends BlockContainer {
   }
 
   @Override
+  public boolean isOpaqueCube() {
+    return false;
+  }
+
+  @Override
+  public boolean renderAsNormalBlock() {
+    return false;
+  }
+
+  @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
     TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
     if (teleporterBase != null && teleporterBase.getWTNetwork().hasDestination()) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
     return super.getCollisionBoundingBoxFromPool(world, x, y, z);
-//    return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
   }
 
   @Override
@@ -69,5 +82,13 @@ public class BlockWallTeleporterBase extends BlockContainer {
       }
     }
     super.onEntityCollidedWithBlock(world, x, y, z, entity);
+  }
+
+  @Override
+  public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    if (!world.isRemote) {
+      InventoryHelpers.dropInventory(world, x, y, z);
+    }
+    super.breakBlock(world, x, y, z, block, meta);
   }
 }
