@@ -24,5 +24,6 @@ public class NetworkRegister {
     wrapper.registerMessage(TileEntityRequestHandler.class, TileEntityRequestMessage.class, 2, Side.SERVER);
     wrapper.registerMessage(TileEntityIOSideHandler.class, TileEntityIOSideMessage.class, 3, Side.SERVER);
     wrapper.registerMessage(TileEntityIntegerHandler.class, TileEntityIntegerMessage.class, 4, Side.SERVER);
+    wrapper.registerMessage(TileEntityStackHandler.class, TileEntityStackMessage.class, 6, Side.SERVER);
   }
 }

@@ -5,7 +5,9 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityStackMessageReceiver;
 
@@ -23,6 +25,12 @@ public class TileEntityStackHandler implements IMessageHandler<TileEntityStackMe
         if (tileEntity instanceof ITileEntityStackMessageReceiver) {
           ((ITileEntityStackMessageReceiver) tileEntity).receiveStackMessage(message.id, message.stack);
         }
+      }
+    } else if (ctx.side == Side.SERVER) {
+      World world = MinecraftServer.getServer().worldServerForDimension(message.worldId);
+      TileEntity tileEntity = world.getTileEntity(message.x, message.y, message.z);
+      if (tileEntity instanceof ITileEntityStackMessageReceiver) {
+        ((ITileEntityStackMessageReceiver) tileEntity).receiveStackMessage(message.id, message.stack);
       }
     }
     return null;

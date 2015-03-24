@@ -20,7 +20,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEnti
 /**
  * Author: James Birtles
  */
-public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory, ITileEntityIntegerMessageReceiver, ITileEntityRequestMessageReceiver {
+public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory, ITileEntityIntegerMessageReceiver {
 
   public TEWallTeleporterBase() {
     network = new WallTeleporterNetwork(this);
@@ -39,8 +39,8 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   protected void onLoaded() {
     super.onLoaded();
     if (worldObj.isRemote) { // If on client, request info.
-      NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
       NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 1));
+      NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 2));
     }
   }
 
@@ -77,12 +77,13 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   @Override
   public void receiveRequestMessage(byte id, EntityPlayerMP player) {
     switch (id) {
-      case 0: // Destination Data
+      case 1: // Destination Data
         getWTNetwork().requestDestinationData(player);
         break;
-      case 1: // Fuel
+      case 2: // Fuel
         getWTNetwork().requestFuel(player);
         break;
+      default: super.receiveRequestMessage(id, player);
     }
   }
 

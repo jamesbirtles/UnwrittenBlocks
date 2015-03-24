@@ -1,5 +1,6 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.network.messages;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,12 +29,10 @@ public class TileEntityStackMessage extends TileEntityCoordsMessage {
   @Override
   public void fromBytes(ByteBuf buf) {
     super.fromBytes(buf);
-    int id = buf.readInt();
+    boolean hasStack = buf.readBoolean();
 
-    if (id != -1) {
-      int meta = buf.readInt();
-      int size = buf.readInt();
-      stack = new ItemStack(Item.getItemById(id), size, meta);
+    if (hasStack) {
+      stack = ByteBufUtils.readItemStack(buf);
     }
   }
 
@@ -41,11 +40,10 @@ public class TileEntityStackMessage extends TileEntityCoordsMessage {
   public void toBytes(ByteBuf buf) {
     super.toBytes(buf);
     if (stack == null) {
-      buf.writeInt(-1);
+      buf.writeBoolean(false);
     } else {
-      buf.writeInt(Item.getIdFromItem(stack.getItem()));
-      buf.writeInt(stack.getItemDamage());
-      buf.writeInt(stack.stackSize);
+      buf.writeBoolean(true);
+      ByteBufUtils.writeItemStack(buf, stack);
     }
   }
 }

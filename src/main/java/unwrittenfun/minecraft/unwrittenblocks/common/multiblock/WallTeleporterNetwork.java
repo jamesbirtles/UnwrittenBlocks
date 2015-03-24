@@ -158,7 +158,7 @@ public class WallTeleporterNetwork {
 
   public void setFuel(int fuel) {
     this.fuel = fuel;
-    if (!base.getWorldObj().isRemote) {
+    if (base.hasWorldObj() && !base.getWorldObj().isRemote) {
       NetworkRegister.wrapper.sendToDimension(getFuelPacket(), base.getWorldObj().provider.dimensionId);
     }
   }

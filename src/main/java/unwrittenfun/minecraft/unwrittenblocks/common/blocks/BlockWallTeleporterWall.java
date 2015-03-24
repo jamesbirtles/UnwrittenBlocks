@@ -7,9 +7,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -17,6 +20,8 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterWall;
@@ -31,6 +36,18 @@ public class BlockWallTeleporterWall extends BlockContainer {
     setBlockName(key);
     setBlockTextureName(ModInfo.RESOURCE_LOCATION + ":" + key);
     setHardness(2F);
+  }
+
+  @Override
+  public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+    ItemStack mask = teleporterWall.mask;
+    if (mask != null) {
+      Block block = Block.getBlockFromItem(mask.getItem());
+      return block.getIcon(side, mask.getItemDamage());
+    }
+
+    return super.getIcon(world, x, y, z, side);
   }
 
   @Override
@@ -78,10 +95,17 @@ public class BlockWallTeleporterWall extends BlockContainer {
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
     TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
 
-    if (!player.isSneaking() && teleporterWall.hasWTNetwork() && (player.getHeldItem() == null || !player.getHeldItem().isItemEqual(ItemRegister.wallStack))) {
+    if (!player.isSneaking() && teleporterWall.hasWTNetwork() && (player.getHeldItem() == null || !(player.getHeldItem().getItem() instanceof ItemBlock))) {
       TileEntity base = teleporterWall.getWTNetwork().base;
       FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, base.xCoord, base.yCoord, base.zCoord);
       return true;
+    }
+
+    if (player.getHeldItem().getItem() instanceof ItemBlock) {
+      if (!(player.getHeldItem().isItemEqual(ItemRegister.wallStack) && teleporterWall.mask.isItemEqual(ItemRegister.wallStack))) {
+        if (!world.isRemote) teleporterWall.setMask(player.getHeldItem().copy());
+        return true;
+      }
     }
 
     return false;

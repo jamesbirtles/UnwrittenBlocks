@@ -7,16 +7,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
-import unwrittenfun.minecraft.unwrittenblocks.common.helpers.ItemHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -33,6 +37,18 @@ public class BlockWallTeleporterBase extends BlockContainer {
   }
 
   @Override
+  public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+    TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
+    ItemStack mask = teleporterBase.mask;
+    if (mask != null) {
+      Block block = Block.getBlockFromItem(mask.getItem());
+      return block.getIcon(side, mask.getItemDamage());
+    }
+
+    return super.getIcon(world, x, y, z, side);
+  }
+
+  @Override
   public boolean isOpaqueCube() {
     return false;
   }
@@ -45,7 +61,8 @@ public class BlockWallTeleporterBase extends BlockContainer {
   @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
     TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
-    if (teleporterBase != null && teleporterBase.getWTNetwork().hasDestination() && teleporterBase.getWTNetwork().fuel > 0) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+    if (teleporterBase != null && teleporterBase.getWTNetwork().hasDestination() && teleporterBase.getWTNetwork().fuel > 0)
+      return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
     return super.getCollisionBoundingBoxFromPool(world, x, y, z);
   }
 
@@ -70,10 +87,20 @@ public class BlockWallTeleporterBase extends BlockContainer {
 
   @Override
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-    if (!player.isSneaking() && (player.getHeldItem() == null || !player.getHeldItem().isItemEqual(ItemRegister.wallStack))) {
+    if (!player.isSneaking() && player.getHeldItem() == null) { // TODO: Also check if mask is locked
       FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, x, y, z);
       return true;
     }
+
+    if (player.getHeldItem().getItem() instanceof ItemBlock) {
+      TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
+
+      if (!(player.getHeldItem().isItemEqual(ItemRegister.wallStack) && teleporterBase.mask.isItemEqual(ItemRegister.wallStack))) {
+        if (!world.isRemote) teleporterBase.setMask(player.getHeldItem().copy());
+        return true;
+      }
+    }
+
     return false;
   }
 

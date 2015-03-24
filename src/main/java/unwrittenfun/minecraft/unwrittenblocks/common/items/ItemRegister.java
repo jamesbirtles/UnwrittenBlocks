@@ -17,7 +17,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
 public class ItemRegister {
   public static final ItemArmor.ArmorMaterial darkInfusedArmourMaterial =
-      EnumHelper.addArmorMaterial("DARK_INFUSED", 50, new int[] {4, 10, 8, 4}, 50);
+      EnumHelper.addArmorMaterial("DARK_INFUSED", 50, new int[]{4, 10, 8, 4}, 50);
   public static final Item.ToolMaterial       darkInfusedToolMaterial   =
       EnumHelper.addToolMaterial("DARK", 3, 5000, 25.0F, 6.0F, 50);
 
@@ -59,6 +59,7 @@ public class ItemRegister {
 
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
+  public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterWall);
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
