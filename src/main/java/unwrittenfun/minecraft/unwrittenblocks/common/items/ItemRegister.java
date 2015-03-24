@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import sun.org.mozilla.javascript.internal.ast.Block;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
@@ -55,6 +56,9 @@ public class ItemRegister {
   public static ItemUpgrade        upgrade;
   public static ItemPleatherStrips pleatherStrips;
   public static ItemPleatherBulb   pleatherBulb;
+
+  // For comparing
+  public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);

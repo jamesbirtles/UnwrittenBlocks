@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
@@ -75,29 +76,14 @@ public class BlockWallTeleporterWall extends BlockContainer {
 
   @Override
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-    if (!world.isRemote) {
-      TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-      if (player.isSneaking()) {
-        if (player.getHeldItem() == null) {
-          if (teleporterWall.hasWTNetwork()) {
-            WallTeleporterNetwork network = teleporterWall.getWTNetwork();
-            player.addChatComponentMessage(new ChatComponentText(""));
-            player.addChatComponentMessage(new ChatComponentText("Connected Network: " + network.hashCode()));
-            player.addChatComponentMessage(new ChatComponentText("Number of walls: " + network.walls.size()));
-            player.addChatComponentMessage(new ChatComponentText("Base location: (" + network.base.xCoord + ", " + network.base.yCoord + ", " + network.base.zCoord + ")"));
-          } else {
-            player.addChatComponentMessage(new ChatComponentText("No network connected."));
-          }
-          return true;
-        }
-      } else {
-        if (teleporterWall.hasWTNetwork()) {
-          TileEntity base = teleporterWall.getWTNetwork().base;
-          FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, base.xCoord, base.yCoord, base.zCoord);
-          return true;
-        }
-      }
+    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
+
+    if (!player.isSneaking() && teleporterWall.hasWTNetwork() && (player.getHeldItem() == null || !player.getHeldItem().isItemEqual(ItemRegister.wallStack))) {
+      TileEntity base = teleporterWall.getWTNetwork().base;
+      FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, base.xCoord, base.yCoord, base.zCoord);
+      return true;
     }
+
     return false;
   }
 

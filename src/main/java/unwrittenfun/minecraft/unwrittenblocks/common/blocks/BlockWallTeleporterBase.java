@@ -16,6 +16,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.helpers.ItemHelpers;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -69,8 +70,11 @@ public class BlockWallTeleporterBase extends BlockContainer {
 
   @Override
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-    FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, x, y, z);
-    return true;
+    if (!player.isSneaking() && (player.getHeldItem() == null || !player.getHeldItem().isItemEqual(ItemRegister.wallStack))) {
+      FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, x, y, z);
+      return true;
+    }
+    return false;
   }
 
   @Override
