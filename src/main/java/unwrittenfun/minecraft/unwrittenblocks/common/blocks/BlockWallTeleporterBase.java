@@ -44,7 +44,7 @@ public class BlockWallTeleporterBase extends BlockContainer {
   @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
     TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
-    if (teleporterBase != null && teleporterBase.getWTNetwork().hasDestination()) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+    if (teleporterBase != null && teleporterBase.getWTNetwork().hasDestination() && teleporterBase.getWTNetwork().fuel > 0) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
     return super.getCollisionBoundingBoxFromPool(world, x, y, z);
   }
 

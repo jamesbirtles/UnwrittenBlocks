@@ -38,8 +38,9 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   @Override
   protected void onLoaded() {
     super.onLoaded();
-    if (worldObj.isRemote) {
+    if (worldObj.isRemote) { // If on client, request info.
       NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
+      NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 1));
     }
   }
 
@@ -67,6 +68,9 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
       case 0: // Button packets
         getWTNetwork().handleButton(value);
         break;
+      case 1: // Fuel
+        getWTNetwork().fuel = value;
+        break;
     }
   }
 
@@ -75,6 +79,9 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
     switch (id) {
       case 0: // Destination Data
         getWTNetwork().requestDestinationData(player);
+        break;
+      case 1: // Fuel
+        getWTNetwork().requestFuel(player);
         break;
     }
   }

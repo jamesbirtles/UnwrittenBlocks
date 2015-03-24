@@ -2,6 +2,7 @@ package unwrittenfun.minecraft.unwrittenblocks.common.multiblock;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import net.minecraft.world.WorldServer;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TeleporterDestinationMessage;
+import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -75,7 +77,7 @@ public class WallTeleporterNetwork {
       if (destinationWorldId != player.worldObj.provider.dimensionId)
         transferPlayerToDimension(player, destinationWorldId);
       player.playerNetServerHandler.setPlayerLocation(destinationData[0], destinationData[1] + 0.5f, destinationData[2], destinationData[3], player.rotationPitch);
-      fuel--;
+      setFuel(fuel - 1);
 
       if (fuel == 0) base.onInventoryChanged();
       cooldown = 10;
@@ -107,17 +109,24 @@ public class WallTeleporterNetwork {
         destinationData[2] = locationData.getFloat("locationZ");
         destinationData[3] = locationData.getFloat("rotationYaw");
       }
-      NetworkRegister.wrapper.sendToAllAround(getDestinationPacket(),
-          new NetworkRegistry.TargetPoint(base.getWorldObj().provider.dimensionId, base.xCoord, base.yCoord, base.zCoord, 64));
+      NetworkRegister.wrapper.sendToDimension(getDestinationPacket(), base.getWorldObj().provider.dimensionId);
     }
+  }
+
+  public void requestDestinationData(EntityPlayerMP player) {
+    NetworkRegister.wrapper.sendTo(getDestinationPacket(), player);
   }
 
   public TeleporterDestinationMessage getDestinationPacket() {
     return TeleporterDestinationMessage.messageFrom(base.getWorldObj(), base.xCoord, base.yCoord, base.zCoord, destinationName, destinationWorldId, destinationData);
   }
 
-  public void requestDestinationData(EntityPlayerMP player) {
-    NetworkRegister.wrapper.sendTo(getDestinationPacket(), player);
+  public void requestFuel(EntityPlayerMP player) {
+    NetworkRegister.wrapper.sendTo(getFuelPacket(), player);
+  }
+
+  public TileEntityIntegerMessage getFuelPacket() {
+    return TileEntityIntegerMessage.messageFrom(base.getWorldObj(), base.xCoord, base.yCoord, base.zCoord, 1, fuel);
   }
 
   public void writeToNBT(NBTTagCompound compound) {
@@ -145,6 +154,17 @@ public class WallTeleporterNetwork {
       destinationData[3] = compound.getFloat("destinationData3");
     }
     fuel = compound.getInteger("fuel");
+  }
+
+  public void setFuel(int fuel) {
+    this.fuel = fuel;
+    if (!base.getWorldObj().isRemote) {
+      NetworkRegister.wrapper.sendToDimension(getFuelPacket(), base.getWorldObj().provider.dimensionId);
+    }
+  }
+
+  public void fillFuel() {
+    setFuel(16);
   }
 
   // Copy of vanilla code I needed to fix
@@ -198,9 +218,5 @@ public class WallTeleporterNetwork {
     p_82448_3_.theProfiler.endSection();
 
     p_82448_1_.setWorld(p_82448_4_);
-  }
-
-  public void fillFuel() {
-    fuel = 16;
   }
 }
