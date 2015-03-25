@@ -63,7 +63,11 @@ public abstract class TEWallTeleporter extends TileEntity implements IWallTelepo
   }
 
   public void setMask(ItemStack mask) {
-    this.mask = mask;
+    if (mask != null && mask.isItemEqual(ItemRegister.wallBaseStack)) {
+      this.mask = ItemRegister.wallStack.copy();
+    } else {
+      this.mask = mask;
+    }
 
     if (!worldObj.isRemote) {
       NetworkRegister.wrapper.sendToDimension(getMaskStackMessage(), worldObj.provider.dimensionId);

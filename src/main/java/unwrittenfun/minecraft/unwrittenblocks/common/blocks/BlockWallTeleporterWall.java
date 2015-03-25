@@ -4,6 +4,7 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,6 +24,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNe
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterWall;
 
@@ -39,15 +41,43 @@ public class BlockWallTeleporterWall extends BlockContainer {
   }
 
   @Override
+  public void registerBlockIcons(IIconRegister register) {
+    blockIcon = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_0");
+  }
+
+  @Override
   public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-    ItemStack mask = teleporterWall.mask;
-    if (mask != null) {
+    TEWallTeleporter teleporter = (TEWallTeleporter) world.getTileEntity(x, y, z);
+    ItemStack mask = teleporter.mask;
+    if (mask.isItemEqual(ItemRegister.wallStack)) {
+      int connectedSides = 0; // Left 1, Right 2, Up 4, Down 8
+
+      ForgeDirection direction = ForgeDirection.getOrientation(side);
+      if (direction.offsetX == 0) {
+        for (int dx = -1; dx <= 1; dx += 2) {
+          connectedSides = connectedSides | BlockWallTeleporterBase.connectedSidesForDelta(side, world, x, y, z, dx, 0, 0);
+        }
+      }
+
+      if (direction.offsetY == 0) {
+        for (int dy = -1; dy <= 1; dy += 2) {
+          connectedSides = connectedSides | BlockWallTeleporterBase.connectedSidesForDelta(side, world, x, y, z, 0, dy, 0);
+        }
+      }
+
+      if (direction.offsetZ == 0) {
+        for (int dz = -1; dz <= 1; dz += 2) {
+          connectedSides = connectedSides | BlockWallTeleporterBase.connectedSidesForDelta(side, world, x, y, z, 0, 0, dz);
+        }
+      }
+
+//      System.out.println(connectedSides);
+      return BlockWallTeleporterBase.icons[connectedSides];
+
+    } else {
       Block block = Block.getBlockFromItem(mask.getItem());
       return block.getIcon(side, mask.getItemDamage());
     }
-
-    return super.getIcon(world, x, y, z, side);
   }
 
   @Override

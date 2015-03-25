@@ -59,7 +59,7 @@ public class ItemRegister {
 
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
-  public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterWall);
+  public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
