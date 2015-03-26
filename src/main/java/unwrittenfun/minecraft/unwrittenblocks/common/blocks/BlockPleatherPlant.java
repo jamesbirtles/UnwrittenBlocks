@@ -69,8 +69,15 @@ public class BlockPleatherPlant extends BlockCrops {
       int meta = world.getBlockMetadata(x, y, z);
       if (meta == 7) {
         ArrayList<ItemStack> drops = getDrops(world, x, y, z, meta, 0);
+        boolean taken = false;
         for (ItemStack drop : drops) {
-          ItemHelpers.dropItemStack(drop, world, x, y, z);
+          if (!taken && drop.isItemEqual(ItemRegister.stackPleatherBulb)) {
+            taken = true;
+            drop.stackSize--;
+          }
+          if (drop.stackSize > 0) {
+            ItemHelpers.dropItemStack(drop, world, x, y, z);
+          }
         }
         world.setBlockMetadataWithNotify(x, y, z, 0, 3);
         return true;
