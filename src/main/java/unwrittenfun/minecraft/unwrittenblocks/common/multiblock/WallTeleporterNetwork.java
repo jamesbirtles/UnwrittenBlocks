@@ -1,8 +1,6 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.multiblock;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -19,7 +17,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TeleporterDestinationMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ import java.util.Iterator;
  * Author: James Birtles
  */
 public class WallTeleporterNetwork {
-  public ArrayList<IWallTeleporterBlock> walls = new ArrayList<IWallTeleporterBlock>();
+  public ArrayList<TEWallTeleporter> walls = new ArrayList<TEWallTeleporter>();
   public TEWallTeleporterBase base;
   public String destinationName;
   public int destinationWorldId;
@@ -37,11 +35,11 @@ public class WallTeleporterNetwork {
   public int fuel = 0;
   public int cooldown = 0;
 
-  public WallTeleporterNetwork(IWallTeleporterBlock base) {
-    if (base instanceof TEWallTeleporterBase) this.base = (TEWallTeleporterBase) base;
+  public WallTeleporterNetwork(TEWallTeleporterBase base) {
+    this.base = base;
   }
 
-  public void add(IWallTeleporterBlock wallTeleporterBlock) {
+  public void add(TEWallTeleporter wallTeleporterBlock) {
     wallTeleporterBlock.setWTNetwork(this);
     if (!walls.contains(wallTeleporterBlock)) {
       walls.add(wallTeleporterBlock);
@@ -50,7 +48,7 @@ public class WallTeleporterNetwork {
 
   public void refreshNetwork() {
     base.setWTNetwork(null);
-    if (!base.shouldIgnoreWT()) {
+    if (!base.isInvalid()) {
       WallTeleporterNetwork network = new WallTeleporterNetwork(base);
       network.destinationData = destinationData;
       network.destinationName = destinationName;
@@ -59,12 +57,12 @@ public class WallTeleporterNetwork {
       base.setWTNetwork(network);
     }
 
-    for (IWallTeleporterBlock wall : walls) {
+    for (TEWallTeleporter wall : walls) {
       wall.setWTNetwork(null);
     }
 
-    for (IWallTeleporterBlock wall : walls) {
-      if (!wall.shouldIgnoreWT()) {
+    for (TEWallTeleporter wall : walls) {
+      if (!wall.isInvalid()) {
         wall.connectToWallsAround();
       }
     }

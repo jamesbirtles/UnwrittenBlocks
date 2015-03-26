@@ -16,9 +16,8 @@ import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEnti
 /**
  * Author: James Birtles
  */
-public abstract class TEWallTeleporter extends TileEntity implements IWallTeleporterBlock, ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
+public abstract class TEWallTeleporter extends TileEntity implements ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
   public WallTeleporterNetwork network;
-  public boolean ignoreWT = false;
   public boolean loaded = false;
   public ItemStack mask = new ItemStack(BlockRegister.wallTeleporterWall);
 
@@ -37,29 +36,16 @@ public abstract class TEWallTeleporter extends TileEntity implements IWallTelepo
     }
   }
 
-  @Override
   public boolean hasWTNetwork() {
     return network != null;
   }
 
-  @Override
   public WallTeleporterNetwork getWTNetwork() {
     return network;
   }
 
-  @Override
   public void setWTNetwork(WallTeleporterNetwork wtNetwork) {
     network = wtNetwork;
-  }
-
-  @Override
-  public boolean shouldIgnoreWT() {
-    return ignoreWT;
-  }
-
-  @Override
-  public void setIgnoreWT(boolean ignore) {
-    ignoreWT = ignore;
   }
 
   public void setMask(ItemStack mask) {
@@ -88,6 +74,8 @@ public abstract class TEWallTeleporter extends TileEntity implements IWallTelepo
     }
   }
 
+  public abstract void connectToWallsAround();
+
   @Override
   public void writeToNBT(NBTTagCompound compound) {
     NBTTagCompound maskCompound = new NBTTagCompound();
@@ -110,5 +98,11 @@ public abstract class TEWallTeleporter extends TileEntity implements IWallTelepo
         NetworkRegister.wrapper.sendTo(getMaskStackMessage(), player);
         break;
     }
+  }
+
+  @Override
+  public void invalidate() {
+    super.invalidate();
+    if (hasWTNetwork()) getWTNetwork().refreshNetwork();
   }
 }

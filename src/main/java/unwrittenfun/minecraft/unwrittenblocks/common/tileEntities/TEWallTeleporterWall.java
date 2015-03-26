@@ -11,9 +11,9 @@ public class TEWallTeleporterWall extends TEWallTeleporter {
   public void connectToWallsAround() {
     for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
       TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-      if (tileEntity instanceof IWallTeleporterBlock) {
-        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
-        if (!teleporter.shouldIgnoreWT() && teleporter.hasWTNetwork() && teleporter.getWTNetwork() != getWTNetwork()) {
+      if (tileEntity instanceof TEWallTeleporter) {
+        TEWallTeleporter teleporter = (TEWallTeleporter) tileEntity;
+        if (!teleporter.isInvalid() && teleporter.hasWTNetwork() && teleporter.getWTNetwork() != getWTNetwork()) {
           teleporter.getWTNetwork().add(this);
         }
       }
@@ -22,9 +22,9 @@ public class TEWallTeleporterWall extends TEWallTeleporter {
     if (hasWTNetwork()) {
       for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
         TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-        if (tileEntity instanceof IWallTeleporterBlock) {
-          IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
-          if (!teleporter.shouldIgnoreWT() && !teleporter.hasWTNetwork()) {
+        if (tileEntity instanceof TEWallTeleporter) {
+          TEWallTeleporter teleporter = (TEWallTeleporter) tileEntity;
+          if (!teleporter.isInvalid() && !teleporter.hasWTNetwork()) {
             teleporter.connectToWallsAround();
           }
         }

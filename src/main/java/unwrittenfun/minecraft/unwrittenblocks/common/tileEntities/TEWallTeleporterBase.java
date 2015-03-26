@@ -10,12 +10,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
-import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityIntegerMessageReceiver;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.receivers.ITileEntityRequestMessageReceiver;
 
 /**
  * Author: James Birtles
@@ -53,9 +51,9 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
   public void connectToWallsAround() {
     for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
       TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-      if (tileEntity instanceof IWallTeleporterBlock) {
-        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
-        if (!teleporter.shouldIgnoreWT()) {
+      if (tileEntity instanceof TEWallTeleporter) {
+        TEWallTeleporter teleporter = (TEWallTeleporter) tileEntity;
+        if (!teleporter.isInvalid()) {
           teleporter.connectToWallsAround();
         }
       }
@@ -83,7 +81,8 @@ public class TEWallTeleporterBase extends TEWallTeleporter implements IInventory
       case 2: // Fuel
         getWTNetwork().requestFuel(player);
         break;
-      default: super.receiveRequestMessage(id, player);
+      default:
+        super.receiveRequestMessage(id, player);
     }
   }
 

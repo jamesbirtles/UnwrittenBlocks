@@ -20,7 +20,6 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -147,8 +146,8 @@ public class BlockWallTeleporterBase extends BlockContainer {
   public boolean canPlaceBlockAt(World world, int x, int y, int z) {
     for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
       TileEntity tileEntity = world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
-      if (tileEntity instanceof IWallTeleporterBlock) {
-        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
+      if (tileEntity instanceof TEWallTeleporter) {
+        TEWallTeleporter teleporter = (TEWallTeleporter) tileEntity;
         if (teleporter.hasWTNetwork()) {
           return false;
         }
@@ -192,9 +191,6 @@ public class BlockWallTeleporterBase extends BlockContainer {
     if (!world.isRemote) {
       InventoryHelpers.dropInventory(world, x, y, z);
     }
-    TEWallTeleporter teleporter = (TEWallTeleporter) world.getTileEntity(x, y, z);
-    teleporter.setIgnoreWT(true);
-    if (teleporter.hasWTNetwork()) teleporter.getWTNetwork().refreshNetwork();
     super.breakBlock(world, x, y, z, block, meta);
   }
 }

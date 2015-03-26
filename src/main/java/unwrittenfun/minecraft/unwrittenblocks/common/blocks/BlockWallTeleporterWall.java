@@ -12,7 +12,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -21,11 +20,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.multiblock.WallTeleporterNetwork;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
-import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityStackMessage;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporter;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterWall;
 
 /**
@@ -113,7 +108,8 @@ public class BlockWallTeleporterWall extends BlockContainer {
   @Override
   public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
     TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-    if (teleporterWall != null && teleporterWall.hasWTNetwork() && teleporterWall.getWTNetwork().hasDestination() && teleporterWall.getWTNetwork().fuel > 0) return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+    if (teleporterWall != null && teleporterWall.hasWTNetwork() && teleporterWall.getWTNetwork().hasDestination() && teleporterWall.getWTNetwork().fuel > 0)
+      return AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
     return super.getCollisionBoundingBoxFromPool(world, x, y, z);
   }
 
@@ -127,8 +123,8 @@ public class BlockWallTeleporterWall extends BlockContainer {
     WallTeleporterNetwork networkTemp = null;
     for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
       TileEntity tileEntity = world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
-      if (tileEntity instanceof IWallTeleporterBlock) {
-        IWallTeleporterBlock teleporter = (IWallTeleporterBlock) tileEntity;
+      if (tileEntity instanceof TEWallTeleporter) {
+        TEWallTeleporter teleporter = (TEWallTeleporter) tileEntity;
         if (teleporter.hasWTNetwork()) {
           if (networkTemp == null) {
             networkTemp = teleporter.getWTNetwork();
@@ -159,14 +155,6 @@ public class BlockWallTeleporterWall extends BlockContainer {
     }
 
     return false;
-  }
-
-  @Override
-  public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-    TEWallTeleporter teleporter = (TEWallTeleporter) world.getTileEntity(x, y, z);
-    teleporter.setIgnoreWT(true);
-    if (teleporter.hasWTNetwork()) teleporter.getWTNetwork().refreshNetwork();
-    super.breakBlock(world, x, y, z, block, meta);
   }
 
   @Override

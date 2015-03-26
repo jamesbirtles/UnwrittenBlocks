@@ -8,7 +8,6 @@ import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerWallTeleporter;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.IWallTeleporterBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
@@ -23,7 +22,7 @@ public class GuiHandler implements IGuiHandler {
     TileEntity tileEntity = world.getTileEntity(x, y, z);
     switch (id) {
       case 0: // Wall Teleporter
-        if (tileEntity instanceof IWallTeleporterBlock) {
+        if (tileEntity instanceof TEWallTeleporterBase) {
           return new ContainerWallTeleporter(player.inventory, (TEWallTeleporterBase) tileEntity);
         }
         break;
@@ -41,7 +40,7 @@ public class GuiHandler implements IGuiHandler {
     TileEntity tileEntity = world.getTileEntity(x, y, z);
     switch (id) {
       case 0: // Wall Teleporter
-        if (tileEntity instanceof IWallTeleporterBlock) {
+        if (tileEntity instanceof TEWallTeleporterBase) {
           return new GuiWallTeleporter(player.inventory, (TEWallTeleporterBase) tileEntity);
         }
         break;
