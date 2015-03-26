@@ -92,7 +92,6 @@ public class BlockWallTeleporterWall extends BlockContainer {
         }
       }
 
-//      System.out.println(connectedSides);
       return icons[connectedSides];
 
     } else {
@@ -164,9 +163,9 @@ public class BlockWallTeleporterWall extends BlockContainer {
 
   @Override
   public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-    TEWallTeleporterWall teleporterWall = (TEWallTeleporterWall) world.getTileEntity(x, y, z);
-    teleporterWall.setIgnoreWT(true);
-    if (teleporterWall.hasWTNetwork()) teleporterWall.getWTNetwork().refreshNetwork();
+    TEWallTeleporter teleporter = (TEWallTeleporter) world.getTileEntity(x, y, z);
+    teleporter.setIgnoreWT(true);
+    if (teleporter.hasWTNetwork()) teleporter.getWTNetwork().refreshNetwork();
     super.breakBlock(world, x, y, z, block, meta);
   }
 

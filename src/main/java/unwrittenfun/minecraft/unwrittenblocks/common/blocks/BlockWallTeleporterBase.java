@@ -88,7 +88,6 @@ public class BlockWallTeleporterBase extends BlockContainer {
         }
       }
 
-      System.out.println(connectedSides);
       return icons[connectedSides];
 
     } else {
@@ -193,6 +192,9 @@ public class BlockWallTeleporterBase extends BlockContainer {
     if (!world.isRemote) {
       InventoryHelpers.dropInventory(world, x, y, z);
     }
+    TEWallTeleporter teleporter = (TEWallTeleporter) world.getTileEntity(x, y, z);
+    teleporter.setIgnoreWT(true);
+    if (teleporter.hasWTNetwork()) teleporter.getWTNetwork().refreshNetwork();
     super.breakBlock(world, x, y, z, block, meta);
   }
 }

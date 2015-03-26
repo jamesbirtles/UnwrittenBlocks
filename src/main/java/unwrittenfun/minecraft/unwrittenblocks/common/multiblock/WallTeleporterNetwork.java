@@ -49,17 +49,19 @@ public class WallTeleporterNetwork {
   }
 
   public void refreshNetwork() {
-    WallTeleporterNetwork network = new WallTeleporterNetwork(base);
-    network.destinationData = destinationData;
-    network.destinationName = destinationName;
-    network.destinationWorldId = destinationWorldId;
-    base.setWTNetwork(network);
+    base.setWTNetwork(null);
+    if (!base.shouldIgnoreWT()) {
+      WallTeleporterNetwork network = new WallTeleporterNetwork(base);
+      network.destinationData = destinationData;
+      network.destinationName = destinationName;
+      network.destinationWorldId = destinationWorldId;
+      network.fuel = fuel;
+      base.setWTNetwork(network);
+    }
 
     for (IWallTeleporterBlock wall : walls) {
       wall.setWTNetwork(null);
     }
-
-//    base.connectToWallsAround();
 
     for (IWallTeleporterBlock wall : walls) {
       if (!wall.shouldIgnoreWT()) {
