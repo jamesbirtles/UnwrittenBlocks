@@ -4,7 +4,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityRequestMessage;
@@ -21,8 +20,7 @@ import java.util.ArrayList;
  * Author: UnwrittenFun
  * Created: 04/11/2014.
  */
-public class TEDarkInfuser extends TEConfigurableIO
-    implements ITileEntityIntegerMessageReceiver, ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
+public class TEDarkInfuser extends TEConfigurableIO implements ITileEntityIntegerMessageReceiver, ITileEntityStackMessageReceiver, ITileEntityRequestMessageReceiver {
   public int infuserTicks = 1001;
   public int infuserMaxTicks = 1000;
   public int infuserProgress = 0; // Client only
@@ -39,7 +37,7 @@ public class TEDarkInfuser extends TEConfigurableIO
     super.updateEntity();
 
     if (hasWorldObj()) {
-      if (!worldObj.isRemote) { // We're on the server
+      if (!worldObj.isRemote) {
         if (!loaded) {
           loaded = true;
           onInventoryChanged();
@@ -117,11 +115,9 @@ public class TEDarkInfuser extends TEConfigurableIO
 
   @Override
   public void receiveRequestMessage(byte id, EntityPlayerMP player) {
-    UnwrittenBlocks.logger.info("Received request message");
     switch (id) {
       case 0:
-        NetworkRegister.wrapper
-            .sendTo(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)), player);
+        NetworkRegister.wrapper.sendTo(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)), player);
         break;
     }
   }
@@ -180,9 +176,7 @@ public class TEDarkInfuser extends TEConfigurableIO
         infuserMaxTicks = 1000;
       }
 
-      NetworkRegister.wrapper
-          .sendToDimension(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)),
-              worldObj.provider.dimensionId);
+      NetworkRegister.wrapper.sendToDimension(TileEntityStackMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0, getStackInSlot(0)), worldObj.provider.dimensionId);
     }
 
     super.onInventoryChanged();

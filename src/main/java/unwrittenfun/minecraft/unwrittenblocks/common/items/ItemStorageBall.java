@@ -79,7 +79,6 @@ public class ItemStorageBall extends ItemUB {
           name = splt[0] + ":textures/items/" + splt[1];
         }
       }
-      System.out.println(name);
 
       try {
         InputStream outlineStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("unwrittenblocks:textures/items/storageBall.png")).getInputStream();
@@ -100,8 +99,6 @@ public class ItemStorageBall extends ItemUB {
         String[] parts = name.split(":");
         String[] dirs = parts[1].split("/");
         String fileName = "storageBall_" + parts[0] + "_" + dirs[1] + "_" + dirs[2];
-
-        System.out.println(fileName);
 
         File file = new File(new File(Minecraft.getMinecraft().mcDataDir, "unwrittenblocks"), "assets/unwrittenblocks/textures/items/" + fileName + ".png");
         file.mkdirs();

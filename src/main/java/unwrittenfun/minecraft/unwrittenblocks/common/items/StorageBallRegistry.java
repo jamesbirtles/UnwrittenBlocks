@@ -19,8 +19,6 @@ public class StorageBallRegistry {
     if (!types.contains(stack)) {
       types.add(stack);
     }
-
-    System.out.println("ITEM ID: " + Item.getIdFromItem(stack.getItem()));
   }
 
   public static ItemStack getContainerStackFromBall(ItemStack ball) {
