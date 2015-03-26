@@ -4,6 +4,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemDarkInfusedDiamondBlock;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
@@ -17,22 +19,26 @@ public class BlockRegister {
   public static final String DARK_INFUSER_KEY = "darkInfuser";
   public static final String WT_BASE_KEY = "wallTeleporterBase";
   public static final String WT_WALL_KEY = "wallTeleporterWall";
+  public static final String DARK_INFUSED_DIAMOND_KEY = "darkInfusedDiamondBlock";
 
   public static BlockPleatherPlant pleatherPlant;
   public static BlockDarkInfuser darkInfuser;
   public static BlockWallTeleporterBase wallTeleporterBase;
   public static BlockWallTeleporterWall wallTeleporterWall;
+  public static BlockDarkInfusedDiamond darkInfusedDiamondBlock;
 
   public static void registerBlocks() {
     pleatherPlant = new BlockPleatherPlant(PLEATHER_PLANT_KEY);
     darkInfuser = new BlockDarkInfuser(DARK_INFUSER_KEY);
     wallTeleporterBase = new BlockWallTeleporterBase(WT_BASE_KEY);
     wallTeleporterWall = new BlockWallTeleporterWall(WT_WALL_KEY);
+    darkInfusedDiamondBlock = new BlockDarkInfusedDiamond(DARK_INFUSED_DIAMOND_KEY);
 
-    GameRegistry.registerBlock(pleatherPlant, PLEATHER_PLANT_KEY);
+    GameRegistry.registerBlock(pleatherPlant, null, PLEATHER_PLANT_KEY);
     GameRegistry.registerBlock(darkInfuser, DARK_INFUSER_KEY);
     GameRegistry.registerBlock(wallTeleporterBase, WT_BASE_KEY);
     GameRegistry.registerBlock(wallTeleporterWall, WT_WALL_KEY);
+    GameRegistry.registerBlock(darkInfusedDiamondBlock, ItemDarkInfusedDiamondBlock.class, DARK_INFUSED_DIAMOND_KEY);
 
     GameRegistry.registerTileEntity(TEDarkInfuser.class, "TE" + DARK_INFUSER_KEY);
     GameRegistry.registerTileEntity(TEWallTeleporterBase.class, "TE" + WT_BASE_KEY);
@@ -41,7 +47,9 @@ public class BlockRegister {
 
   public static void registerRecipes() {
     GameRegistry.addRecipe(new ItemStack(darkInfuser, 1), "ooo", "dnd", "nnn", 'o', Blocks.obsidian, 'd', Items.diamond, 'n', Blocks.nether_brick);
+    GameRegistry.addRecipe(new ItemStack(darkInfusedDiamondBlock, 1), "ddd", "ddd", "ddd", 'd', ItemRegister.darkInfusedDiamond);
 
     InfuserRecipes.instance.addRecipe(new ItemStack(Blocks.stone), new ItemStack(Blocks.end_stone), 1000);
+    InfuserRecipes.instance.addRecipe(new ItemStack(Blocks.diamond_block), new ItemStack(darkInfusedDiamondBlock), 14400);
   }
 }

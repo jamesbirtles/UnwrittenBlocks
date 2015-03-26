@@ -76,7 +76,7 @@ public class WallTeleporterNetwork {
     if (hasDestination() && fuel > 0 && cooldown == 0) {
       if (destinationWorldId != player.worldObj.provider.dimensionId)
         transferPlayerToDimension(player, destinationWorldId);
-      player.playerNetServerHandler.setPlayerLocation(destinationData[0], destinationData[1] + 0.5f, destinationData[2], destinationData[3], player.rotationPitch);
+      player.playerNetServerHandler.setPlayerLocation(destinationData[0], destinationData[1], destinationData[2], destinationData[3], player.rotationPitch);
       setFuel(fuel - 1);
 
       if (fuel == 0) base.onInventoryChanged();

@@ -26,6 +26,7 @@ itemGroup.unwrittenblocks=Unwritten Blocks
 tile.darkInfuser.name=Dark Infuser
 tile.wallTeleporterBase.name=Wall Teleporter Base
 tile.wallTeleporterWall.name=Wall Teleporter Wall
+tile.darkInfusedDiamondBlock.name=Block of Dark Infused Diamond
 
 unwrittenblocks.wallTeleporterBase.name=Wall Teleporter
 

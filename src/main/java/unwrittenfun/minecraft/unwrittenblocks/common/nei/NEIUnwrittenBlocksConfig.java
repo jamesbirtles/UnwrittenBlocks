@@ -14,7 +14,6 @@ public class NEIUnwrittenBlocksConfig implements IConfigureNEI {
   public void loadConfig() {
     API.registerRecipeHandler(new InfuserRecipeHandler());
     API.registerUsageHandler(new InfuserRecipeHandler());
-    API.hideItem(new ItemStack(BlockRegister.pleatherPlant));
   }
 
   @Override
