@@ -36,28 +36,28 @@ public class BlockWallTeleporterBase extends BlockContainer {
     setHardness(2F);
   }
 
-  public static IIcon[] icons;
+  public IIcon[] icons;
 
   @Override
   public void registerBlockIcons(IIconRegister register) {
-    icons = new IIcon[40];
+    icons = new IIcon[16];
 
-    icons[0] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_0");
-    icons[1] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_1");
-    icons[2] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_2");
-    icons[3] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_3");
-    icons[4] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_4");
-    icons[5] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_5");
-    icons[6] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_6");
-    icons[7] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_7");
-    icons[8] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_8");
-    icons[9] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_9");
-    icons[10] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_10");
-    icons[11] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_11");
-    icons[12] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_12");
-    icons[13] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_13");
-    icons[14] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_14");
-    icons[15] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_15");
+    icons[0] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/0"); // None
+    icons[1] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/1"); // Left
+    icons[2] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/2"); // Right
+    icons[3] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/3"); // Left + Right
+    icons[4] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/4"); // Top
+    icons[5] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/5"); // Top + Left
+    icons[6] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/6"); // Top + Right
+    icons[7] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/7"); // Top + Left + Right
+    icons[8] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/8"); // Bottom
+    icons[9] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/9"); // Bottom + Left
+    icons[10] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/10"); // Bottom + Right
+    icons[11] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/11"); // Bottom + Left + Right
+    icons[12] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/12"); // Top + Bottom
+    icons[13] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/13"); // Top + Bottom + Left
+    icons[14] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/14"); // Top + Bottom + Right
+    icons[15] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterBase/15"); // Top + Bottom + Left + Right
 
     blockIcon = icons[0];
   }
@@ -89,7 +89,7 @@ public class BlockWallTeleporterBase extends BlockContainer {
       }
 
       System.out.println(connectedSides);
-      return BlockWallTeleporterBase.icons[connectedSides];
+      return icons[connectedSides];
 
     } else {
       Block block = Block.getBlockFromItem(mask.getItem());
@@ -165,7 +165,7 @@ public class BlockWallTeleporterBase extends BlockContainer {
       return true;
     }
 
-    if (player.getHeldItem().getItem() instanceof ItemBlock) {
+    if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBlock) {
       TEWallTeleporterBase teleporterBase = (TEWallTeleporterBase) world.getTileEntity(x, y, z);
 
       if (!(player.getHeldItem().isItemEqual(ItemRegister.wallStack) && teleporterBase.mask.isItemEqual(ItemRegister.wallStack))) {

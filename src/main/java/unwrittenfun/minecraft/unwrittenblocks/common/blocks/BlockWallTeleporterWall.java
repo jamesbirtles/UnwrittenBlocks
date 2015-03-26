@@ -40,9 +40,30 @@ public class BlockWallTeleporterWall extends BlockContainer {
     setHardness(2F);
   }
 
+  public IIcon[] icons;
+
   @Override
   public void registerBlockIcons(IIconRegister register) {
-    blockIcon = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":wallTeleporter_0");
+    icons = new IIcon[16];
+
+    icons[0] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/0"); // None
+    icons[1] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/1"); // Left
+    icons[2] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/2"); // Right
+    icons[3] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/3"); // Left + Right
+    icons[4] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/4"); // Top
+    icons[5] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/5"); // Top + Left
+    icons[6] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/6"); // Top + Right
+    icons[7] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/7"); // Top + Left + Right
+    icons[8] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/8"); // Bottom
+    icons[9] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/9"); // Bottom + Left
+    icons[10] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/10"); // Bottom + Right
+    icons[11] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/11"); // Bottom + Left + Right
+    icons[12] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/12"); // Top + Bottom
+    icons[13] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/13"); // Top + Bottom + Left
+    icons[14] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/14"); // Top + Bottom + Right
+    icons[15] = register.registerIcon(ModInfo.RESOURCE_LOCATION + ":teleporterWall/15"); // Top + Bottom + Left + Right
+
+    blockIcon = icons[0];
   }
 
   @Override
@@ -72,7 +93,7 @@ public class BlockWallTeleporterWall extends BlockContainer {
       }
 
 //      System.out.println(connectedSides);
-      return BlockWallTeleporterBase.icons[connectedSides];
+      return icons[connectedSides];
 
     } else {
       Block block = Block.getBlockFromItem(mask.getItem());
@@ -131,7 +152,7 @@ public class BlockWallTeleporterWall extends BlockContainer {
       return true;
     }
 
-    if (player.getHeldItem().getItem() instanceof ItemBlock) {
+    if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBlock) {
       if (!(player.getHeldItem().isItemEqual(ItemRegister.wallStack) && teleporterWall.mask.isItemEqual(ItemRegister.wallStack))) {
         if (!world.isRemote) teleporterWall.setMask(player.getHeldItem().copy());
         return true;
