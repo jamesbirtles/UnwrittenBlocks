@@ -5,7 +5,6 @@ import codechicken.nei.api.IConfigureNEI;
 import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
-import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 
 /**
  * Author: James Birtles

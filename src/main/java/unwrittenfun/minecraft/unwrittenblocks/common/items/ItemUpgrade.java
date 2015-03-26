@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ItemUpgrade extends ItemUB {
   public String[] keys;
-  public IIcon[]  icons;
+  public IIcon[] icons;
 
   public ItemUpgrade(String mainKey, String[] keys) {
     super(mainKey);
@@ -24,27 +24,33 @@ public class ItemUpgrade extends ItemUB {
     setHasSubtypes(true);
   }
 
-  @Override public IIcon getIconFromDamage(int meta) {
+  @Override
+  public IIcon getIconFromDamage(int meta) {
     return icons[meta];
   }
 
-  @Override public String getUnlocalizedName(ItemStack stack) {
+  @Override
+  public String getUnlocalizedName(ItemStack stack) {
     return "item." + keys[stack.getItemDamage()];
   }
 
-  @Override public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean bool) {
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean bool) {
     Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.info_" + keys[stack.getItemDamage()]));
 
     super.addInformation(stack, player, lines, bool);
   }
 
-  @SuppressWarnings("unchecked") @Override public void getSubItems(Item upgrade, CreativeTabs creativeTabs,
-                                                                   List items) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public void getSubItems(Item upgrade, CreativeTabs creativeTabs,
+                          List items) {
     super.getSubItems(upgrade, creativeTabs, items);
     items.add(new ItemStack(upgrade, 1, 1));
   }
 
-  @Override public void registerIcons(IIconRegister iconRegister) {
+  @Override
+  public void registerIcons(IIconRegister iconRegister) {
     icons = new IIcon[keys.length];
     for (int i = 0; i < icons.length; i++) {
       icons[i] = iconRegister.registerIcon(ModInfo.RESOURCE_LOCATION + ":" + keys[i]);

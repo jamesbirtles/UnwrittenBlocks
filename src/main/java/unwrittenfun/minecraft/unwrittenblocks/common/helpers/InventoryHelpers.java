@@ -1,13 +1,11 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.helpers;
 
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
  * Project: UnwrittenBlocks
@@ -38,16 +36,16 @@ public class InventoryHelpers {
     }
   }
 
- public static void dropInventory(World world, int x, int y, int z) {
-   TileEntity tileEntity = world.getTileEntity(x, y, z);
-   if (tileEntity instanceof IInventory) {
-     IInventory inventory = (IInventory) tileEntity;
-     for (int i = 0; i < inventory.getSizeInventory(); i++) {
-       ItemStack stack = inventory.getStackInSlotOnClosing(i);
-       if (stack != null) {
-         ItemHelpers.dropItemStack(stack, world, x, y, z);
-       }
-     }
-   }
- }
+  public static void dropInventory(World world, int x, int y, int z) {
+    TileEntity tileEntity = world.getTileEntity(x, y, z);
+    if (tileEntity instanceof IInventory) {
+      IInventory inventory = (IInventory) tileEntity;
+      for (int i = 0; i < inventory.getSizeInventory(); i++) {
+        ItemStack stack = inventory.getStackInSlotOnClosing(i);
+        if (stack != null) {
+          ItemHelpers.dropItemStack(stack, world, x, y, z);
+        }
+      }
+    }
+  }
 }

@@ -23,7 +23,8 @@ public class TESRDarkInfuser extends TileEntitySpecialRenderer {
     this.model = model;
   }
 
-  @Override public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
+  @Override
+  public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
     if (tileEntity instanceof TEDarkInfuser) {
       renderDarkInfuser((TEDarkInfuser) tileEntity, x, y, z);
     }

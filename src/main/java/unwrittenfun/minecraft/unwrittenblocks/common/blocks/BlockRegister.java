@@ -1,7 +1,6 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.BlockWall;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

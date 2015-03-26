@@ -38,13 +38,13 @@ public class ItemPleatherBulb extends ItemUB implements IPlantable {
 
   @Override
   public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-      Block block = world.getBlock(x, y, z);
-      if (side == 1 && world.isAirBlock(x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt)) {
-        stack.stackSize--;
-        world.setBlock(x, y + 1, z, BlockRegister.pleatherPlant);
+    Block block = world.getBlock(x, y, z);
+    if (side == 1 && world.isAirBlock(x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt)) {
+      stack.stackSize--;
+      world.setBlock(x, y + 1, z, BlockRegister.pleatherPlant);
 
-        return true;
-      }
+      return true;
+    }
     return false;
   }
 

@@ -13,7 +13,8 @@ public class UBCreativeTab extends CreativeTabs {
     super(ModInfo.MOD_ID.toLowerCase());
   }
 
-  @Override public Item getTabIconItem() {
+  @Override
+  public Item getTabIconItem() {
     return ItemRegister.gpsChip;
   }
 }

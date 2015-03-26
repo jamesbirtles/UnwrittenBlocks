@@ -14,8 +14,10 @@ public class ItemPleatherStrips extends ItemUB {
     super(key);
   }
 
-  @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player, List lines,
-                                                                      boolean bool) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player, List lines,
+                             boolean bool) {
     Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.pleatherStrips"));
 
     super.addInformation(stack, player, lines, bool);

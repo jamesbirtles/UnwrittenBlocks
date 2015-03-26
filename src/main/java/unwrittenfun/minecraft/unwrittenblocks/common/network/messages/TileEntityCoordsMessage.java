@@ -10,7 +10,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TileEntityCoordsMessage implements IMessage {
   public byte id;
-  public int  worldId, x, y, z;
+  public int worldId, x, y, z;
 
   @Override
   public void fromBytes(ByteBuf buf) {

@@ -22,14 +22,17 @@ public class ItemDarkInfusedArmour extends ItemArmor {
     setTextureName(ModInfo.RESOURCE_LOCATION + ":" + ItemRegister.DARK_INFUSED_ARMOUR_KEYS[armourType]);
   }
 
-  @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player, List lines,
-                                                                      boolean bool) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player, List lines,
+                             boolean bool) {
     lines.add(StatCollector.translateToLocal("unwrittenblocks.text.infusedFrom") + " " +
-              StatCollector.translateToLocal("unwrittenblocks.text.armourType" + this.armorType));
+        StatCollector.translateToLocal("unwrittenblocks.text.armourType" + this.armorType));
     super.addInformation(stack, player, lines, bool);
   }
 
-  @Override public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+  @Override
+  public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
     if (type == null) {
       return ModInfo.RESOURCE_LOCATION + ":textures/armour/darkInfusedArmour_layer" + (slot == 2 ? 2 : 1) + ".png";
     }

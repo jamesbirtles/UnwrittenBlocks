@@ -10,14 +10,16 @@ import java.util.List;
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 05/11/2014.
  */
 public class ItemDarkInfusedDiamond extends ItemUB {
-    public ItemDarkInfusedDiamond(String key) {
-        super(key);
-    }
+  public ItemDarkInfusedDiamond(String key) {
+    super(key);
+  }
 
-    @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player,
-                                                                        List lines, boolean bool) {
-        Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.darkInfusedDiamond"));
+  @SuppressWarnings("unchecked")
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player,
+                             List lines, boolean bool) {
+    Collections.addAll(lines, getLinesFromLang("unwrittenblocks.text.darkInfusedDiamond"));
 
-        super.addInformation(stack, player, lines, bool);
-    }
+    super.addInformation(stack, player, lines, bool);
+  }
 }

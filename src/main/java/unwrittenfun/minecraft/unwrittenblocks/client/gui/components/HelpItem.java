@@ -11,7 +11,7 @@ import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiUnwrittenBlocks;
  */
 public class HelpItem {
   public String[] text;
-  public int      x, y, width, height;
+  public int x, y, width, height;
 
   public HelpItem(String text, int x, int y, int width, int height) {
     this.text = StatCollector.translateToLocal(text).split("\\\\n");

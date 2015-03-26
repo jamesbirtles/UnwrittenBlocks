@@ -20,11 +20,13 @@ public class ItemDarkInfusedPick extends ItemPickaxe {
     setTextureName(ModInfo.RESOURCE_LOCATION + ":" + key);
   }
 
-  @SuppressWarnings("unchecked") @Override public void addInformation(ItemStack stack, EntityPlayer player, List lines,
-                                                                      boolean bool) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer player, List lines,
+                             boolean bool) {
     super.addInformation(stack, player, lines, bool);
 
     lines.add(StatCollector.translateToLocal("unwrittenblocks.text.infusedFrom") + " " +
-              StatCollector.translateToLocal("unwrittenblocks.text.diamondPick"));
+        StatCollector.translateToLocal("unwrittenblocks.text.diamondPick"));
   }
 }

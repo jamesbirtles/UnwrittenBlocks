@@ -17,15 +17,18 @@ public class IRDarkInfuser implements IItemRenderer {
     this.model = model;
   }
 
-  @Override public boolean handleRenderType(ItemStack item, ItemRenderType type) {
+  @Override
+  public boolean handleRenderType(ItemStack item, ItemRenderType type) {
     return true;
   }
 
-  @Override public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
+  @Override
+  public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
     return true;
   }
 
-  @Override public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+  @Override
+  public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
     GL11.glPushMatrix();
 
     switch (type) {

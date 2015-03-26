@@ -21,8 +21,8 @@ import java.util.ArrayList;
  */
 public abstract class TEConfigurableIO extends TileEntity
     implements ISidedInventory, ITileEntityIOSidesMessageReceiver {
-  public int[] ioSides = new int[] {0, 0, 0, 0, 0, 0};
-  public ItemStack[] items   = new ItemStack[0];
+  public int[] ioSides = new int[]{0, 0, 0, 0, 0, 0};
+  public ItemStack[] items = new ItemStack[0];
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {

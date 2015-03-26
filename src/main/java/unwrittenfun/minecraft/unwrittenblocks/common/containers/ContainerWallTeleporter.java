@@ -2,7 +2,6 @@ package unwrittenfun.minecraft.unwrittenblocks.common.containers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
@@ -70,7 +69,8 @@ public class ContainerWallTeleporter extends Container {
           return null;
         }
       }
-      if (stack.stackSize == 0) slot.putStack(null); else slot.onSlotChanged();
+      if (stack.stackSize == 0) slot.putStack(null);
+      else slot.onSlotChanged();
       slot.onPickupFromSlot(player, stack);
       return result;
     }

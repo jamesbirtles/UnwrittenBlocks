@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
-import sun.org.mozilla.javascript.internal.ast.Block;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
@@ -18,26 +17,26 @@ import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 public class ItemRegister {
   public static final ItemArmor.ArmorMaterial darkInfusedArmourMaterial =
       EnumHelper.addArmorMaterial("DARK_INFUSED", 50, new int[]{4, 10, 8, 4}, 50);
-  public static final Item.ToolMaterial       darkInfusedToolMaterial   =
+  public static final Item.ToolMaterial darkInfusedToolMaterial =
       EnumHelper.addToolMaterial("DARK", 3, 5000, 25.0F, 6.0F, 50);
 
   public static final String[] DARK_INFUSED_ARMOUR_KEYS =
-      new String[] {"darkInfusedHelm", "darkInfusedChest", "darkInfusedLeggings", "darkInfusedBoots"};
+      new String[]{"darkInfusedHelm", "darkInfusedChest", "darkInfusedLeggings", "darkInfusedBoots"};
 
   public static final String DARK_INFUSED_SWORD_KEY = "darkInfusedSword";
   public static final String DARK_INFUSED_PICK_KEY = "darkInfusedPick";
-  public static final String DARK_INFUSED_AXE_KEY  = "darkInfusedAxe";
+  public static final String DARK_INFUSED_AXE_KEY = "darkInfusedAxe";
   public static final String DARK_INFUSED_SPADE_KEY = "darkInfusedSpade";
-  public static final String DARK_INFUSED_HOE_KEY  = "darkInfusedHoe";
+  public static final String DARK_INFUSED_HOE_KEY = "darkInfusedHoe";
 
   public static final String DARK_INFUSED_DIAMOND = "darkInfusedDiamond";
-  public static final String GPS_CHIP_KEY        = "gpsChip";
-  public static final String STORAGE_BALL_KEY    = "storageBall";
+  public static final String GPS_CHIP_KEY = "gpsChip";
+  public static final String STORAGE_BALL_KEY = "storageBall";
   public static final String PLEATHER_STRIPS_KEY = "pleatherStrips";
-  public static final String PLEATHER_BULB_KEY   = "pleatherBulb";
+  public static final String PLEATHER_BULB_KEY = "pleatherBulb";
 
-  public static final String   UPGRADE_KEY   = "upgrade";
-  public static final String[] UPGRADE_TYPES = new String[] {"upgradeBasic", "upgradeSpeed"};
+  public static final String UPGRADE_KEY = "upgrade";
+  public static final String[] UPGRADE_TYPES = new String[]{"upgradeBasic", "upgradeSpeed"};
 
   public static ItemDarkInfusedArmour darkInfusedHelm;
   public static ItemDarkInfusedArmour darkInfusedChest;
@@ -46,16 +45,16 @@ public class ItemRegister {
 
   public static ItemDarkInfusedSword darkInfusedSword;
   public static ItemDarkInfusedPick darkInfusedPick;
-  public static ItemDarkInfusedAxe  darkInfusedAxe;
+  public static ItemDarkInfusedAxe darkInfusedAxe;
   public static ItemDarkInfusedSpade darkInfusedSpade;
-  public static ItemDarkInfusedHoe  darkInfusedHoe;
+  public static ItemDarkInfusedHoe darkInfusedHoe;
 
   public static ItemDarkInfusedDiamond darkInfusedDiamond;
-  public static ItemGPSChip        gpsChip;
-  public static ItemStorageBall    storageBall;
-  public static ItemUpgrade        upgrade;
+  public static ItemGPSChip gpsChip;
+  public static ItemStorageBall storageBall;
+  public static ItemUpgrade upgrade;
   public static ItemPleatherStrips pleatherStrips;
-  public static ItemPleatherBulb   pleatherBulb;
+  public static ItemPleatherBulb pleatherBulb;
 
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);

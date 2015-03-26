@@ -3,7 +3,6 @@ package unwrittenfun.minecraft.unwrittenblocks.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +15,6 @@ import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntity
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author: James Birtles
@@ -54,9 +52,9 @@ public class GuiWallTeleporter extends GuiUnwrittenBlocks {
       String worldName = teleporter.getWTNetwork().destinationName;
       String coords = "(" + (int) destinationData[0] + ", " + (int) destinationData[1] + ", " + (int) destinationData[2] + ")";
       String yaw = "Yaw: " + (int) destinationData[3];
-      fontRendererObj.drawString(worldName, 88 - fontRendererObj.getStringWidth(worldName)/2, 15, 0x404040);
-      fontRendererObj.drawString(coords, 88 - fontRendererObj.getStringWidth(coords)/2, 27, 0x404040);
-      fontRendererObj.drawString(yaw, 88 - fontRendererObj.getStringWidth(yaw)/2, 39, 0x404040);
+      fontRendererObj.drawString(worldName, 88 - fontRendererObj.getStringWidth(worldName) / 2, 15, 0x404040);
+      fontRendererObj.drawString(coords, 88 - fontRendererObj.getStringWidth(coords) / 2, 27, 0x404040);
+      fontRendererObj.drawString(yaw, 88 - fontRendererObj.getStringWidth(yaw) / 2, 39, 0x404040);
     }
 
     GL11.glColor4f(1, 1, 1, 1);

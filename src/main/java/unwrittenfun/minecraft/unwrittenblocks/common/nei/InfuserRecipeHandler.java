@@ -11,9 +11,7 @@ import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 
 import java.util.Map;
 
-import static codechicken.lib.gui.GuiDraw.changeTexture;
-import static codechicken.lib.gui.GuiDraw.drawTexturedModalRect;
-import static codechicken.lib.gui.GuiDraw.fontRenderer;
+import static codechicken.lib.gui.GuiDraw.*;
 
 /**
  * Author: James Birtles

@@ -14,7 +14,7 @@ public class InfuserRecipes {
   public static InfuserRecipes instance = new InfuserRecipes();
 
   public HashMap<ItemStack, ItemStack> infusingList = new HashMap<ItemStack, ItemStack>();
-  public HashMap<ItemStack, Integer>   ticksList    = new HashMap<ItemStack, Integer>();
+  public HashMap<ItemStack, Integer> ticksList = new HashMap<ItemStack, Integer>();
 
   @SuppressWarnings("UnusedDeclaration")
   public void addRecipe(ItemStack input, ItemStack output, int tickTime) {
