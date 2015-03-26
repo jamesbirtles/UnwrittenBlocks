@@ -60,6 +60,7 @@ public class ItemRegister {
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
   public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
+  public static ItemStack stackGPSChipLinked, stackEnderPearl;
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
@@ -99,6 +100,9 @@ public class ItemRegister {
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
 
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.cobblestone));
+
+    stackGPSChipLinked = new ItemStack(ItemRegister.gpsChip, 1, 1);
+    stackEnderPearl = new ItemStack(Items.ender_pearl);
   }
 
   public static void registerRecipes() {

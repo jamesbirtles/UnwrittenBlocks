@@ -2,9 +2,12 @@ package unwrittenfun.minecraft.unwrittenblocks.common.containers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 /**
@@ -48,5 +51,29 @@ public class ContainerWallTeleporter extends Container {
         teleporter.getWTNetwork().fuel = value;
         break;
     }
+  }
+
+  @Override
+  public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+    Slot slot = getSlot(i);
+    if (slot != null && slot.getHasStack()) {
+      ItemStack stack = slot.getStack();
+      ItemStack result = stack.copy();
+      if (i >= 36) {
+        if (!mergeItemStack(stack, 0, 36, false)) return null;
+      } else {
+        if (stack.isItemEqual(ItemRegister.stackGPSChipLinked)) {
+          if (!mergeItemStack(stack, 36, 37, false)) return null;
+        } else if (stack.isItemEqual(ItemRegister.stackEnderPearl)) {
+          if (!mergeItemStack(stack, 37, 38, false)) return null;
+        } else {
+          return null;
+        }
+      }
+      if (stack.stackSize == 0) slot.putStack(null); else slot.onSlotChanged();
+      slot.onPickupFromSlot(player, stack);
+      return result;
+    }
+    return null;
   }
 }
