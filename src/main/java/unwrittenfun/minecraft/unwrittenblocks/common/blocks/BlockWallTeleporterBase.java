@@ -158,7 +158,7 @@ public class BlockWallTeleporterBase extends BlockContainer {
 
   @Override
   public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-    if (!player.isSneaking() && player.getHeldItem() == null) { // TODO: Also check if mask is locked
+    if (!player.isSneaking() && (player.getHeldItem() == null || !(player.getHeldItem().getItem() instanceof ItemBlock))) { // TODO: Also check if mask is locked
       FMLNetworkHandler.openGui(player, UnwrittenBlocks.instance, 0, world, x, y, z);
       return true;
     }
