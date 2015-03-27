@@ -67,8 +67,8 @@ public class ItemStorageBall extends ItemUB {
   @SuppressWarnings("unchecked")
   @Override
   public void getSubItems(Item item, CreativeTabs tab, List list) {
-    for (ItemStack container : StorageBallRegistry.types) {
-      list.add(StorageBallRegistry.getBallFromContainer(container));
+    for (ItemStack ball : StorageBallRegistry.balls.values()) {
+      list.add(ball);
     }
   }
 

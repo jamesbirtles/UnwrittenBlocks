@@ -1,21 +1,10 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.items;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import unwrittenfun.minecraft.unwrittenblocks.client.resourcepack.ExternalResourcePack;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,12 +13,19 @@ import java.util.HashMap;
  */
 public class StorageBallRegistry {
   public static ArrayList<ItemStack> types = new ArrayList<ItemStack>();
+  public static HashMap<ItemStack, ItemStack> balls = new HashMap<ItemStack, ItemStack>();
   public static ArrayList<IIcon> icons = new ArrayList<IIcon>();
   public static HashMap<ItemStack, ResourceLocation> resources = new HashMap<ItemStack, ResourceLocation>();
 
   public static void addStorageBall(ItemStack stack) {
     if (!types.contains(stack)) {
       types.add(stack);
+      ItemStack ball = new ItemStack(ItemRegister.storageBall);
+      ball.setTagCompound(new NBTTagCompound());
+      NBTTagCompound compound = new NBTTagCompound();
+      stack.writeToNBT(compound);
+      ball.getTagCompound().setTag("StorageBall", compound);
+      balls.put(stack, ball);
     }
   }
 
@@ -41,12 +37,12 @@ public class StorageBallRegistry {
   }
 
   public static ItemStack getBallFromContainer(ItemStack container) {
-    ItemStack stack = new ItemStack(ItemRegister.storageBall);
-    stack.setTagCompound(new NBTTagCompound());
-    NBTTagCompound compound = new NBTTagCompound();
-    container.writeToNBT(compound);
-    stack.getTagCompound().setTag("StorageBall", compound);
-    return stack;
+    for (ItemStack stack : balls.keySet()) {
+      if (stack.isItemEqual(container)) {
+        return balls.get(stack).copy();
+      }
+    }
+    return null;
   }
 
   public static IIcon getIconForBall(ItemStack ball) {
@@ -58,5 +54,14 @@ public class StorageBallRegistry {
       }
     }
     return null;
+  }
+
+  public static boolean isBallable(ItemStack stack) {
+    for (ItemStack cont : types) {
+      if (stack.isItemEqual(cont)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

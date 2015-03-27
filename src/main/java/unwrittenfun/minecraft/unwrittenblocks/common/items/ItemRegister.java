@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallRecipe;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 29/08/2014.
@@ -61,7 +62,7 @@ public class ItemRegister {
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
   public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
-  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb;
+  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer;
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
@@ -108,9 +109,12 @@ public class ItemRegister {
     stackGPSChipLinked = new ItemStack(gpsChip, 1, 1);
     stackEnderPearl = new ItemStack(Items.ender_pearl);
     stackPleatherBulb = new ItemStack(pleatherBulb);
+    stackStorageBallContainer = new ItemStack(storageBallContainer);
   }
 
   public static void registerRecipes() {
+    GameRegistry.addRecipe(new StorageBallRecipe());
+
     GameRegistry.addRecipe(new ItemStack(Items.leather), "pp", "pp", 'p', pleatherStrips);
     GameRegistry.addRecipe(new ItemStack(storageBallContainer, 16), " g ", "gig", " g ", 'g', Blocks.glass_pane, 'i', Items.iron_ingot);
 
