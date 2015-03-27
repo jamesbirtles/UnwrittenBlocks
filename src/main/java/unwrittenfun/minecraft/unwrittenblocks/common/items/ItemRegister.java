@@ -32,6 +32,7 @@ public class ItemRegister {
   public static final String DARK_INFUSED_DIAMOND = "darkInfusedDiamond";
   public static final String GPS_CHIP_KEY = "gpsChip";
   public static final String STORAGE_BALL_KEY = "storageBall";
+  public static final String STORAGE_BALL_CONTAINER_KEY = "storageBallContainer";
   public static final String PLEATHER_STRIPS_KEY = "pleatherStrips";
   public static final String PLEATHER_BULB_KEY = "pleatherBulb";
 
@@ -52,6 +53,7 @@ public class ItemRegister {
   public static ItemDarkInfusedDiamond darkInfusedDiamond;
   public static ItemGPSChip gpsChip;
   public static ItemStorageBall storageBall;
+  public static ItemStorageBallContainer storageBallContainer;
   public static ItemUpgrade upgrade;
   public static ItemPleatherStrips pleatherStrips;
   public static ItemPleatherBulb pleatherBulb;
@@ -75,6 +77,7 @@ public class ItemRegister {
 
     gpsChip = new ItemGPSChip();
     storageBall = new ItemStorageBall();
+    storageBallContainer = new ItemStorageBallContainer(STORAGE_BALL_CONTAINER_KEY);
     upgrade = new ItemUpgrade(UPGRADE_KEY, UPGRADE_TYPES);
     pleatherStrips = new ItemPleatherStrips(PLEATHER_STRIPS_KEY);
     pleatherBulb = new ItemPleatherBulb(PLEATHER_BULB_KEY);
@@ -94,6 +97,7 @@ public class ItemRegister {
     GameRegistry.registerItem(darkInfusedDiamond, DARK_INFUSED_DIAMOND);
     GameRegistry.registerItem(gpsChip, GPS_CHIP_KEY);
     GameRegistry.registerItem(storageBall, STORAGE_BALL_KEY);
+    GameRegistry.registerItem(storageBallContainer, STORAGE_BALL_CONTAINER_KEY);
     GameRegistry.registerItem(upgrade, UPGRADE_KEY);
     GameRegistry.registerItem(pleatherStrips, PLEATHER_STRIPS_KEY);
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
@@ -108,6 +112,7 @@ public class ItemRegister {
 
   public static void registerRecipes() {
     GameRegistry.addRecipe(new ItemStack(Items.leather), "pp", "pp", 'p', pleatherStrips);
+    GameRegistry.addRecipe(new ItemStack(storageBallContainer, 16), " g ", "gig", " g ", 'g', Blocks.glass_pane, 'i', Items.iron_ingot);
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
     GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);

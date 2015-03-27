@@ -2,6 +2,7 @@ item.gpsChip.name=§2Unlinked GPS Chip
 item.gpsChipLinked.name=§aLinked GPS Chip
 
 item.storageBall.name=Storage Ball
+item.storageBallContainer.name=Storage Ball Container
 
 item.darkInfusedHelm.name=Dark Infused Helmet
 item.darkInfusedChest.name=Dark Infused Chestplate
@@ -45,6 +46,7 @@ unwrittenblocks.text.diamondBlock=a Block of Diamond
 
 unwrittenblocks.text.pleatherStrips=Combine 4 in a crafting\ngrid to make leather
 unwrittenblocks.text.pleatherBulb=Plant on dirt or\ngrass to grow
+unwrittenblocks.text.storageBallContainer=Craft with 8 other\nblocks of the same type.
 
 unwrittenblocks.text.info_upgradeBasic=§6Crafting Component
 unwrittenblocks.text.info_upgradeSpeed=§6Increase Speed of\n§6Machines by 2ⁿ\nStacks up to 4

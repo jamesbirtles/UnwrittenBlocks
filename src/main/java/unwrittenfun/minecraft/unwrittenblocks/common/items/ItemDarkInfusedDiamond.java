@@ -7,7 +7,9 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 /**
- * Project: UnwrittenBlocks Author: UnwrittenFun Created: 05/11/2014.
+ * Project: UnwrittenBlocks
+ * Author: UnwrittenFun
+ * Created: 05/11/2014.
  */
 public class ItemDarkInfusedDiamond extends ItemUB {
   public ItemDarkInfusedDiamond(String key) {

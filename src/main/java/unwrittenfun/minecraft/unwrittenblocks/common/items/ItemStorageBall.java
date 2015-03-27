@@ -89,7 +89,7 @@ public class ItemStorageBall extends ItemUB {
       if (!texturePath.exists()) {
         UnwrittenBlocks.logger.info("Generating icon for storage ball at " + texturePath.getAbsolutePath());
         try {
-          InputStream outlineStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("unwrittenblocks:textures/items/storageBall.png")).getInputStream();
+          InputStream outlineStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("unwrittenblocks:textures/items/storageBallContainer.png")).getInputStream();
           Image outlineImage = ImageIO.read(outlineStream);
           InputStream blockStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(name + ".png")).getInputStream();
           Image blockImage = ImageIO.read(blockStream);
