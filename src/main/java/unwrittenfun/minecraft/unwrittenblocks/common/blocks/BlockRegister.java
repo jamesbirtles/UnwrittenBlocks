@@ -4,7 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemDarkInfusedDiamondBlock;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemBlockDarkInfusedDiamond;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
@@ -38,7 +38,7 @@ public class BlockRegister {
     GameRegistry.registerBlock(darkInfuser, DARK_INFUSER_KEY);
     GameRegistry.registerBlock(wallTeleporterBase, WT_BASE_KEY);
     GameRegistry.registerBlock(wallTeleporterWall, WT_WALL_KEY);
-    GameRegistry.registerBlock(darkInfusedDiamondBlock, ItemDarkInfusedDiamondBlock.class, DARK_INFUSED_DIAMOND_KEY);
+    GameRegistry.registerBlock(darkInfusedDiamondBlock, ItemBlockDarkInfusedDiamond.class, DARK_INFUSED_DIAMOND_KEY);
 
     GameRegistry.registerTileEntity(TEDarkInfuser.class, "TE" + DARK_INFUSER_KEY);
     GameRegistry.registerTileEntity(TEWallTeleporterBase.class, "TE" + WT_BASE_KEY);
