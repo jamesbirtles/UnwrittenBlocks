@@ -98,7 +98,8 @@ public class ItemRegister {
     GameRegistry.registerItem(pleatherStrips, PLEATHER_STRIPS_KEY);
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
 
-//    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.cobblestone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.cobblestone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.stonebrick));
 
     stackGPSChipLinked = new ItemStack(gpsChip, 1, 1);
     stackEnderPearl = new ItemStack(Items.ender_pearl);

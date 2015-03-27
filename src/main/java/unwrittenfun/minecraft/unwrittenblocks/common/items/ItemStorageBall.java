@@ -40,7 +40,15 @@ public class ItemStorageBall extends ItemUB {
                              boolean bool) {
     super.addInformation(stack, player, lines, bool);
 
-    lines.add(StorageBallRegistry.getContainerStackFromBall(stack).getDisplayName());
+    ItemStack container = StorageBallRegistry.getContainerStackFromBall(stack);
+    if (container != null) {
+      lines.add(container.getDisplayName());
+    }
+  }
+
+  @Override
+  public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+    return getIconIndex(stack);
   }
 
   @Override

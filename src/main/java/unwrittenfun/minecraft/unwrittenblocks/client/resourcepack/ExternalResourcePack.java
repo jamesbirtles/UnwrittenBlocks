@@ -14,6 +14,6 @@ public class ExternalResourcePack extends FolderResourcePack {
 
   @Override
   public String getPackName() {
-    return "UnwrittenBlocks Storage Balls";
+    return "unwrittenblocks";
   }
 }
