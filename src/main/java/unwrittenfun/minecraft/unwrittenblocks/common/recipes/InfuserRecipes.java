@@ -24,14 +24,14 @@ public class InfuserRecipes {
 
   public ItemStack getInfuserResult(ItemStack input) {
     for (Map.Entry<ItemStack, ItemStack> entry : infusingList.entrySet()) {
-      if (ItemStack.areItemStacksEqual(entry.getKey(), input) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
+      if (input.isItemEqual(entry.getKey()) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
     }
     return null;
   }
 
   public int getInfuserTicks(ItemStack input) {
     for (Map.Entry<ItemStack, Integer> entry : ticksList.entrySet()) {
-      if (ItemStack.areItemStacksEqual(entry.getKey(), input) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
+      if (input.isItemEqual(entry.getKey()) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
     }
     return 0;
   }

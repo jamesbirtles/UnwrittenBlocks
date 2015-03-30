@@ -49,7 +49,7 @@ public class InfuserRecipeHandler extends TemplateRecipeHandler {
   public void loadUsageRecipes(ItemStack ingredient) {
     for (Map.Entry<ItemStack, ItemStack> recipe : InfuserRecipes.instance.infusingList.entrySet()) {
       if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
-        if (ItemStack.areItemStacksEqual(ingredient, recipe.getKey()) && ItemStack.areItemStackTagsEqual(ingredient, recipe.getKey())) {
+        if (ingredient.isItemEqual(recipe.getKey()) && ItemStack.areItemStackTagsEqual(ingredient, recipe.getKey())) {
           arecipes.add(new InfuserCachedRecipe(recipe.getKey(), recipe.getValue()));
         }
       }
