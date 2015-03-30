@@ -7,7 +7,10 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.StorageBallRegistry;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallRecipe;
 
 import java.util.Map;
 
@@ -46,7 +49,9 @@ public class InfuserRecipeHandler extends TemplateRecipeHandler {
   public void loadUsageRecipes(ItemStack ingredient) {
     for (Map.Entry<ItemStack, ItemStack> recipe : InfuserRecipes.instance.infusingList.entrySet()) {
       if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
-        arecipes.add(new InfuserCachedRecipe(recipe.getKey(), recipe.getValue()));
+        if (ItemStack.areItemStacksEqual(ingredient, recipe.getKey()) && ItemStack.areItemStackTagsEqual(ingredient, recipe.getKey())) {
+          arecipes.add(new InfuserCachedRecipe(recipe.getKey(), recipe.getValue()));
+        }
       }
     }
   }

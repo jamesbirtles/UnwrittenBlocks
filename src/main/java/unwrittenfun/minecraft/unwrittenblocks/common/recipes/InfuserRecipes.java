@@ -23,17 +23,15 @@ public class InfuserRecipes {
   }
 
   public ItemStack getInfuserResult(ItemStack input) {
-//    UnwrittenBlocks.logger.info("Infuser Result: " + infusingList.get(inStack));
-//    return infusingList.get(inStack) == null ? null : infusingList.get(inStack).copy();
     for (Map.Entry<ItemStack, ItemStack> entry : infusingList.entrySet()) {
-      if (entry.getKey().isItemEqual(input)) return entry.getValue();
+      if (ItemStack.areItemStacksEqual(entry.getKey(), input) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
     }
     return null;
   }
 
   public int getInfuserTicks(ItemStack input) {
     for (Map.Entry<ItemStack, Integer> entry : ticksList.entrySet()) {
-      if (entry.getKey().isItemEqual(input)) return entry.getValue();
+      if (ItemStack.areItemStacksEqual(entry.getKey(), input) && ItemStack.areItemStackTagsEqual(entry.getKey(), input)) return entry.getValue();
     }
     return 0;
   }
