@@ -131,6 +131,7 @@ public class ItemRegister {
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.stonebrick));
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.quartz_block));
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.end_stone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.nether_brick));
 
     stackGPSChipLinked = new ItemStack(gpsChip, 1, 1);
     stackEnderPearl = new ItemStack(Items.ender_pearl);
@@ -151,6 +152,13 @@ public class ItemRegister {
 
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 0), "nnn", "ndn", "nnn", 'n', Items.netherbrick, 'd', darkInfusedDiamond);
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 1), "nsn", "sus", "nsn", 'n', Items.netherbrick, 's', Items.sugar, 'u', new ItemStack(upgrade, 1, 0));
+
+    GameRegistry.addRecipe(new ItemStack(BlockRegister.wallTeleporterBase), "ese", "sds", "epe", 'e', Blocks.end_stone, 's', Blocks.stone, 'd', darkInfusedDiamond, 'p', Items.ender_pearl);
+    GameRegistry.addRecipe(new ItemStack(BlockRegister.wallTeleporterWall, 4), "ese", "sds", "ese", 'e', Blocks.end_stone, 's', Blocks.stone, 'd', darkInfusedDiamond);
+
+    InfuserRecipes.instance.addRecipe(StorageBallRegistry.getBallFromContainer(new ItemStack(Blocks.end_stone)), new ItemStack(Items.ender_pearl), 1500);
+    InfuserRecipes.instance.addRecipe(StorageBallRegistry.getBallFromContainer(new ItemStack(Blocks.mossy_cobblestone)), new ItemStack(Items.slime_ball), 1000);
+    InfuserRecipes.instance.addRecipe(StorageBallRegistry.getBallFromContainer(new ItemStack(Blocks.nether_brick)), new ItemStack(Items.blaze_powder), 1200);
 
     InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond), new ItemStack(darkInfusedDiamond), 2000);
     InfuserRecipes.instance.addRecipe(new ItemStack(Items.diamond_helmet), new ItemStack(darkInfusedHelm), 8000);
