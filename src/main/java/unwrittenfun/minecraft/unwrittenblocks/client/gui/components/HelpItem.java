@@ -1,8 +1,9 @@
 package unwrittenfun.minecraft.unwrittenblocks.client.gui.components;
 
 import net.minecraft.util.StatCollector;
-import scala.actors.threadpool.Arrays;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiUnwrittenBlocks;
+
+import java.util.Arrays;
 
 /**
  * Project: UnwrittenBlocks
