@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class StorageBallRegistry {
   public static ArrayList<ItemStack> types = new ArrayList<ItemStack>();
   public static HashMap<ItemStack, ItemStack> balls = new HashMap<ItemStack, ItemStack>();
-  public static ArrayList<IIcon> icons = new ArrayList<IIcon>();
+  public static HashMap<ItemStack, IIcon> icons = new HashMap<ItemStack, IIcon>();
   public static HashMap<ItemStack, ResourceLocation> resources = new HashMap<ItemStack, ResourceLocation>();
 
   public static void addStorageBall(ItemStack stack) {
@@ -46,11 +46,13 @@ public class StorageBallRegistry {
   }
 
   public static IIcon getIconForBall(ItemStack ball) {
-    for (int index = 0; index < types.size(); index++) {
-      ItemStack stack = types.get(index);
+    ItemStack[] iconIndexArray = icons.keySet().toArray(new ItemStack[icons.keySet().size()]);
+    IIcon[] iconEntryArray = icons.values().toArray(new IIcon[icons.entrySet().size()]);
+    for (int index = 0; index < icons.keySet().size(); index++) {
+      ItemStack stack = iconIndexArray[index];
       ItemStack container = getContainerStackFromBall(ball);
       if (container != null && container.isItemEqual(stack)) {
-        return icons.get(index + 2);
+        return iconEntryArray[index];
       }
     }
     return null;

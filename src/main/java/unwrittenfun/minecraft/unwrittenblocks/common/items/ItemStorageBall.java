@@ -115,7 +115,7 @@ public class ItemStorageBall extends ItemUB {
     loadResourcePack();
 
     for (ItemStack item : StorageBallRegistry.types) {
-      StorageBallRegistry.icons.add(iconRegister.registerIcon("unwrittenblocks:" + getTextureNameForStack(item)));
+      StorageBallRegistry.icons.put(item, iconRegister.registerIcon("unwrittenblocks:" + getTextureNameForStack(item)));
     }
   }
 

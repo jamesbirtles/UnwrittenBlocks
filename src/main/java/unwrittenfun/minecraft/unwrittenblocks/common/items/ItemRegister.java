@@ -103,8 +103,33 @@ public class ItemRegister {
     GameRegistry.registerItem(pleatherStrips, PLEATHER_STRIPS_KEY);
     GameRegistry.registerItem(pleatherBulb, PLEATHER_BULB_KEY);
 
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.stone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.dirt));
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.cobblestone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 0));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 1));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 2));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 3));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 4));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.planks, 1, 5));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.sand));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.gravel));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log, 1, 0));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log, 1, 1));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log, 1, 2));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log, 1, 3));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log2, 1, 0));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.log2, 1, 1));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.glass));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.sandstone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.brick_block));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.mossy_cobblestone));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.clay));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.netherrack));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.soul_sand));
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.stonebrick));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.quartz_block));
+    StorageBallRegistry.addStorageBall(new ItemStack(Blocks.end_stone));
 
     stackGPSChipLinked = new ItemStack(gpsChip, 1, 1);
     stackEnderPearl = new ItemStack(Items.ender_pearl);
