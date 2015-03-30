@@ -14,6 +14,10 @@ public class NEIUnwrittenBlocksConfig implements IConfigureNEI {
   public void loadConfig() {
     API.registerRecipeHandler(new InfuserRecipeHandler());
     API.registerUsageHandler(new InfuserRecipeHandler());
+    API.registerRecipeHandler(new StorageBallRecipeHandler());
+    API.registerUsageHandler(new StorageBallRecipeHandler());
+    API.registerRecipeHandler(new StorageBallReturnRecipeHandler());
+    API.registerUsageHandler(new StorageBallReturnRecipeHandler());
   }
 
   @Override
