@@ -10,6 +10,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallRecipe;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallReturnRecipe;
 
 /**
  * Project: UnwrittenBlocks Author: UnwrittenFun Created: 29/08/2014.
@@ -62,7 +63,7 @@ public class ItemRegister {
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
   public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
-  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer;
+  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer, stackStorageBall;
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
@@ -135,13 +136,15 @@ public class ItemRegister {
     stackEnderPearl = new ItemStack(Items.ender_pearl);
     stackPleatherBulb = new ItemStack(pleatherBulb);
     stackStorageBallContainer = new ItemStack(storageBallContainer);
+    stackStorageBall = new ItemStack(storageBall); // FOR COMPARING ONLY
   }
 
   public static void registerRecipes() {
     GameRegistry.addRecipe(new StorageBallRecipe());
+    GameRegistry.addRecipe(new StorageBallReturnRecipe());
 
     GameRegistry.addRecipe(new ItemStack(Items.leather), "pp", "pp", 'p', pleatherStrips);
-    GameRegistry.addRecipe(new ItemStack(storageBallContainer, 16), " g ", "gig", " g ", 'g', Blocks.glass_pane, 'i', Items.iron_ingot);
+    GameRegistry.addRecipe(new ItemStack(storageBallContainer, 64), " g ", "g g", " g ", 'g', Blocks.glass_pane);
 
     GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
     GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);
