@@ -1,8 +1,0 @@
-build
-.gradle
-out
-eclipse
-*.iws
-*.ipr
-*.iml
-libs/
