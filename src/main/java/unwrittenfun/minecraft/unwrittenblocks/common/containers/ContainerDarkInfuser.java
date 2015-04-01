@@ -8,8 +8,10 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.slots.SlotUpgrade;
+import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.NetworkRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.network.messages.TileEntityIntegerMessage;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 
 /**
@@ -63,8 +65,27 @@ public class ContainerDarkInfuser extends Container {
   }
 
   @Override
-  public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
-    //TODO: Shift click implementation
+  public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+    Slot slot = getSlot(i);
+    if (slot != null && slot.getHasStack()) {
+      ItemStack stack = slot.getStack();
+      ItemStack result = stack.copy();
+      if (i >= 36) {
+        if (!mergeItemStack(stack, 0, 36, false)) return null;
+      } else {
+        if (stack.isItemEqual(ItemRegister.stackSpeedUpgrade)) {
+          if (!mergeItemStack(stack, 38, 39, false)) return null;
+        } else if (InfuserRecipes.instance.getInfuserResult(stack) != null) {
+          if (!mergeItemStack(stack, 36, 37, false)) return null;
+        } else {
+          return null;
+        }
+      }
+      if (stack.stackSize == 0) slot.putStack(null);
+      else slot.onSlotChanged();
+      slot.onPickupFromSlot(player, stack);
+      return result;
+    }
     return null;
   }
 

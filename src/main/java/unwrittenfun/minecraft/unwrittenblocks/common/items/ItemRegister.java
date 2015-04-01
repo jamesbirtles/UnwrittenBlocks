@@ -63,7 +63,7 @@ public class ItemRegister {
   // For comparing
   public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
   public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
-  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer, stackStorageBall;
+  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer, stackStorageBall, stackSpeedUpgrade;
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
@@ -138,6 +138,7 @@ public class ItemRegister {
     stackPleatherBulb = new ItemStack(pleatherBulb);
     stackStorageBallContainer = new ItemStack(storageBallContainer);
     stackStorageBall = new ItemStack(storageBall); // FOR COMPARING ONLY
+    stackSpeedUpgrade = new ItemStack(upgrade, 1, 1);
   }
 
   public static void registerRecipes() {
