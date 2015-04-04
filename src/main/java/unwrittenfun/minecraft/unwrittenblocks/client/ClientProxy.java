@@ -1,9 +1,11 @@
 package unwrittenfun.minecraft.unwrittenblocks.client;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import unwrittenfun.minecraft.unwrittenblocks.client.models.ModelDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.blocks.BlockRendererRefulgent;
 import unwrittenfun.minecraft.unwrittenblocks.client.renderers.blocks.TESRDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.client.renderers.items.IRDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.CommonProxy;
@@ -22,5 +24,8 @@ public class ClientProxy extends CommonProxy {
     ModelDarkInfuser modelDarkInfuser = new ModelDarkInfuser();
     ClientRegistry.bindTileEntitySpecialRenderer(TEDarkInfuser.class, new TESRDarkInfuser(modelDarkInfuser));
     MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRegister.darkInfuser), new IRDarkInfuser(modelDarkInfuser));
+
+    refulgentRenderer = new BlockRendererRefulgent(RenderingRegistry.getNextAvailableRenderId());
+    RenderingRegistry.registerBlockHandler(refulgentRenderer);
   }
 }

@@ -52,6 +52,5 @@ public class UnwrittenBlocks {
     NetworkRegister.initMessages();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-
   }
 }

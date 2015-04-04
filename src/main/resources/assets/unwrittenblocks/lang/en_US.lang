@@ -28,6 +28,9 @@ tile.darkInfuser.name=Dark Infuser
 tile.wallTeleporterBase.name=Wall Teleporter Base
 tile.wallTeleporterWall.name=Wall Teleporter Wall
 tile.darkInfusedDiamondBlock.name=Block of Dark Infused Diamond
+tile.refulgentFabricator.name=Refulgent Fabricator
+tile.refulgentWall.name=Refulgent Wall
+tile.refulgentBrick.name=Refulgent Brick
 
 unwrittenblocks.wallTeleporterBase.name=Wall Teleporter
 

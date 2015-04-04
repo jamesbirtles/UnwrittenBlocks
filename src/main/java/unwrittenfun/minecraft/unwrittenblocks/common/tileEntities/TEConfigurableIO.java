@@ -19,8 +19,7 @@ import java.util.ArrayList;
  * Author: UnwrittenFun
  * Created: 05/11/2014.
  */
-public abstract class TEConfigurableIO extends TileEntity
-    implements ISidedInventory, ITileEntityIOSidesMessageReceiver {
+public abstract class TEConfigurableIO extends TileEntity implements ISidedInventory, ITileEntityIOSidesMessageReceiver {
   public int[] ioSides = new int[]{0, 0, 0, 0, 0, 0};
   public ItemStack[] items = new ItemStack[0];
 
@@ -118,11 +117,6 @@ public abstract class TEConfigurableIO extends TileEntity
   }
 
   @Override
-  public String getInventoryName() {
-    return "Dark Infuser";
-  }
-
-  @Override
   public boolean hasCustomInventoryName() {
     return false;
   }
@@ -158,15 +152,13 @@ public abstract class TEConfigurableIO extends TileEntity
 
   @Override
   public void receiveIOSideMessage(int side, int value) {
-    UnwrittenBlocks.logger.info("Received io side message");
     setSideIO(side, value);
   }
 
   public void setSideIO(int side, int value) {
     ioSides[side] = value;
     if (hasWorldObj() && worldObj.isRemote) {
-      NetworkRegister.wrapper
-          .sendToServer(TileEntityIOSideMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, side, value));
+      NetworkRegister.wrapper.sendToServer(TileEntityIOSideMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, side, value));
     }
   }
 }

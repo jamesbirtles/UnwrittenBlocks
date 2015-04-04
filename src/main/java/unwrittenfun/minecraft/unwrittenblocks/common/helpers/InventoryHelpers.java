@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;
 
 /**
  * Project: UnwrittenBlocks
@@ -47,5 +48,52 @@ public class InventoryHelpers {
         }
       }
     }
+  }
+
+  public static int insertStackIntoSlotsInRange(IInventory inventory, ItemStack stack, int slotMin, int slotMax) {
+    ItemStack item = stack.copy();
+    for (int i = slotMin; i < slotMax; i++) {
+      if (item.stackSize > 0) {
+        ItemStack slotItem = inventory.getStackInSlot(i);
+        if (slotItem == null || (slotItem.stackSize < slotItem.getMaxStackSize() && stack.isItemEqual(slotItem))) {
+          if (slotItem == null) {
+            inventory.setInventorySlotContents(i, item.copy());
+            item.stackSize = 0;
+          } else {
+            if (slotItem.stackSize + item.stackSize > slotItem.getMaxStackSize()) {
+              item.stackSize -= slotItem.getMaxStackSize() - slotItem.stackSize;
+              slotItem.stackSize = slotItem.getMaxStackSize();
+            } else {
+              slotItem.stackSize += item.stackSize;
+              item.stackSize = 0;
+            }
+          }
+        }
+      }
+    }
+
+    return item.stackSize;
+  }
+
+  public static boolean canInsertStackIntoSlotInRange(IInventory inventory, ItemStack stack, int slotMin, int slotMax) {
+    ItemStack item = stack.copy();
+    for (int i = slotMin; i < slotMax; i++) {
+      if (item.stackSize > 0) {
+        ItemStack slotItem = inventory.getStackInSlot(i);
+        if (slotItem == null || (slotItem.stackSize < slotItem.getMaxStackSize() && stack.isItemEqual(slotItem))) {
+          if (slotItem == null) {
+            item.stackSize = 0;
+          } else {
+            if (slotItem.stackSize + item.stackSize > slotItem.getMaxStackSize()) {
+              item.stackSize -= slotItem.getMaxStackSize() - slotItem.stackSize;
+            } else {
+              item.stackSize = 0;
+            }
+          }
+        }
+      }
+    }
+
+    return item.stackSize == 0;
   }
 }

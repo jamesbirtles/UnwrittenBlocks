@@ -74,8 +74,7 @@ public class TEDarkInfuser extends TEConfigurableIO implements ITileEntityIntege
       } else { // We're on the client
         if (!loaded) {
           loaded = true;
-          NetworkRegister.wrapper
-              .sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
+          NetworkRegister.wrapper.sendToServer(TileEntityRequestMessage.messageFrom(worldObj, xCoord, yCoord, zCoord, 0));
         }
         if (itemEntity != null) itemEntity.rotationYaw = ++itemYaw;
       }
@@ -180,5 +179,10 @@ public class TEDarkInfuser extends TEConfigurableIO implements ITileEntityIntege
     }
 
     super.onInventoryChanged();
+  }
+
+  @Override
+  public String getInventoryName() {
+    return "Dark Infuser";
   }
 }

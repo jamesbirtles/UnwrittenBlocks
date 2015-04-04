@@ -5,10 +5,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiRefulgentFabricator;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.GuiWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerRefulgentInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerWallTeleporter;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
+import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEWallTeleporterBase;
 
 /**
@@ -30,6 +33,10 @@ public class GuiHandler implements IGuiHandler {
         if (tileEntity instanceof TEDarkInfuser) {
           return new ContainerDarkInfuser(player.inventory, (TEDarkInfuser) tileEntity);
         }
+      case 2: // Refulgent Fabricator
+        if (tileEntity instanceof TERefulgentFabricator) {
+          return new ContainerRefulgentInfuser(player.inventory, (TERefulgentFabricator) tileEntity);
+        }
         break;
     }
     return null;
@@ -47,6 +54,11 @@ public class GuiHandler implements IGuiHandler {
       case 1: // Dark Infuser
         if (tileEntity instanceof TEDarkInfuser) {
           return new GuiDarkInfuser(player.inventory, (TEDarkInfuser) tileEntity);
+        }
+        break;
+      case 2: // Refulgent Fabricator
+        if (tileEntity instanceof TERefulgentFabricator) {
+          return new GuiRefulgentFabricator(player.inventory, (TERefulgentFabricator) tileEntity);
         }
         break;
     }
