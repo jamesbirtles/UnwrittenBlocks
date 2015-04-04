@@ -1,6 +1,9 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.InventoryHelpers;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;
 
 /**
@@ -32,6 +36,7 @@ public class BlockRefulgentFabricator extends BlockContainer implements IRefulge
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public int getRenderType() {
     return UnwrittenBlocks.proxy.refulgentRenderer.getRenderId();
   }
@@ -75,5 +80,12 @@ public class BlockRefulgentFabricator extends BlockContainer implements IRefulge
   @Override
   public int getRGBForMeta(int metadata) {
     return 0xFFFFFF;
+  }
+
+  @Override
+  public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    if (!world.isRemote) {
+      InventoryHelpers.dropInventory(world, x, y, z);
+    }
   }
 }

@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * Author: James Birtles
  */
-public class BlockRefulgentWall extends Block implements IRefulgentBlock {
-  public BlockRefulgentWall(String key) {
+public class BlockRefulgentBlock extends Block implements IRefulgentBlock {
+  public BlockRefulgentBlock(String key) {
     super(Material.rock);
     setCreativeTab(UnwrittenBlocks.creativeTabUB);
     setBlockName(key);

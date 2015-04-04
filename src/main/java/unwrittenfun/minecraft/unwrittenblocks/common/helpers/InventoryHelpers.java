@@ -44,7 +44,9 @@ public class InventoryHelpers {
       for (int i = 0; i < inventory.getSizeInventory(); i++) {
         ItemStack stack = inventory.getStackInSlotOnClosing(i);
         if (stack != null) {
-          ItemHelpers.dropItemStack(stack, world, x, y, z);
+          if (!(tileEntity instanceof TERefulgentFabricator && i == 9)) {
+            ItemHelpers.dropItemStack(stack, world, x, y, z);
+          }
         }
       }
     }
