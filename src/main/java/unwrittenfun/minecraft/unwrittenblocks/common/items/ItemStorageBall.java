@@ -61,7 +61,7 @@ public class ItemStorageBall extends ItemUB {
   @Override
   @SideOnly(Side.CLIENT)
   public void registerIcons(IIconRegister iconRegister) {
-    UnwrittenBlocks.proxy.generateSorageBallIcons();
+    UnwrittenBlocks.proxy.generateStorageBallIcons();
 
     for (ItemStack item : StorageBallRegistry.types) {
       StorageBallRegistry.icons.put(item, iconRegister.registerIcon("unwrittenblocks:" + getTextureNameForStack(item)));

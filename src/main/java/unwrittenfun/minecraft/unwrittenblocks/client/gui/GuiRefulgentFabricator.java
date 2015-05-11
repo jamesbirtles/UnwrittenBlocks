@@ -8,7 +8,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import unwrittenfun.minecraft.unwrittenblocks.client.gui.components.GuiAutoEjectButton;
-import unwrittenfun.minecraft.unwrittenblocks.client.gui.components.GuiSidesButton;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.ContainerRefulgentInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;

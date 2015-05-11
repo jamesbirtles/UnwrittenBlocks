@@ -2,9 +2,7 @@ package unwrittenfun.minecraft.unwrittenblocks.common.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
-import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.ModInfo;
-import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRegister;
 
 /**
  * Author: James Birtles

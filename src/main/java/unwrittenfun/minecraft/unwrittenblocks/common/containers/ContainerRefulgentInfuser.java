@@ -7,8 +7,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.containers.slots.SlotResult;
-import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
-import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;
 
 /**

@@ -17,7 +17,7 @@ public class CommonProxy {
 
   }
 
-  public void generateSorageBallIcons() {
+  public void generateStorageBallIcons() {
 
   }
 }

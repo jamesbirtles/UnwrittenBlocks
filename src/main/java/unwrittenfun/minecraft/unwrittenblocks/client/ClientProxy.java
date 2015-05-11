@@ -2,10 +2,7 @@ package unwrittenfun.minecraft.unwrittenblocks.client;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -51,7 +48,7 @@ public class ClientProxy extends CommonProxy {
   }
 
   @Override
-  public void generateSorageBallIcons() {
+  public void generateStorageBallIcons() {
     for (ItemStack item : StorageBallRegistry.types) {
       String[] splitName = item.getIconIndex().getIconName().split(":");
       String name = (splitName.length < 2 ? "minecraft" : splitName[0]) + ":textures/";

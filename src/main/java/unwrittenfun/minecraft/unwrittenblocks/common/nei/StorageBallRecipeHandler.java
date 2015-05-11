@@ -4,7 +4,6 @@ import codechicken.nei.recipe.ShapedRecipeHandler;
 import net.minecraft.item.ItemStack;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.StorageBallRegistry;
-import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallRecipe;
 
 /**
  * Author: James Birtles
