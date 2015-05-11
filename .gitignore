@@ -1,8 +1,6 @@
 build
 .gradle
-out
-eclipse
-*.iws
-*.ipr
 *.iml
-libs/
+
+run/client/*
+run/server/*
