@@ -42,8 +42,8 @@ public class BlockRegister {
     wallTeleporterWall = new BlockWallTeleporterWall(WT_WALL_KEY);
     darkInfusedDiamondBlock = new BlockDarkInfusedDiamond(DARK_INFUSED_DIAMOND_KEY);
     refulgentFabricator = new BlockRefulgentFabricator(REFULGENT_FABRICATOR_KEY);
-    refulgentWall = new BlockRefulgentBlock(REFULGENT_WALL_KEY);
-    refulgentBrick = new BlockRefulgentBlock(REFULGENT_BRICK_KEY);
+    refulgentWall = new BlockRefulgentBlock(REFULGENT_WALL_KEY, true);
+    refulgentBrick = new BlockRefulgentBlock(REFULGENT_BRICK_KEY, false);
 
     GameRegistry.registerBlock(pleatherPlant, null, PLEATHER_PLANT_KEY);
     GameRegistry.registerBlock(darkInfuser, DARK_INFUSER_KEY);

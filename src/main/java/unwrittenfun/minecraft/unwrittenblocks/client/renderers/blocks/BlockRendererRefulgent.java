@@ -9,16 +9,22 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
+import unwrittenfun.minecraft.unwrittenblocks.client.renderers.BlockRenderHelper;
 import unwrittenfun.minecraft.unwrittenblocks.common.UnwrittenBlocks;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.BlockRefulgentFabricator;
+import unwrittenfun.minecraft.unwrittenblocks.common.blocks.IConnectedTextures;
 import unwrittenfun.minecraft.unwrittenblocks.common.blocks.IRefulgentBlock;
+import unwrittenfun.minecraft.unwrittenblocks.common.helpers.Diagonal;
 
 import java.lang.reflect.Field;
+
+import static unwrittenfun.minecraft.unwrittenblocks.client.renderers.BlockRenderHelper.*;
 
 /**
  * Author: James Birtles
  */
 public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
+  public static final float zFightingOffset = 0.001f;
   public int renderId;
 
   public BlockRendererRefulgent(int renderId) {
@@ -27,7 +33,6 @@ public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
 
   @Override
   public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-//    renderer.renderBlockAsItem();
     if (block instanceof IRefulgentBlock) {
       IRefulgentBlock refulgentBlock = (IRefulgentBlock) block;
       IIcon refulgentIcon = BlockRefulgentFabricator.refulgent; // TODO: put this somewhere more generic
@@ -38,7 +43,11 @@ public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
       int x = 0;
       int y = 0;
       int z = 0;
-      float f1 = 0.0625F;
+
+      IIcon[] sideIcons = new IIcon[6];
+      for (int direction = 0; direction < sideIcons.length; direction++) {
+        sideIcons[direction] = refulgentBlock.getIconFromDirection(direction);
+      }
 
       Tessellator tess = Tessellator.instance;
       int oldBrightness = getTessBrightness(tess);
@@ -46,112 +55,24 @@ public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
       tess.setColorRGBA(255, 255, 255, 255);
 
       GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-      // TOP (+Y)
-      tess.startDrawingQuads();
-      IIcon upIcon = refulgentBlock.getIconFromDirection(ForgeDirection.UP);
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, upIcon.getMaxU(), upIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z, upIcon.getMaxU(), upIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z, upIcon.getMinU(), upIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 1, upIcon.getMinU(), upIcon.getMaxV());
-      tess.draw();
 
-      // BOTTOM (-Y)
-      tess.startDrawingQuads();
-      IIcon downIcon = refulgentBlock.getIconFromDirection(ForgeDirection.DOWN);
-      tess.addVertexWithUV(x, y, z, downIcon.getMinU(), downIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z, downIcon.getMaxU(), downIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 1, downIcon.getMaxU(), downIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z + 1, downIcon.getMinU(), downIcon.getMaxV());
-      tess.draw();
-
-      // NORTH (-Z)
-      tess.startDrawingQuads();
-      IIcon northIcon = refulgentBlock.getIconFromDirection(ForgeDirection.NORTH);
-      tess.addVertexWithUV(x + 1, y + 1, z, northIcon.getMinU(), northIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z, northIcon.getMinU(), northIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z, northIcon.getMaxU(), northIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z, northIcon.getMaxU(), northIcon.getMinV());
-      tess.draw();
-
-      // WEST (+X)
-      tess.startDrawingQuads();
-      IIcon westIcon = refulgentBlock.getIconFromDirection(ForgeDirection.WEST);
-      tess.addVertexWithUV(x, y, z, westIcon.getMinU(), westIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z + 1, westIcon.getMaxU(), westIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z + 1, westIcon.getMaxU(), westIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z, westIcon.getMinU(), westIcon.getMinV());
-      tess.draw();
-
-      // EAST (-X)
-      tess.startDrawingQuads();
-      IIcon eastIcon = refulgentBlock.getIconFromDirection(ForgeDirection.EAST);
-      tess.addVertexWithUV(x + 1, y, z, eastIcon.getMaxU(), eastIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z, eastIcon.getMaxU(), eastIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, eastIcon.getMinU(), eastIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 1, eastIcon.getMinU(), eastIcon.getMaxV());
-      tess.draw();
-
-      // SOUTH (+Z)
-      tess.startDrawingQuads();
-      IIcon southIcon = refulgentBlock.getIconFromDirection(ForgeDirection.SOUTH);
-      tess.addVertexWithUV(x, y, z + 1, southIcon.getMinU(), southIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y, z + 1, southIcon.getMaxU(), southIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, southIcon.getMaxU(), southIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 1, southIcon.getMinU(), southIcon.getMinV());
-      tess.draw();
+      for (int side = 0; side < 6; side++) {
+        tess.startDrawingQuads();
+        BlockRenderHelper.renderFaceSide(sideIcons[side], x + zFightingX(zFightingOffset, side), y + zFightingY(zFightingOffset, side), z + zFightingZ(zFightingOffset, side), side);
+        tess.draw();
+      }
 
       tess.setBrightness(15728880);
 //      tess.setColorRGBA(r, g, b, 255);
       RenderHelper.disableStandardItemLighting();
       GL11.glColor3f(r / 255f, g / 255f, b / 255f);
 
-      // TOP (+Y)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x + 1, y + 0.999f, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 0.999f, z, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 0.999f, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 0.999f, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
+      for (int side = 0; side < 6; side++) {
+        tess.startDrawingQuads();
+        BlockRenderHelper.renderFaceSide(refulgentIcon, x, y, z, side);
+        tess.draw();
+      }
 
-      // DOWN (-Y)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x, y + 0.001f, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 0.001f, z, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 0.001f, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 0.001f, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
-
-      // NORTH (-Z)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x + 1, y + 1, z + 0.001f, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y, z + 0.001f, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y, z + 0.001f, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 0.001f, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
-
-      // WEST (+X)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x + 0.001f, y, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.001f, y, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.001f, y + 1, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 0.001f, y + 1, z, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
-
-      // EAST (-X)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x + 0.999f, y + 1, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 0.999f, y, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.999f, y, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.999f, y + 1, z, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
-
-      // SOUTH (+Z)
-      tess.startDrawingQuads();
-      tess.addVertexWithUV(x, y, z + 0.999f, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 0.999f, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 0.999f, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z + 0.999f, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.draw();
       GL11.glTranslatef(0.5F, 0.5F, 0.5F);
       RenderHelper.enableStandardItemLighting();
 
@@ -169,93 +90,73 @@ public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
       int g = (hex & 0xFF00) >> 8;
       int b = (hex & 0xFF);
 
+      IIcon[] sideIcons = new IIcon[6];
+      for (int direction = 0; direction < sideIcons.length; direction++) {
+        sideIcons[direction] = refulgentBlock.getIconFromDirection(direction);
+      }
+
       Tessellator tess = Tessellator.instance;
       int oldBrightness = getTessBrightness(tess);
 
-      tess.setColorRGBA(255, 255, 255, 255);
-
-      // TOP (+Y)
-      IIcon upIcon = refulgentBlock.getIconFromDirection(ForgeDirection.UP);
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, upIcon.getMaxU(), upIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z, upIcon.getMaxU(), upIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z, upIcon.getMinU(), upIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 1, upIcon.getMinU(), upIcon.getMaxV());
-
-      // DOWN (-Y)
-      IIcon downIcon = refulgentBlock.getIconFromDirection(ForgeDirection.DOWN);
-      tess.addVertexWithUV(x, y, z, downIcon.getMinU(), downIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z, downIcon.getMaxU(), downIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 1, downIcon.getMaxU(), downIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z + 1, downIcon.getMinU(), downIcon.getMaxV());
-
-      // NORTH (-Z)
-      IIcon northIcon = refulgentBlock.getIconFromDirection(ForgeDirection.NORTH);
-      tess.addVertexWithUV(x + 1, y + 1, z, northIcon.getMinU(), northIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z, northIcon.getMinU(), northIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z, northIcon.getMaxU(), northIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z, northIcon.getMaxU(), northIcon.getMinV());
-
-      // WEST (+X)
-      IIcon westIcon = refulgentBlock.getIconFromDirection(ForgeDirection.WEST);
-      tess.addVertexWithUV(x, y, z, westIcon.getMinU(), westIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z + 1, westIcon.getMaxU(), westIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z + 1, westIcon.getMaxU(), westIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z, westIcon.getMinU(), westIcon.getMinV());
-
-      // EAST (-X)
-      IIcon eastIcon = refulgentBlock.getIconFromDirection(ForgeDirection.EAST);
-      tess.addVertexWithUV(x + 1, y, z, eastIcon.getMaxU(), eastIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z, eastIcon.getMaxU(), eastIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, eastIcon.getMinU(), eastIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 1, eastIcon.getMinU(), eastIcon.getMaxV());
-
-      // SOUTH (+Z)
-      IIcon southIcon = refulgentBlock.getIconFromDirection(ForgeDirection.SOUTH);
-      tess.addVertexWithUV(x, y, z + 1, southIcon.getMinU(), southIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y, z + 1, southIcon.getMaxU(), southIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 1, southIcon.getMaxU(), southIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 1, southIcon.getMinU(), southIcon.getMinV());
+      tess.setColorOpaque_F(1, 1, 1);
+      if (block instanceof IConnectedTextures && ((IConnectedTextures) block).hasConnectedTextures()) {
+        IConnectedTextures blockConnected = (IConnectedTextures) block;
+        for (int side = 0; side < 6; side++) {
+          if (block.shouldSideBeRendered(world, x, y, z, side)) {
+            for (int i = 0; i < 4; i++) {
+              ForgeDirection direction = planeDirections[side][i];
+              Block compBlock = world.getBlock(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+              if (!blockConnected.canConnectToBlock(compBlock)) {
+                renderFaceSide(blockConnected.getIconForDisconnectedSide(i), x + zFightingX(zFightingOffset, side), y + zFightingY(zFightingOffset, side), z + zFightingZ(zFightingOffset, side), side);
+              }
+            }
+            for (Diagonal diagonal : Diagonal.values()) {
+              int offsetX = diagonal.get3DOffsetX(side);
+              int offsetY = diagonal.get3DOffsetY(side);
+              int offsetZ = diagonal.get3DOffsetZ(side);
+              Block blockCompXY = world.getBlock(x + offsetX, y + offsetY, z + offsetZ);
+              if (!blockConnected.canConnectToBlock(blockCompXY)) {
+                int compYX, compYY, compYZ;
+                int compXX = compYX = x;
+                int compXY = compYY = y;
+                int compXZ = compYZ = z;
+                if (offsetX == 0) {
+                  compXZ += offsetZ;
+                  compYY += offsetY;
+                } else if (offsetY == 0) {
+                  compXX += offsetX;
+                  compYZ += offsetZ;
+                } else if (offsetZ == 0) {
+                  compXX += offsetX;
+                  compYY += offsetY;
+                }
+                Block blockCompX = world.getBlock(compXX, compXY, compXZ);
+                Block blockCompY = world.getBlock(compYX, compYY, compYZ);
+                if (blockConnected.canConnectToBlock(blockCompX) && blockConnected.canConnectToBlock(blockCompY)) {
+                  renderFaceSide(blockConnected.getIconForDisconnectedSide(4 + diagonal.ordinal()), x + zFightingX(zFightingOffset, side), y + zFightingY(zFightingOffset, side), z + zFightingZ(zFightingOffset, side), side);
+                }
+              }
+            }
+          }
+        }
+      } else {
+        for (int side = 0; side < 6; side++) {
+          if (block.shouldSideBeRendered(world, x, y, z, side)) {
+            BlockRenderHelper.renderFaceSide(sideIcons[side], x + zFightingX(zFightingOffset, side), y + zFightingY(zFightingOffset, side), z + zFightingZ(zFightingOffset, side), side);
+          }
+        }
+      }
 
       tess.setBrightness(15728880);
       tess.setColorRGBA(r, g, b, 255);
 
-      // TOP (+Y)
-      tess.addVertexWithUV(x + 1, y + 0.999f, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 0.999f, z, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 0.999f, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 0.999f, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-
-      // BOTTOM (-Y)
-      tess.addVertexWithUV(x, y + 0.001f, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 0.001f, z, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y + 0.001f, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 0.001f, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-
-      // NORTH (-Z)
-      tess.addVertexWithUV(x + 1, y + 1, z + 0.001f, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 1, y, z + 0.001f, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x, y, z + 0.001f, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x, y + 1, z + 0.001f, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-
-      // WEST (+X)
-      tess.addVertexWithUV(x + 0.001f, y, z, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 0.001f, y, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 0.001f, y + 1, z + 1, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.001f, y + 1, z, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-
-      // EAST (-X)
-      tess.addVertexWithUV(x + 0.999f, y, z, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 0.999f, y + 1, z, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.999f, y + 1, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x + 0.999f, y, z + 1, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-
-      // SOUTH (+Z)
-      tess.addVertexWithUV(x, y, z + 0.999f, refulgentIcon.getMinU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y, z + 0.999f, refulgentIcon.getMaxU(), refulgentIcon.getMaxV());
-      tess.addVertexWithUV(x + 1, y + 1, z + 0.999f, refulgentIcon.getMaxU(), refulgentIcon.getMinV());
-      tess.addVertexWithUV(x, y + 1, z + 0.999f, refulgentIcon.getMinU(), refulgentIcon.getMinV());
-
+      for (int side = 0; side < 6; side++) {
+        if (block.shouldSideBeRendered(world, x, y, z, side)) {
+          BlockRenderHelper.renderFaceSide(refulgentIcon, x, y, z, side);
+        }
+      }
       tess.setBrightness(oldBrightness);
+
     }
     return false;
   }
@@ -283,4 +184,5 @@ public class BlockRendererRefulgent implements ISimpleBlockRenderingHandler {
   public int getRenderId() {
     return renderId;
   }
+
 }

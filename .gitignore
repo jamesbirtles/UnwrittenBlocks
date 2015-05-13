@@ -1,6 +1,7 @@
 build
 .gradle
 *.iml
+eclipse/
 
 run/client/*
 run/server/*

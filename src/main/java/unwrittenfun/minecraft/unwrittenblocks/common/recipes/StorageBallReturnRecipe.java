@@ -23,6 +23,8 @@ public class StorageBallReturnRecipe implements IRecipe {
           } else {
             if (stack.isItemEqual(ItemRegister.stackStorageBall)) {
               matches = true;
+            } else {
+              return false;
             }
           }
         }
@@ -36,10 +38,11 @@ public class StorageBallReturnRecipe implements IRecipe {
     for (int row = 0; row < 3; row++) {
       for (int column = 0; column < 3; column++) {
         ItemStack ball = crafting.getStackInRowAndColumn(row, column);
-        if (ball != null) {
-          ItemStack contained = StorageBallRegistry.getContainerStackFromBall(ball).copy();
-          contained.stackSize = 8;
-          return contained;
+        ItemStack containerStack = StorageBallRegistry.getContainerStackFromBall(ball);
+        if (ball != null && containerStack != null) {
+          containerStack = containerStack.copy();
+          containerStack.stackSize = 8;
+          return containerStack;
         }
       }
     }

@@ -30,7 +30,7 @@ public class StorageBallRegistry {
   }
 
   public static ItemStack getContainerStackFromBall(ItemStack ball) {
-    if (ball.hasTagCompound()) {
+    if (ball != null && ball.hasTagCompound()) {
       return ItemStack.loadItemStackFromNBT(ball.getTagCompound().getCompoundTag("StorageBall"));
     }
     return null;

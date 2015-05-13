@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * Author: James Birtles
  */
 public interface IRefulgentBlock {
-  IIcon getIconFromDirection(ForgeDirection direction);
+  IIcon getIconFromDirection(int direction);
 
   int getRGB(IBlockAccess world, int x, int y, int z);
 

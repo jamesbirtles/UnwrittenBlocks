@@ -62,10 +62,10 @@ public class BlockRefulgentFabricator extends BlockContainer implements IRefulge
   }
 
   @Override
-  public IIcon getIconFromDirection(ForgeDirection direction) {
-    if (direction == ForgeDirection.UP) {
+  public IIcon getIconFromDirection(int direction) {
+    if (direction == ForgeDirection.UP.ordinal()) {
       return refulgentFabricatorTop;
-    } else if (direction == ForgeDirection.DOWN) {
+    } else if (direction == ForgeDirection.DOWN.ordinal()) {
       return refulgentFabricatorBottom;
     } else {
       return refulgentFabricatorSide;
@@ -88,4 +88,12 @@ public class BlockRefulgentFabricator extends BlockContainer implements IRefulge
       InventoryHelpers.dropInventory(world, x, y, z);
     }
   }
+
+  @Override
+  public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+    ForgeDirection direction = ForgeDirection.getOrientation(side);
+    Block block = world.getBlock(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+    return block == null || !block.isOpaqueCube();
+  }
+
 }
