@@ -1,5 +1,7 @@
 package unwrittenfun.minecraft.unwrittenblocks.common.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -86,7 +88,7 @@ public class BlockRefulgentBlock extends Block implements IRefulgentBlock, IConn
 
   @Override
   public int getRenderType() {
-    return UnwrittenBlocks.proxy.refulgentRenderer.getRenderId();
+    return UnwrittenBlocks.proxy.refulgentRenderID;
   }
 
   @Override

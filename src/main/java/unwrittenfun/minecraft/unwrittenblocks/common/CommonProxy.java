@@ -10,6 +10,7 @@ import java.io.File;
  */
 public class CommonProxy {
   public BlockRendererRefulgent refulgentRenderer;
+  public int refulgentRenderID = 0;
   public File storageBallResourcePackLocation;
   public IResourcePack storageBallResourcePack;
 

@@ -40,7 +40,8 @@ public class ClientProxy extends CommonProxy {
     ClientRegistry.bindTileEntitySpecialRenderer(TEDarkInfuser.class, new TESRDarkInfuser(modelDarkInfuser));
     MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRegister.darkInfuser), new IRDarkInfuser(modelDarkInfuser));
 
-    refulgentRenderer = new BlockRendererRefulgent(RenderingRegistry.getNextAvailableRenderId());
+    refulgentRenderID = RenderingRegistry.getNextAvailableRenderId();
+    refulgentRenderer = new BlockRendererRefulgent(refulgentRenderID);
     RenderingRegistry.registerBlockHandler(refulgentRenderer);
 
     storageBallResourcePackLocation = new File(Minecraft.getMinecraft().mcDataDir, "unwrittenblocks");
