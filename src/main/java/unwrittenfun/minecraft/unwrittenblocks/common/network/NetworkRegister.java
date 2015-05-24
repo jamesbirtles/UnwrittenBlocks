@@ -19,7 +19,6 @@ public class NetworkRegister {
     wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
     wrapper.registerMessage(TileEntityIntegerHandler.class, TileEntityIntegerMessage.class, 0, Side.CLIENT);
     wrapper.registerMessage(TileEntityStackHandler.class, TileEntityStackMessage.class, 1, Side.CLIENT);
-    wrapper.registerMessage(TeleporterDestinationHandler.class, TeleporterDestinationMessage.class, 5, Side.CLIENT);
 
     wrapper.registerMessage(TileEntityRequestHandler.class, TileEntityRequestMessage.class, 2, Side.SERVER);
     wrapper.registerMessage(TileEntityIOSideHandler.class, TileEntityIOSideMessage.class, 3, Side.SERVER);

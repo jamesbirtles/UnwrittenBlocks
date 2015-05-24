@@ -13,7 +13,9 @@ import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallRecipe;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.StorageBallReturnRecipe;
 
 /**
- * Project: UnwrittenBlocks Author: UnwrittenFun Created: 29/08/2014.
+ * Project: UnwrittenBlocks
+ * Author: UnwrittenFun
+ * Created: 29/08/2014.
  */
 
 public class ItemRegister {
@@ -32,7 +34,6 @@ public class ItemRegister {
   public static final String DARK_INFUSED_HOE_KEY = "darkInfusedHoe";
 
   public static final String DARK_INFUSED_DIAMOND = "darkInfusedDiamond";
-  public static final String GPS_CHIP_KEY = "gpsChip";
   public static final String STORAGE_BALL_KEY = "storageBall";
   public static final String STORAGE_BALL_CONTAINER_KEY = "storageBallContainer";
   public static final String PLEATHER_STRIPS_KEY = "pleatherStrips";
@@ -53,7 +54,6 @@ public class ItemRegister {
   public static ItemDarkInfusedHoe darkInfusedHoe;
 
   public static ItemDarkInfusedDiamond darkInfusedDiamond;
-  public static ItemGPSChip gpsChip;
   public static ItemStorageBall storageBall;
   public static ItemStorageBallContainer storageBallContainer;
   public static ItemUpgrade upgrade;
@@ -61,9 +61,7 @@ public class ItemRegister {
   public static ItemPleatherBulb pleatherBulb;
 
   // For comparing
-  public static ItemStack wallStack = new ItemStack(BlockRegister.wallTeleporterWall);
-  public static ItemStack wallBaseStack = new ItemStack(BlockRegister.wallTeleporterBase);
-  public static ItemStack stackGPSChipLinked, stackEnderPearl, stackPleatherBulb, stackStorageBallContainer, stackStorageBall, stackSpeedUpgrade;
+  public static ItemStack stackPleatherBulb, stackStorageBallContainer, stackStorageBall, stackSpeedUpgrade;
 
   public static void registerItems() {
     darkInfusedHelm = new ItemDarkInfusedArmour(0);
@@ -77,7 +75,6 @@ public class ItemRegister {
     darkInfusedSpade = new ItemDarkInfusedSpade(DARK_INFUSED_SPADE_KEY);
     darkInfusedHoe = new ItemDarkInfusedHoe(DARK_INFUSED_HOE_KEY);
 
-    gpsChip = new ItemGPSChip();
     storageBall = new ItemStorageBall();
     storageBallContainer = new ItemStorageBallContainer(STORAGE_BALL_CONTAINER_KEY);
     upgrade = new ItemUpgrade(UPGRADE_KEY, UPGRADE_TYPES);
@@ -97,7 +94,6 @@ public class ItemRegister {
     GameRegistry.registerItem(darkInfusedHoe, DARK_INFUSED_HOE_KEY);
 
     GameRegistry.registerItem(darkInfusedDiamond, DARK_INFUSED_DIAMOND);
-    GameRegistry.registerItem(gpsChip, GPS_CHIP_KEY);
     GameRegistry.registerItem(storageBall, STORAGE_BALL_KEY);
     GameRegistry.registerItem(storageBallContainer, STORAGE_BALL_CONTAINER_KEY);
     GameRegistry.registerItem(upgrade, UPGRADE_KEY);
@@ -133,8 +129,6 @@ public class ItemRegister {
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.end_stone));
     StorageBallRegistry.addStorageBall(new ItemStack(Blocks.nether_brick));
 
-    stackGPSChipLinked = new ItemStack(gpsChip, 1, 1);
-    stackEnderPearl = new ItemStack(Items.ender_pearl);
     stackPleatherBulb = new ItemStack(pleatherBulb);
     stackStorageBallContainer = new ItemStack(storageBallContainer);
     stackStorageBall = new ItemStack(storageBall); // FOR COMPARING ONLY
@@ -148,14 +142,10 @@ public class ItemRegister {
     GameRegistry.addRecipe(new ItemStack(Items.leather), "pp", "pp", 'p', pleatherStrips);
     GameRegistry.addRecipe(new ItemStack(storageBallContainer, 64), " g ", "g g", " g ", 'g', Blocks.glass_pane);
 
-    GameRegistry.addRecipe(new ItemStack(gpsChip), "trt", "clc", "iri", 't', Blocks.redstone_torch, 'l', Blocks.redstone_lamp, 'r', Items.redstone, 'i', Items.iron_ingot, 'c', new ItemStack(Items.dye, 1, 2));
     GameRegistry.addRecipe(new ItemStack(Items.blaze_rod), "bb", "bb", "bb", 'b', Items.blaze_powder);
 
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 0), "nnn", "ndn", "nnn", 'n', Items.netherbrick, 'd', darkInfusedDiamond);
     GameRegistry.addRecipe(new ItemStack(upgrade, 1, 1), "nsn", "sus", "nsn", 'n', Items.netherbrick, 's', Items.sugar, 'u', new ItemStack(upgrade, 1, 0));
-
-    GameRegistry.addRecipe(new ItemStack(BlockRegister.wallTeleporterBase), "ese", "sds", "epe", 'e', Blocks.end_stone, 's', Blocks.stone, 'd', darkInfusedDiamond, 'p', Items.ender_pearl);
-    GameRegistry.addRecipe(new ItemStack(BlockRegister.wallTeleporterWall, 4), "ese", "sds", "ese", 'e', Blocks.end_stone, 's', Blocks.stone, 'd', darkInfusedDiamond);
 
     InfuserRecipes.instance.addRecipe(StorageBallRegistry.getBallFromContainer(new ItemStack(Blocks.end_stone)), new ItemStack(Items.ender_pearl), 1500);
     InfuserRecipes.instance.addRecipe(StorageBallRegistry.getBallFromContainer(new ItemStack(Blocks.mossy_cobblestone)), new ItemStack(Items.slime_ball), 1000);

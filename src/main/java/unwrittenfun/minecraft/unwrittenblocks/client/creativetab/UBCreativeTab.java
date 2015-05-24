@@ -15,6 +15,6 @@ public class UBCreativeTab extends CreativeTabs {
 
   @Override
   public Item getTabIconItem() {
-    return ItemRegister.gpsChip;
+    return ItemRegister.darkInfusedDiamond;
   }
 }
