@@ -4,10 +4,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemBlockDarkInfusedDiamond;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemBlockRefulgentBlock;
 import unwrittenfun.minecraft.unwrittenblocks.common.items.ItemRegister;
 import unwrittenfun.minecraft.unwrittenblocks.common.recipes.InfuserRecipes;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.RefulgentBrickDyeRecipe;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.RefulgentBrickRecipe;
+import unwrittenfun.minecraft.unwrittenblocks.common.recipes.RefulgentWallDyeRecipe;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TEDarkInfuser;
 import unwrittenfun.minecraft.unwrittenblocks.common.tileEntities.TERefulgentFabricator;
 
@@ -18,6 +22,12 @@ public class BlockRegister {
   public static final String REFULGENT_FABRICATOR_KEY = "refulgentFabricator";
   public static final String REFULGENT_WALL_KEY = "refulgentWall";
   public static final String REFULGENT_BRICK_KEY = "refulgentBrick";
+
+  public static final String[] DYES_ORE_DICT = new String[] {
+      "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple",
+      "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow",
+      "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"
+  };
 
   public static BlockPleatherPlant pleatherPlant;
   public static BlockDarkInfuser darkInfuser;
@@ -51,5 +61,13 @@ public class BlockRegister {
 
     InfuserRecipes.instance.addRecipe(new ItemStack(Blocks.stone), new ItemStack(Blocks.end_stone), 1000);
     InfuserRecipes.instance.addRecipe(new ItemStack(Blocks.diamond_block), new ItemStack(darkInfusedDiamondBlock), 14400);
+
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refulgentWall, 8, 15), "sss", "sts", "sss", 's', "stone", 't', Blocks.torch));
+    GameRegistry.addRecipe(new ItemStack(refulgentFabricator), "rrr", "rcr", "rrr", 'r', refulgentWall, 'c', Blocks.crafting_table);
+
+    GameRegistry.addRecipe(new RefulgentBrickRecipe());
+
+    GameRegistry.addRecipe(new RefulgentWallDyeRecipe());
+    GameRegistry.addRecipe(new RefulgentBrickDyeRecipe());
   }
 }
