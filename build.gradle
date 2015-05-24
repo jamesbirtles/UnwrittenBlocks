@@ -34,6 +34,9 @@ archivesBaseName = "UnwrittenBlocks"
 minecraft {
     version = "1.7.10-10.13.3.1403-1.7.10"
     runDir = "eclipse"
+
+    replaceIn "src/main/java/unwrittenfun/minecraft/unwrittenblocks/common/ModInfo.java"
+    replace "@VERSION@", project.version
 }
 
 dependencies {
