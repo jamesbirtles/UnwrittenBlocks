@@ -27,7 +27,7 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.7.10-2.2.0-pre"
+version = "1.7.10-2.2.0"
 group= "unwrittenfun.minecraft.unwrittenblocks.common"
 archivesBaseName = "UnwrittenBlocks"
 
@@ -43,10 +43,8 @@ dependencies {
     compile 'codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev'
     compile 'codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev'
     compile 'codechicken:NotEnoughItems:1.7.10-1.0.4.107:dev'
-
 }
 
-//noinspection GroovyAssignabilityCheck
 processResources
 {
     // this will ensure that this task is redone when the versions change.
