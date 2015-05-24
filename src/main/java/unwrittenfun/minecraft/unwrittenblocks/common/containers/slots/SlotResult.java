@@ -30,13 +30,6 @@ public class SlotResult extends Slot {
 
   @Override
   public boolean canTakeStack(EntityPlayer player) {
-    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-      return true;
-    }
-
-    if (inventory instanceof ICraftingResult) {
-      return ((ICraftingResult) inventory).canTakeResult();
-    }
-    return super.canTakeStack(player);
+    return true;
   }
 }

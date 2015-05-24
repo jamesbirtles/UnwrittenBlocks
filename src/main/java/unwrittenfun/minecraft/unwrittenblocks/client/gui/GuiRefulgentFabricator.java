@@ -29,10 +29,7 @@ public class GuiRefulgentFabricator extends GuiContainer {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mX, int mY) {
-    if (mX >= guiLeft + 80 && mX <= guiLeft + 96 && mY >= guiTop + 50 && mY <= guiTop + 66) {
-      String ctrlString = "CTRL-Click to take last stack";
-      fontRendererObj.drawString(ctrlString, 87 - fontRendererObj.getStringWidth(ctrlString) / 2, 72, 4210752);
-    } else if (mX >= guiLeft - 15 && mX <= guiLeft && mY >= guiTop + 13 && mY <= guiTop + 28) {
+    if (mX >= guiLeft - 15 && mX <= guiLeft && mY >= guiTop + 13 && mY <= guiTop + 28) {
       String string = "Eject Up";
       fontRendererObj.drawString(string, 87 - fontRendererObj.getStringWidth(string) / 2, 72, 4210752);
     } else if (mX >= guiLeft - 15 && mX <= guiLeft && mY >= guiTop + 31 && mY <= guiTop + 46) {
