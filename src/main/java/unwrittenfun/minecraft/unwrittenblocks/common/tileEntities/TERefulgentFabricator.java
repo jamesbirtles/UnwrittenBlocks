@@ -163,6 +163,7 @@ public class TERefulgentFabricator extends TEConfigurableIO implements IInventor
 
   @Override
   public boolean canTakeResult() {
+    ItemStack[][] directionInventories = new ItemStack[6][];
     ItemStack[] tempItems = copyItems(this);
     boolean canTake = true;
     for (int i = 0; i < 9; i++) {
@@ -187,18 +188,20 @@ public class TERefulgentFabricator extends TEConfigurableIO implements IInventor
                 TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
                 if (tileEntity instanceof IInventory) {
                   IInventory inventory = (IInventory) tileEntity;
-                  ItemStack[] tempInvItems = copyItems(inventory);
+                  if (directionInventories[direction.ordinal()] == null) {
+                    directionInventories[direction.ordinal()] = copyItems(inventory);
+                  }
                   int startValue = 0;
                   if (inventory instanceof TERefulgentFabricator) {
                     startValue = 10;
                   }
                   for (int j = startValue; j < inventory.getSizeInventory(); j++) {
-                    ItemStack mat = tempInvItems[j];
+                    ItemStack mat = directionInventories[direction.ordinal()][j];
                     if (!taken && mat != null && mat.isItemEqual(ingred) && ItemStack.areItemStackTagsEqual(mat, ingred)) {
                       taken = true;
                       mat.stackSize -= 1;
                       if (mat.stackSize < 1) {
-                        tempInvItems[j] = null;
+                        directionInventories[direction.ordinal()][j] = null;
                       }
                     }
                   }
